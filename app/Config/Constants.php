@@ -81,3 +81,6 @@ defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125);    // highest automa
 // Application version.
 $version = trim(shell_exec('git describe --tags'));
 defined('APP_VERSION') || define('APP_VERSION', $version);
+
+// use this id on input that will be rendered using selectize js.
+defined('SELECTIZE_ID_PREFIX') || define('SELECTIZE_ID_PREFIX', "selectize-normalize");
