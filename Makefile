@@ -22,7 +22,7 @@ install:
 	composer install --no-dev
 
 fix fmt:
-	composer format 
+	./vendor/bin/ecs --fix
 
 lint: 
 	$(PHPSTAN) analyze app

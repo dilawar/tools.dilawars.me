@@ -1,6 +1,6 @@
 <?php
-use CodeIgniter\HTTP\Header;
 use CodeIgniter\CodeIgniter;
+use CodeIgniter\HTTP\Header;
 
 $errorId = uniqid('error', true);
 ?>
@@ -327,7 +327,7 @@ $errorId = uniqid('error', true);
                                     echo esc($value->getValueLine(), 'html');
                                 } else {
                                     foreach ($value as $i => $header) {
-                                        echo ' ('. $i+1 . ') ' . esc($header->getValueLine(), 'html');
+                                        echo ' (' . $i + 1 . ') ' . esc($header->getValueLine(), 'html');
                                     }
                                 }
                                 ?>
@@ -374,7 +374,7 @@ $errorId = uniqid('error', true);
                                     echo esc($response->getHeaderLine($name), 'html');
                                 } else {
                                     foreach ($value as $i => $header) {
-                                        echo ' ('. $i+1 . ') ' . esc($header->getValueLine(), 'html');
+                                        echo ' (' . $i + 1 . ') ' . esc($header->getValueLine(), 'html');
                                     }
                                 }
                                 ?>
