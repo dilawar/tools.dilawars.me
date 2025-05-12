@@ -9,7 +9,9 @@ echo $this->section('content');
 <?php
 echo form_open_multipart("/tools/compress/image/action");
 echo form_upload("image");
-echo form_submit("submit", "Compress", extra: ['class' => 'btn btn-primary']);
+echo form_submit("submit", "Compress", extra: [
+    'class' => 'btn btn-primary',
+]);
 echo "</form>";
 ?>
 </section>
