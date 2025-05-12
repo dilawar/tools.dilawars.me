@@ -3,7 +3,7 @@ PHPDOC:=podman run --rm -v $(PWD):/data docker.io/phpdoc/phpdoc:3
 export COMPOSER_MEMORY_LIMIT:=-1
 
 dev:
-	php spark serve
+	ENVIRONMENT=testing php spark serve
 
 install:
 	sudo pecl install parallel
