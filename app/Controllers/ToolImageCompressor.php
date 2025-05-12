@@ -18,14 +18,50 @@ class ToolImageCompressor extends BaseController
         $action = ToolActionName::from($actionName);
 
         if($action === ToolActionName::CompressImage) {
-            d($_FILES);
-            return $this->loadToolView('image_compressor');
+            $data = $this->handleCompressImage();
+            return $this->loadToolView('image_compressor', $data);
         }
 
         throw new RuntimeException("Action $actionName is not supported.");
     }
 
-    private function loadToolView(string $toolName): string {
-        return view("tools/$toolName");
+    /**
+     * @return array<string, mixed  >
+     */
+    private function handleCompressImage(): array
+    {
+        $post = $this->request->getPost();
+        $rules = [
+            'image' => [
+                'uploaded[image]',
+                'max_size[image,20*1024]',
+                'is_image[image]',
+            ],
+        ];
+
+        if (! $this->validateData($post, $rules)) {
+            return [];
+        }
+
+        $img = $this->request->getFile('image'); 
+        $filepath = $img->store();
+
+        log_message('debug', "File is stored to $filepath");
+
+        $data = [
+            'saved_path' => $filepath,
+        ];
+
+        return $data;
+
+    }
+
+    /**
+     * @param string $toolName
+     * @param array<string, mixed > $data
+     */
+    private function loadToolView(string $toolName, array $data = []): string 
+    {
+        return view("tools/$toolName", $data);
     }
 }
