@@ -2,10 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dognosis Portal</title>
-    <meta name="description" content="The dognosis portal">
+    <title>MaxFlow Tools</title>
+    <meta name="description" content="Tools made by MaxFlow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.png">
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2EXCRQHVDJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2EXCRQHVDJ');
+    </script>
+
+
 
     <!-- selecize -->
     <link
@@ -29,7 +42,6 @@
           crossorigin="anonymous">
 
     <link href="<?php echo base_url(); ?>assets/app.css" rel="stylesheet">
-
 </head>
 
 
@@ -38,31 +50,14 @@
     <!-- Navigation bar -->
     <header>
         <nav class="navbar navbar-expand">
-            <div class="container-fluid">
+            <div class="container-fluid d-flex align-content-center">
                 <div>
                     <a class="navbar-brand" href="/">
-                        <img src="/icon.png" height="48px" class="mx-1" />
+                        <img src="/icon.png" height="64px" />
                     </a>
+                    <span class="display-6"> Tools </span>
                 </div>
-
                 <ul class="navbar-nav se-auto sb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ehr">EHR</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/trainer">Trainer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/tools">Tools</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Stats</a>
-                    </li>
-                    <?php if(isAdmin()) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="/admin">Admin</a>
-                    </li>
-                    <?php } ?>
                 </ul>
             </div>
         </nav>
@@ -74,7 +69,7 @@
             <?php foreach ($msgs as $msg) { ?>
             <div class="toast show" data-bs-autohide=true data-bs-delay="10000">
                 <div class="toast-header">
-                    <strong class="me-auto">Dognosis Portal</strong>
+                    <strong class="me-auto">MaxFlow Tools</strong>
                     <small>Unknown (todo) mins ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>

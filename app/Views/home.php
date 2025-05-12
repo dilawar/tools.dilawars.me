@@ -1,8 +1,6 @@
 <?php echo $this->extend('default'); ?>
 <?php echo $this->section('content'); ?>
 
-Welcome to MaxFlow tools.
-
-
+<div class="display-6"> Welcome to MaxFlow </div>
 
 <?php echo $this->endSection(); ?>
