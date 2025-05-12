@@ -53,3 +53,17 @@ Events::on('pre_system', static function (): void {
         }
     }
 });
+
+
+/*
+ * Enable Whoopsie.
+ */
+Events::on(
+    'post_controller_constructor',
+    function () {
+        log_message('info', 'Initializing whoops...');
+        $whoops = new \Whoops\Run();
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+        $whoops->register();
+    }
+);
