@@ -9,6 +9,7 @@
     columns="max"
     failOnRisky="true"
     failOnWarning="true"
+    cacheResult="true"
     cacheDirectory="build/.phpunit.cache">
     <coverage
         includeUncoveredFiles="true"
@@ -42,7 +43,7 @@
         </exclude>
     </source>
     <php>
-        <server name="app.baseURL" value="http://example.com/"/>
+        <server name="app.baseURL" value="http://v2.portal.dognosis.link"/>
         <server name="CODEIGNITER_SCREAM_DEPRECATIONS" value="0"/>
         <!-- Directory containing phpunit.xml -->
         <const name="HOMEPATH" value="./"/>

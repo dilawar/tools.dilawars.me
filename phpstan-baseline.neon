@@ -1,0 +1,163 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''testing'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: app/Config/Database.php
+
+		-
+			message: '#^Call to method run\(\) of internal class CodeIgniter\\HotReloader\\HotReloader from outside its root namespace CodeIgniter\.$#'
+			identifier: method.internalClass
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Instantiation of internal class CodeIgniter\\HotReloader\\HotReloader\.$#'
+			identifier: new.internalClass
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''testing'' and ''testing'' will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''development'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Logger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Config/Security.php
+
+		-
+			message: '#^Variable \$code might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/cli/error_404.php
+
+		-
+			message: '#^Variable \$message might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/cli/error_404.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Views/errors/cli/error_exception.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: app/Views/errors/cli/error_exception.php
+
+		-
+			message: '#^Variable \$exception might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: app/Views/errors/cli/error_exception.php
+
+		-
+			message: '#^Variable \$message might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/cli/error_exception.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: app/Views/errors/html/error_400.php
+
+		-
+			message: '#^Variable \$message might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/html/error_400.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: app/Views/errors/html/error_404.php
+
+		-
+			message: '#^Variable \$message might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/html/error_404.php
+
+		-
+			message: '#^Calling static\:\:describeMemory\(\) outside of class scope\.$#'
+			identifier: outOfClass.static
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Calling static\:\:highlightFile\(\) outside of class scope\.$#'
+			identifier: outOfClass.static
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Variable \$exception might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Variable \$file might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Variable \$line might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Variable \$title might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Variable \$trace might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with bool will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/unit/HealthTest.php

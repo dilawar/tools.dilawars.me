@@ -14,8 +14,10 @@
         "codeigniter4/framework": "^4.0"
     },
     "require-dev": {
+        "codeigniter/phpstan-codeigniter": "^1.5",
         "fakerphp/faker": "^1.9",
         "mikey179/vfsstream": "^1.6",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^10.5.16",
         "symplify/easy-coding-standard": "^12.5"
     },
