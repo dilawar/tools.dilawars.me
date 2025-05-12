@@ -15,6 +15,9 @@
  */
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
+$baseUrl = isset($_SERVER['HTTPS']) && 'off' != $_SERVER['HTTPS'] ? 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : 'http://localhost:8080';
+defined('BASEURL') || define('BASEURL', $baseUrl);
+
 /*
  | --------------------------------------------------------------------------
  | Composer Path
