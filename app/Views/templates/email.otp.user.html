@@ -1,0 +1,18 @@
+<p>Hi {{ email }},</p>
+
+<p>Someone, perhaps you, requested API Key/OTP from Dognosis
+portal.</p>
+
+<table>
+    <tr>
+        <td> Key/OTP </td>
+        <td>{{ api_key }}</td>
+    </tr>
+    <tr>
+        <td>Expiry date</td>
+        <td>{{ expiry_date }} </td>
+    </tr>
+</table>
+
+<p> You can also <a href={{ login_url }}>click here to login</a>.  </p>
+
