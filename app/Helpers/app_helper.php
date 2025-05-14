@@ -444,3 +444,7 @@ function markUndeleted(array &$post, string $primaryKey = 'uid')
     $post['is_valid'] = true;
     $post['reason_for_invalid'] = null;
 }
+
+function storageForConvertedFile(string $filename = ''): string {
+    return WRITEPATH . 'converted/' . "$filename";
+}

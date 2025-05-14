@@ -57,7 +57,6 @@ class ToolImageCompressor extends BaseController
     }
 
     /**
-     * @param string $toolName
      * @param array<string, mixed > $data
      */
     private function loadToolView(string $toolName, array $data = []): string 
