@@ -8,6 +8,9 @@ $fromFormat = $from;
 // @phpstan-ignore variable.undefined
 $toFormat = $to;
 
+$convertedFileUri = $converted_file_uri ?? null;
+$convertedFileFilename = $converted_file_filename ?? '';
+
 if(! function_exists('renderUploadForm')) {
     function renderUploadFormInnert(string $fromFormat): string {
         $html = [];
@@ -42,5 +45,19 @@ echo renderUploadFormInnert($fromFormat);
 echo '</form>';
 ?>
 
+<!-- result -->
+<?php
+if($convertedFileUri) 
+{
+    echo "<div class='mt-5' style='max-width:600px; margin: auto;'>";
+    echo "<img src='$convertedFileUri' width='100%' />";
+    echo "<br />";
+    echo "<a class='btn btn-info mt-1' 
+        href='$convertedFileUri' 
+        style='float: right;'
+    download='$convertedFileFilename'> Download </a>";
+    echo "</div>";
+}
+?>
 
 <?php echo $this->endSection(); ?>
