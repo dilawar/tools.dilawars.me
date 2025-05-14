@@ -109,7 +109,7 @@
         Environment: <?php echo ENVIRONMENT; ?></p>
 
         <div class="copyrights">
-            <p>&copy; <?php echo date('Y'); ?> Dognosis Inc.
+            <p>&copy; <?php echo date('Y'); ?> MaxFlow
         </div>
     </footer>
 
