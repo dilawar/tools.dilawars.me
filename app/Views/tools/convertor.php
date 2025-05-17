@@ -52,7 +52,9 @@ echo '</form>';
 if($convertedFileUri) 
 {
     echo "<div class='mt-3'>";
-    echo "<p>Your file is successfully convered. Its new name is <tt>$convertedFileFilename</tt>.</p>";
+    echo "<p>Your file has been successfully converted. It's new name is <tt>$convertedFileFilename</tt>.
+        Following is a preview of the result. The quality and size of the downloaded image may vary.
+    </p>";
     echo "<a class='btn btn-primary mt-1 mb-1' 
         href='$convertedFileUri' 
         download='$convertedFileFilename'> Click Here To Download </a>";
