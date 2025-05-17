@@ -4,40 +4,44 @@ echo $this->extend('default');
 echo $this->section('content');
 
 // @phpstan-ignore variable.undefined
-$fromFormat = $from;
-// @phpstan-ignore variable.undefined
 $toFormat = $to;
 
 $convertedFileUri = $converted_file_uri ?? null;
 $convertedFileFilename = $converted_file_filename ?? '';
 
+/**
+ * @var array<string>
+ */
+$supportedFormats = supportedImageFormats();
+
 if(! function_exists('renderUploadForm')) {
-    function renderUploadFormInner(string $fromFormat, string $toFormat): string {
+
+    /**
+     * @param array<string> $formats
+     */
+    function renderUploadFormInner(string $toFormat, array $formats): string {
 
         $imageFormats = [];
-        foreach(supportedImageFormats() as $fmt) {
+        foreach($formats as $fmt) {
             $fmt = strtolower($fmt);
             $imageFormats[$fmt] = $fmt;
         }
 
         $html = [];
+        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        $html[] = "<div class='row form-group'>";
-        $html[] = '<div class="col-6">';
-        $html[] = "<label for='to_format'>Convert From</label>";
-        $html[] = form_dropdown(
-            'from_format',
-            options: $imageFormats,
-            selected: $fromFormat,
-            extra: [
-                'id' => SELECTIZE_ID_PREFIX . '_from_format',
-                'class' => 'form-control',
-            ],
-        );
+        // Select file
+        $html[] = '<div class="col-sm-5">';
+        $html[] = form_input("image", type: "file", extra: [
+            'class' => 'form-control',
+            'accept' => "image/*",
+        ]);
         $html[] = '</div>';
 
-        $html[] = '<div class="col-6">';
-        $html[] = "<label for='to_format'>Convert to</label>";
+        // Convert to column.
+        $html[] = '<div class="col-sm-4">';
+        $html[] = '<div class="input-group">';
+        $html[] = "<div class='input-group-prepend'> <span class='input-group-text'>Convert To</span> </div>";
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
@@ -48,23 +52,15 @@ if(! function_exists('renderUploadForm')) {
             ],
         );
         $html[] = '</div>';
-
-        $html[] = "</div>";
-
-        $html[] = "<div class='row form-group'>";
-        $html[] = '<div class="col-6">';
-
-        $html[] = form_input("image", type: "file", extra: [
-            'class' => 'form-control',
-            'accept' => ".$fromFormat",
-        ]);
         $html[] = '</div>';
-        $html[] = '<div class="col-3">';
+
+        $html[] = '<div class="col-sm-3">';
         $html[] = form_submit('submit', "Convert", extra: [
             'class' => 'form-control btn btn-primary',
         ]);
         $html[] = '</div>';
-        $html[] = "</div>";
+
+        $html[] = "</div>"; // ends row
 
         return implode(' ', $html);
     }
@@ -72,13 +68,19 @@ if(! function_exists('renderUploadForm')) {
 
 ?>
 
-<p>
-    This tool converts <?php echo pill($fromFormat); ?> image to <?php echo pill($toFormat); ?> format. 
-</p>
+<section>
+<div class='h5'>
+    Welcome to image conversion tool.
+</div>
+
+<details style="margin:10px;">
+    <summary> Total <?= count($supportedFormats) ?> formats are supported. </summary>
+    <?= implode(', ', $supportedFormats) ?>.
+</details>
 
 <?php
 echo form_open_multipart('/tools/convertor/convert');
-echo renderUploadFormInner($fromFormat, $toFormat);
+echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
 
@@ -102,5 +104,7 @@ if($convertedFileUri)
     echo "</div>";
 }
 ?>
+
+</section>
 
 <?php echo $this->endSection(); ?>

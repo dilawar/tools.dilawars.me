@@ -18,28 +18,28 @@ class ToolImageConvertor extends BaseController
 
     public function convert(): string 
     {
-        return $this->convertFromHeic($this->request->getPost('to_format'));
+        return $this->convertUsingImagick($this->request->getPost('to_format'));
     }
 
-    private function convertFromHeic(string $to): string 
+    private function convertUsingImagick(string $to): string 
     {
         $post = $this->request->getPost();
         $rules = [
             'image' => [
                 'uploaded[image]',
-                'mime_in[image,image/heic,image/heif]',
+                'is_image[image]',
             ],
         ];
         if (! $this->validateData($post, $rules)) {
-            return $this->loadMainView('heic', 'jpeg');
+            return $this->loadMainView(to: $to);
         }
 
         log_message('info', "Converting with option " . json_encode($post));
-        log_message('debug', "Converting HEIC image to $to...");
+        log_message('debug', "Converting image to $to...");
 
         [$outpath, $imageBlob] = $this->convertToUsingImagick($to);
 
-        return $this->loadMainView('heic', $to, extra: [
+        return $this->loadMainView($to, extra: [
             'converted_file_uri' => self::blobToUri($to, $imageBlob),
             'converted_file_filename' => basename($outpath),
         ]);
@@ -80,10 +80,9 @@ class ToolImageConvertor extends BaseController
     /**
      * @param array<string, mixed> $extra
      */
-    private function loadMainView(string $from, string $to, array $extra = []): string 
+    private function loadMainView(string $to, array $extra = []): string 
     {
         return view('/tools/convertor', [
-            'from' => $from,
             'to' => $to,
             ...$extra,
         ]);
