@@ -216,3 +216,11 @@ pre {
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;
 }
+
+a.glossary {
+    padding: 0 1ex 0 1ex;
+    font-size: 110%;
+    color: #212529;
+    background: #f8f9fa;
+    border-radius: 1ex;
+}
