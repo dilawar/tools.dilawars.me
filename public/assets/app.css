@@ -96,9 +96,8 @@ a.glossary {
     border-radius: 1ex;
 }
 
-.conversion-result {
-    padding: 2ex;
+.conversion-result-image {
     min-width: 300px;
-    max-width: var(--max-width);
+    max-width: 600px;
     margin: auto;
 }

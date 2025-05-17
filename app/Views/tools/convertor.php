@@ -51,14 +51,17 @@ echo '</form>';
 <?php
 if($convertedFileUri) 
 {
-    echo "<div class='mt-5 conversion-result'>";
-    echo "<p>Your file is successfully converted.</p>";
-    echo "<img src='$convertedFileUri' width='100%' />";
-    echo "<br />";
-    echo "<a class='btn btn-primary mt-2' 
+    echo "<div class='mt-3'>";
+    echo "<p>Your file is successfully convered. Its new name is <tt>$convertedFileFilename</tt>.</p>";
+    echo "<a class='btn btn-primary mt-1 mb-1' 
         href='$convertedFileUri' 
-        style='float: right;'
-    download='$convertedFileFilename'> Download </a>";
+        download='$convertedFileFilename'> Click Here To Download </a>";
+
+    echo "<div>";
+    echo "<img src='$convertedFileUri' class='img-fluid conversion-result-image' />";
+    echo "<br />";
+    echo "</div>";
+
     echo "</div>";
 }
 ?>
