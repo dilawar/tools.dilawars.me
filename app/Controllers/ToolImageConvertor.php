@@ -38,10 +38,13 @@ class ToolImageConvertor extends BaseController
     private function convertUsingImagick(): string 
     {
         $post = $this->request->getPost();
+        log_message('debug', "post data " . json_encode($post));
         $rules = [
+            'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
                 'is_image[image]',
+                'max_size[image,20480]',
             ],
         ];
         if (! $this->validateData($post, $rules)) {
@@ -49,8 +52,6 @@ class ToolImageConvertor extends BaseController
         }
 
         $to = $this->request->getPost('to_format');
-
-        d($_FILES);
 
         $uploadedFile = $this->request->getFile('image');
         $uploadFilename = $uploadedFile->getName();

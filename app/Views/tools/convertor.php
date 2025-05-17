@@ -90,12 +90,10 @@ echo '</form>';
 if($thumbnailUri) 
 {
     echo "<div class='mt-3'>";
-    echo "<p>Your file has been successfully converted. It's new name is <tt>$convertedFileFilename</tt>.
-        Following is a preview of the result. Depending on the file format, the browser may not be able to display it.
-        The quality and size of the downloaded image may vary.
-    </p>";
-    echo "<a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click Here To Download </a>";
+    echo "<h4 class='text-info'>Your image is ready!</h4> 
+        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click Here To Download </a>";
 
+    echo "<p>Following is a thumbnail (preview) image.</p>";
     echo "<div>";
     echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
     echo "<br />";
