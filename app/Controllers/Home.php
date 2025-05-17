@@ -21,6 +21,7 @@ class Home extends BaseController
             log_message('debug', "Directory is found. Locating first file: " . json_encode($files));
             $firstFile = $dir . '/' . $files[2]; // 0 => '.', 1 => '..', 2 => firstfile
             if(is_file($firstFile)) {
+                // TODO: mark file for deletion.
                 return $this->response->download($firstFile, null);
             } else {
                 log_message('warning', "No file found inside $dir.");
