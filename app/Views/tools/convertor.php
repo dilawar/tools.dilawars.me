@@ -6,7 +6,8 @@ echo $this->section('content');
 // @phpstan-ignore variable.undefined
 $toFormat = $to;
 
-$convertedFileUri = $converted_file_uri ?? null;
+$thumbnailUri = $thumbnail ?? null;
+$downloadUrl = $download_url ?? null;
 $convertedFileFilename = $converted_file_filename ?? '';
 
 /**
@@ -86,18 +87,17 @@ echo '</form>';
 
 <!-- result -->
 <?php
-if($convertedFileUri) 
+if($thumbnailUri) 
 {
     echo "<div class='mt-3'>";
     echo "<p>Your file has been successfully converted. It's new name is <tt>$convertedFileFilename</tt>.
-        Following is a preview of the result. The quality and size of the downloaded image may vary.
+        Following is a preview of the result. Depending on the file format, the browser may not be able to display it.
+        The quality and size of the downloaded image may vary.
     </p>";
-    echo "<a class='btn btn-primary mt-1 mb-1' 
-        href='$convertedFileUri' 
-        download='$convertedFileFilename'> Click Here To Download </a>";
+    echo "<a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click Here To Download </a>";
 
     echo "<div>";
-    echo "<img src='$convertedFileUri' class='img-fluid conversion-result-image' />";
+    echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
     echo "<br />";
     echo "</div>";
 

@@ -8,20 +8,34 @@ use Symfony\Component\Filesystem\Path;
 class ToolImageConvertor extends BaseController
 {
     /**
-     * Convert image from a given type to another. If format are empty, the user
+     * Convert image to another. If format are empty, the user
      * will be asked to select format.
      */
-    public function viewFromTo(string $from = '', string $to = ''): string
+    public function viewConvertTo(string $to = ''): string
     {
-        return $this->loadMainView($from, $to);
+        return $this->loadMainView(to: $to);
     }
 
     public function convert(): string 
     {
-        return $this->convertUsingImagick($this->request->getPost('to_format'));
+        try {
+            return $this->convertUsingImagick();
+        } catch (\Throwable $th) {
+            setUserFlashMessage($th->getMessage());
+            if(! isProduction()) {
+                throw $th;
+            }
+            return $this->loadMainView(
+                to: $this->request->getPost('to_format'),
+                extra: [
+                    'error' => $th->getMessage(),
+                ]
+            );
+        }
+
     }
 
-    private function convertUsingImagick(string $to): string 
+    private function convertUsingImagick(): string 
     {
         $post = $this->request->getPost();
         $rules = [
@@ -31,17 +45,30 @@ class ToolImageConvertor extends BaseController
             ],
         ];
         if (! $this->validateData($post, $rules)) {
-            return $this->loadMainView(to: $to);
+            return $this->loadMainView(to: $post['to_format']);
         }
 
-        log_message('info', "Converting with option " . json_encode($post));
-        log_message('debug', "Converting image to $to...");
+        $to = $this->request->getPost('to_format');
 
-        [$outpath, $imageBlob] = $this->convertToUsingImagick($to);
+        d($_FILES);
+
+        $uploadedFile = $this->request->getFile('image');
+        $uploadFilename = $uploadedFile->getName();
+        $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
+        log_message('debug', "Uploaded filename=$uploadFilename, result filename $outFilename");
+
+        $imageBlob = $this->convertToUsingImagick($to, $uploadedFile);
+        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageBlob, $outFilename);
+        log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
+
+        $imagick = new \Imagick($pathOnDisk);
+        $imagick->thumbnailImage(256, 256, true, true);
+        $thumbnail = $imagick->getImageBlob();
 
         return $this->loadMainView($to, extra: [
-            'converted_file_uri' => self::blobToUri($to, $imageBlob),
-            'converted_file_filename' => basename($outpath),
+            'download_url' => $downloadUrl,
+            'converted_file_filename' => $outFilename,
+            'thumbnail' => self::blobToUri('jpeg', $thumbnail),
         ]);
     }
 
@@ -54,27 +81,28 @@ class ToolImageConvertor extends BaseController
     }
 
     /**
+     * Convert image blob to mime
+     */
+    private static function blobToMime(string $blob): string 
+    {
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        return $finfo->buffer($blob);
+    }
+
+    /**
      * Convert image to given format
      *
-     * @return array{string, string} Returns name of image and image data as blob
+     * @return string Converted image as blob.
      */
-    private function convertToUsingImagick(string $to): array
+    private function convertToUsingImagick(string $to, $uploadedFile): string
     {
-        $uploadedFile = $this->request->getFile('image');
-
-        $filename = $uploadedFile->getName();
-        $newName = Path::changeExtension($filename, ".$to");
-
         $imagick = new \Imagick();
-        $imagick->readImage($uploadedFile);
+        $imagick->readImageBlob(image: file_get_contents($uploadedFile->getTempName()));
 
         $res = $imagick->setImageFormat($to);
         Assert::that($res)->true();
 
-        $res = $imagick->setImageFilename($newName);
-        Assert::that($res)->true();
-
-        return [$newName, $imagick->getImageBlob()];
+        return $imagick->getImageBlob();
     }
 
     /**

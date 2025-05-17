@@ -474,3 +474,4 @@ function supportedImageFormats(): array
     $imagick = new \Imagick();
     return $imagick->queryFormats();
 }
+
