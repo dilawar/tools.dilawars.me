@@ -465,3 +465,13 @@ function isProduction(): bool
 {
     return strtolower(trim(getenv('CI_ENVIRONMENT') ?? 'production')) === 'production';
 }
+
+/**
+ * @return array<string>
+ */
+function supportedImageFormats(): array 
+{
+    $imagick = new \Imagick();
+    return $imagick->queryFormats();
+}
+

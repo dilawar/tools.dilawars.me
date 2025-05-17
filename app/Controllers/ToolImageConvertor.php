@@ -3,46 +3,73 @@
 namespace App\Controllers;
 
 use Assert\Assert;
-use CodeIgniter\Exceptions\RuntimeException;
 use Symfony\Component\Filesystem\Path;
 
 class ToolImageConvertor extends BaseController
 {
-    public function index(string $from, string $to): string
+    /**
+     * Convert image to another. If format are empty, the user
+     * will be asked to select format.
+     */
+    public function viewConvertTo(string $to = ''): string
     {
-        log_message("debug", "Trying converting image $from to $to");
-        if($from === 'heic') {
-            return $this->loadMainView('heic', to: $to);
-        }
-        throw new RuntimeException("Unsupported convertion $from -> $to");
+        return $this->loadMainView(to: $to);
     }
 
     public function convert(): string 
     {
-        return $this->convertFromHeic($this->request->getPost('to_format'));
+        try {
+            return $this->convertUsingImagick();
+        } catch (\Throwable $th) {
+            setUserFlashMessage($th->getMessage());
+            if(! isProduction()) {
+                throw $th;
+            }
+            return $this->loadMainView(
+                to: $this->request->getPost('to_format'),
+                extra: [
+                    'error' => $th->getMessage(),
+                ]
+            );
+        }
+
     }
 
-    private function convertFromHeic(string $to): string 
+    private function convertUsingImagick(): string 
     {
         $post = $this->request->getPost();
+        log_message('debug', "post data " . json_encode($post));
         $rules = [
+            'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
-                'mime_in[image,image/heic,image/heif]',
+                'is_image[image]',
+                'max_size[image,20480]',
             ],
         ];
         if (! $this->validateData($post, $rules)) {
-            return $this->loadMainView('heic', 'jpeg');
+            return $this->loadMainView(to: $post['to_format']);
         }
 
-        log_message('info', "Converting with option " . json_encode($post));
-        log_message('debug', "Converting HEIC image to $to...");
+        $to = $this->request->getPost('to_format');
 
-        [$outpath, $imageBlob] = $this->convertToUsingImagick($to);
+        $uploadedFile = $this->request->getFile('image');
+        $uploadFilename = $uploadedFile->getName();
+        $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
+        log_message('debug', "Uploaded filename=$uploadFilename, result filename $outFilename");
 
-        return $this->loadMainView('heic', $to, extra: [
-            'converted_file_uri' => self::blobToUri($to, $imageBlob),
-            'converted_file_filename' => basename($outpath),
+        $imageBlob = $this->convertToUsingImagick($to, $uploadedFile);
+        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageBlob, $outFilename);
+        log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
+
+        $imagick = new \Imagick($pathOnDisk);
+        $imagick->thumbnailImage(256, 256, true, true);
+        $thumbnail = $imagick->getImageBlob();
+
+        return $this->loadMainView($to, extra: [
+            'download_url' => $downloadUrl,
+            'converted_file_filename' => $outFilename,
+            'thumbnail' => self::blobToUri('jpeg', $thumbnail),
         ]);
     }
 
@@ -55,36 +82,36 @@ class ToolImageConvertor extends BaseController
     }
 
     /**
+     * Convert image blob to mime
+     */
+    private static function blobToMime(string $blob): string 
+    {
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        return $finfo->buffer($blob);
+    }
+
+    /**
      * Convert image to given format
      *
-     * @return array{string, string} Returns name of image and image data as blob
+     * @return string Converted image as blob.
      */
-    private function convertToUsingImagick(string $to): array
+    private function convertToUsingImagick(string $to, $uploadedFile): string
     {
-        $uploadedFile = $this->request->getFile('image');
-
-        $filename = $uploadedFile->getName();
-        $newName = Path::changeExtension($filename, ".$to");
-
         $imagick = new \Imagick();
-        $imagick->readImage($uploadedFile);
+        $imagick->readImageBlob(image: file_get_contents($uploadedFile->getTempName()));
 
         $res = $imagick->setImageFormat($to);
         Assert::that($res)->true();
 
-        $res = $imagick->setImageFilename($newName);
-        Assert::that($res)->true();
-
-        return [$newName, $imagick->getImageBlob()];
+        return $imagick->getImageBlob();
     }
 
     /**
      * @param array<string, mixed> $extra
      */
-    private function loadMainView(string $from, string $to, array $extra = []): string 
+    private function loadMainView(string $to, array $extra = []): string 
     {
         return view('/tools/convertor', [
-            'from' => $from,
             'to' => $to,
             ...$extra,
         ]);
