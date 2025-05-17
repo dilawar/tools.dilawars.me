@@ -34,7 +34,9 @@ if(! function_exists('renderUploadForm')) {
 
 ?>
 
-<h3 class="section-title">Converting <?php echo $fromFormat; ?> to <?php echo $toFormat; ?></h3>
+<p>
+    This tool converts <?php echo pill($fromFormat); ?> image to <?php echo pill($toFormat); ?> format. 
+</p>
 
 <?php
 echo form_open_multipart('/tools/convertor/convert', hidden: [
@@ -49,10 +51,11 @@ echo '</form>';
 <?php
 if($convertedFileUri) 
 {
-    echo "<div class='mt-5' style='max-width:600px; margin: auto;'>";
+    echo "<div class='mt-5 conversion-result'>";
+    echo "<p>Your file is successfully converted.</p>";
     echo "<img src='$convertedFileUri' width='100%' />";
     echo "<br />";
-    echo "<a class='btn btn-info mt-1' 
+    echo "<a class='btn btn-primary mt-2' 
         href='$convertedFileUri' 
         style='float: right;'
     download='$convertedFileFilename'> Download </a>";

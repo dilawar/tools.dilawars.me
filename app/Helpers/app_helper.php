@@ -457,3 +457,11 @@ function getDataURI(string $imagePath): string
     $type = $finfo->file($imagePath);
     return 'data:' . $type . ';base64,' . base64_encode(file_get_contents($imagePath));
 }
+
+/**
+ * Are we running in production mode.
+ */
+function isProduction(): bool 
+{
+    return strtolower(trim(getenv('CI_ENVIRONMENT') ?? 'production')) === 'production';
+}

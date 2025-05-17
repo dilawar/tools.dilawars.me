@@ -55,7 +55,7 @@
                     <a class="navbar-brand" href="/">
                         <img src="/icon.png" height="64px" />
                     </a>
-                    <span class="display-6"> Tools </span>
+                    <span class="display-6"> MaxFlow Tools </span>
                 </div>
                 <ul class="navbar-nav se-auto sb-2">
                 </ul>
@@ -99,17 +99,23 @@
     </div>
     <?php } ?>
 
-
+ 
     <?php echo $this->renderSection('content'); ?>
 
     <footer style="width: 100%; margin-top: 10vh;">
-        <span style="font-size: small;"> <?php echo APP_VERSION; /* @phpstan-ignore constant.notFound */ ?> </span>
+
+        <?php if(! isProduction()) { ?>
+
+        <span style="font-size: small;"> 
+            (version <?php echo APP_VERSION; ?>)
+        </span>
 
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory. 
         Environment: <?php echo ENVIRONMENT; ?></p>
+        <?php  } ?>
 
         <div class="copyrights">
-            <p>&copy; <?php echo date('Y'); ?> MaxFlow
+            <p>&copy; <?php echo date('Y'); ?> <a href="https://maxflow.in">MaxFlow </a>
         </div>
     </footer>
 
