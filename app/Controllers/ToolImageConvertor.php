@@ -38,18 +38,33 @@ class ToolImageConvertor extends BaseController
 
         log_message('info', "Converting with option " . json_encode($post));
         log_message('debug', "Converting HEIC image to $to...");
-        if($to === "jpg" || $to === "jpeg") 
-        {
-            $outpath = $this->convertHeicToJpeg();
-            Assert::that($outpath)->notNull();
-            return $this->loadMainView('heic', 'jpeg', extra: [
-                'converted_file_uri' => getDataURI($outpath),
-                'converted_file_filename' => basename($outpath),
-            ]);
-        }
-        throw new RuntimeException("Unsupported format HEIC -> $to");
+        $outpath = $this->convertToUsingImagick($to);
+        Assert::that($outpath)->notNull();
+        return $this->loadMainView('heic', $to, extra: [
+            'converted_file_uri' => getDataURI($outpath),
+            'converted_file_filename' => basename($outpath),
+        ]);
     }
 
+    private function convertToUsingImagick(string $to): string 
+    {
+        $uploadedFile = $this->request->getFile('image');
+
+        $filename = $uploadedFile->getName();
+        $jpgName = Path::changeExtension($filename, ".$to");
+        $outpath = storageForConvertedFile($jpgName);
+
+        log_message('debug', "Saving the converted file to $outpath");
+        $imagick = new \Imagick();
+        $imagick->readImage($uploadedFile);
+        $imagick->writeImage($outpath);
+        return $outpath;
+
+    }
+
+    /**
+     * @phpstan-ignore method.unused
+     */
     private function convertHeicToJpeg(): string
     {
         $uploadedFile = $this->request->getFile('image');
