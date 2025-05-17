@@ -6,6 +6,7 @@ use App\Data\OpenMetric;
 use App\Entities\DogMetric;
 use App\Entities\PushNotification;
 use Assert\Assert;
+use Symfony\Component\Filesystem\Path;
 
 function setUserFlashMessage(string $message)
 {
@@ -443,4 +444,16 @@ function markUndeleted(array &$post, string $primaryKey = 'uid')
     Assert::that($post)->keyIsset($primaryKey);
     $post['is_valid'] = true;
     $post['reason_for_invalid'] = null;
+}
+
+function storageForConvertedFile(string $filename = ''): string 
+{
+    return Path::canonicalize(WRITEPATH . 'converted/' . "$filename");
+}
+
+function getDataURI(string $imagePath): string
+{
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $type = $finfo->file($imagePath);
+    return 'data:' . $type . ';base64,' . base64_encode(file_get_contents($imagePath));
 }

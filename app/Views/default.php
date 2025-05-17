@@ -103,13 +103,13 @@
     <?php echo $this->renderSection('content'); ?>
 
     <footer style="width: 100%; margin-top: 10vh;">
-        <span style="font-size: small;"> <?php echo APP_VERSION; ?> </span>
+        <span style="font-size: small;"> <?php echo APP_VERSION; /* @phpstan-ignore constant.notFound */ ?> </span>
 
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory. 
         Environment: <?php echo ENVIRONMENT; ?></p>
 
         <div class="copyrights">
-            <p>&copy; <?php echo date('Y'); ?> Dognosis Inc.
+            <p>&copy; <?php echo date('Y'); ?> MaxFlow
         </div>
     </footer>
 

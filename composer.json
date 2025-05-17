@@ -14,7 +14,9 @@
         "beberlei/assert": "^3.3",
         "codeigniter4/framework": "^4.0",
         "filp/whoops": "^2.18",
-        "guzzlehttp/ring": "^1.1"
+        "guzzlehttp/ring": "^1.1",
+        "maestroerror/php-heic-to-jpg": "^1.0",
+        "symfony/filesystem": "^7.2"
     },
     "require-dev": {
         "codeigniter/phpstan-codeigniter": "^1.5",

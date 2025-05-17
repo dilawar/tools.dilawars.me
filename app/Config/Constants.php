@@ -81,9 +81,9 @@ defined('EXIT_DATABASE') || define('EXIT_DATABASE', 8);       // database error
 defined('EXIT__AUTO_MIN') || define('EXIT__AUTO_MIN', 9);      // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125);    // highest automatically-assigned error code
 
-// Application version.
-$version = trim(shell_exec('git describe --tags'));
-defined('APP_VERSION') || define('APP_VERSION', $version);
+// Application version. shell_exec won't work on server.
+// $version = trim(shell_exec('git describe --tags'));
+defined('APP_VERSION') || define('APP_VERSION', '1.0');
 
 // use this id on input that will be rendered using selectize js.
 defined('SELECTIZE_ID_PREFIX') || define('SELECTIZE_ID_PREFIX', "selectize-normalize");
