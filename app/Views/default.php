@@ -18,6 +18,10 @@
       gtag('config', 'G-2EXCRQHVDJ');
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+            crossorigin="anonymous">
+    </script>
 
 
     <!-- selecize -->
@@ -120,21 +124,6 @@
     </footer>
 
 <?php echo "<script> $('[id^=" . SELECTIZE_ID_PREFIX . "]').selectize(); </script>"; ?>
-
-<!-- charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
-        crossorigin="anonymous">
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" 
-        crossorigin="anonymous">
-</script>
 
 </body>
 </html>

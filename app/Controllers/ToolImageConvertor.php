@@ -3,18 +3,17 @@
 namespace App\Controllers;
 
 use Assert\Assert;
-use CodeIgniter\Exceptions\RuntimeException;
 use Symfony\Component\Filesystem\Path;
 
 class ToolImageConvertor extends BaseController
 {
-    public function index(string $from, string $to): string
+    /**
+     * Convert image from a given type to another. If format are empty, the user
+     * will be asked to select format.
+     */
+    public function viewFromTo(string $from = '', string $to = ''): string
     {
-        log_message("debug", "Trying converting image $from to $to");
-        if($from === 'heic') {
-            return $this->loadMainView('heic', to: $to);
-        }
-        throw new RuntimeException("Unsupported convertion $from -> $to");
+        return $this->loadMainView($from, $to);
     }
 
     public function convert(): string 
