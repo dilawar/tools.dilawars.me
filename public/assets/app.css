@@ -1,18 +1,5 @@
 :root {
   --max-width: 1000px;
-  --bg-color-1: #f5efff;
-  margin: auto;
-}
-
-* {
-  transition:
-    background-color 300ms ease,
-    color 300ms ease;
-}
-
-*:focus {
-  background-color: rgba(221, 72, 20, 0.2);
-  outline: none;
 }
 
 html,
@@ -24,89 +11,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: var(--max-width);
+  margin: auto;
 }
 
 header {
   background-color: rgba(247, 248, 249, 1);
   padding: 0.4rem 0 0;
-}
-
-.menu {
-  padding: 0.4rem 2rem;
-}
-header ul {
-  border-bottom: 1px solid rgba(242, 242, 242, 1);
-  list-style-type: none;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  text-align: right;
-}
-header li {
-  display: inline-block;
-}
-header li a {
-  border-radius: 5px;
-  color: rgba(0, 0, 0, 0.5);
-  display: block;
-  height: 44px;
-  text-decoration: none;
-}
-header li.menu-item a {
-  border-radius: 5px;
-  margin: 5px 0;
-  height: 38px;
-  line-height: 36px;
-  padding: 0.4rem 0.65rem;
-  text-align: center;
-}
-header li.menu-item a:hover,
-header li.menu-item a:focus {
-  background-color: rgba(221, 72, 20, 0.2);
-  color: rgba(221, 72, 20, 1);
-}
-header .logo {
-  float: left;
-  height: 44px;
-  padding: 0.4rem 0.5rem;
-}
-header .menu-toggle {
-  display: none;
-  float: right;
-  font-size: 2rem;
-  font-weight: bold;
-}
-header .menu-toggle button {
-  background-color: rgba(221, 72, 20, 0.6);
-  border: none;
-  border-radius: 3px;
-  color: rgba(255, 255, 255, 1);
-  cursor: pointer;
-  font: inherit;
-  font-size: 1.3rem;
-  height: 36px;
-  padding: 0;
-  margin: 11px 0;
-  overflow: visible;
-  width: 40px;
-}
-header .menu-toggle button:hover,
-header .menu-toggle button:focus {
-  background-color: rgba(221, 72, 20, 0.8);
-  color: rgba(255, 255, 255, 0.8);
-}
-header .heroe {
-  margin: 0 auto;
-  max-width: 1100px;
-  padding: 1rem 1.75rem 1.75rem 1.75rem;
-}
-header .heroe h1 {
-  font-size: 2.5rem;
-  font-weight: 500;
-}
-header .heroe h2 {
-  font-size: 1.5rem;
-  font-weight: 300;
 }
 
 section {
@@ -146,48 +56,9 @@ footer .copyrights {
 }
 
 .section-title {
-  font-family: serif;
-  margin-top: 2ex;
-  margin-left: 5ex;
-  color: Brown;
+  margin: 2ex 0 1ex 0;
 }
 
-.data-integrity-warning {
-    font-size: 120%;
-    color: Blue;
-    padding: 1ex;
-}
-
-.trainer-session-state {
-  display: inline-block;
-  text-align: center;
-  margin: auto;
-  color: Blue;
-  font-family: monospace;
-  background-color: rgba(255, 219, 124, 1); /* mustard. */
-  border-radius: 5px;
-  padding: 0 3px 0 3px;
-}
-
-.info-columns {
-  background-color: var(--bg-color-1);
-  font-family: monospace;
-}
-
-.info-sticker {
-  background-color: var(--bg-color-1);
-  border: 1px dotted lightblue;
-  border-radius: 10px;
-  margin-top: 1px;
-}
-
-.existing-info {
-  background-color: var(--bg-color-1);
-  border: 1px dotted lightblue;
-  border-radius: 15px;
-  padding: 5px;
-  margin-bottom: 5px;
-}
 
 .form-error {
   color: Red;
@@ -223,4 +94,11 @@ a.glossary {
     color: #212529;
     background: #f8f9fa;
     border-radius: 1ex;
+}
+
+.conversion-result {
+    padding: 2ex;
+    min-width: 300px;
+    max-width: var(--max-width);
+    margin: auto;
 }
