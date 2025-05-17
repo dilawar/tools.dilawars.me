@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use Assert\Assert;
 use CodeIgniter\Exceptions\RuntimeException;
-use Maestroerror\HeicToJpg;
 use Symfony\Component\Filesystem\Path;
 
 class ToolImageConvertor extends BaseController
@@ -38,45 +37,45 @@ class ToolImageConvertor extends BaseController
 
         log_message('info', "Converting with option " . json_encode($post));
         log_message('debug', "Converting HEIC image to $to...");
-        $outpath = $this->convertToUsingImagick($to);
-        Assert::that($outpath)->notNull();
+
+        [$outpath, $imageBlob] = $this->convertToUsingImagick($to);
+
         return $this->loadMainView('heic', $to, extra: [
-            'converted_file_uri' => getDataURI($outpath),
+            'converted_file_uri' => self::blobToUri($to, $imageBlob),
             'converted_file_filename' => basename($outpath),
         ]);
     }
 
-    private function convertToUsingImagick(string $to): string 
+    /**
+     * Convert image blob to base64 image URI.
+     */
+    private static function blobToUri(string $type, string $blob): string 
     {
-        $uploadedFile = $this->request->getFile('image');
-
-        $filename = $uploadedFile->getName();
-        $jpgName = Path::changeExtension($filename, ".$to");
-        $outpath = storageForConvertedFile($jpgName);
-
-        log_message('debug', "Saving the converted file to $outpath");
-        $imagick = new \Imagick();
-        $imagick->readImage($uploadedFile);
-        $imagick->writeImage($outpath);
-        return $outpath;
-
+        return 'data:' . $type . ';base64,' . base64_encode($blob);
     }
 
     /**
-     * @phpstan-ignore method.unused
+     * Convert image to given format
+     *
+     * @return array{string, string} Returns name of image and image data as blob
      */
-    private function convertHeicToJpeg(): string
+    private function convertToUsingImagick(string $to): array
     {
         $uploadedFile = $this->request->getFile('image');
 
-        $uploadedFileTmpName = $uploadedFile->getTempName();
         $filename = $uploadedFile->getName();
-        $jpgName = Path::changeExtension($filename, ".jpg");
-        $outpath = storageForConvertedFile($jpgName);
+        $newName = Path::changeExtension($filename, ".$to");
 
-        log_message('debug', "Saving the converted file to $outpath");
-        HeicToJpg::convert($uploadedFileTmpName)->saveAs($outpath);
-        return $outpath;
+        $imagick = new \Imagick();
+        $imagick->readImage($uploadedFile);
+
+        $res = $imagick->setImageFormat($to);
+        Assert::that($res)->true();
+
+        $res = $imagick->setImageFilename($newName);
+        Assert::that($res)->true();
+
+        return [$newName, $imagick->getImageBlob()];
     }
 
     /**
