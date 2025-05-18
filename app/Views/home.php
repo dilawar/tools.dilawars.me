@@ -5,6 +5,9 @@
 
 if(! function_exists('renderToolCard')) {
 
+    /**
+     * @param array{href: string, text: string} $link
+     */
     function renderToolCard(string $title, string $body = '', ?array $link = null): string 
     {
         $html = ["<div class='card h-100'>"];

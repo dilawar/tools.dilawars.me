@@ -2,11 +2,7 @@
 
 use App\Controllers\ToolImageCompressor;
 use App\Controllers\ToolImageConvertor;
-use CodeIgniter\Router\RouteCollection;
 
-/**
- * @var RouteCollection $routes
- */
 $routes->get('/', 'Home::index');
 
 // Download files.

@@ -3,13 +3,15 @@
 namespace App\Controllers;
 
 use Assert\Assert;
+use CodeIgniter\HTTP\Files\UploadedFile;
 use Symfony\Component\Filesystem\Path;
 
 class ToolImageConvertor extends BaseController
 {
     /**
-     * Convert image to another. If format are empty, the user
-     * will be asked to select format.
+     * Convert image to another format.
+     *
+     * If format are empty, the user will be asked to select format.
      */
     public function viewConvertTo(string $to = ''): string
     {
@@ -82,20 +84,11 @@ class ToolImageConvertor extends BaseController
     }
 
     /**
-     * Convert image blob to mime
-     */
-    private static function blobToMime(string $blob): string 
-    {
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        return $finfo->buffer($blob);
-    }
-
-    /**
      * Convert image to given format
      *
      * @return string Converted image as blob.
      */
-    private function convertToUsingImagick(string $to, $uploadedFile): string
+    private function convertToUsingImagick(string $to, UploadedFile $uploadedFile): string
     {
         $imagick = new \Imagick();
         $imagick->readImageBlob(image: file_get_contents($uploadedFile->getTempName()));
