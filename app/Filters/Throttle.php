@@ -19,13 +19,24 @@ class Throttle implements FilterInterface
     {
         $throttler = service('throttler');
 
+        // Rate limit tool usage 5 times a minutes (max).
+        $uriPath = $request->getUri()->getPath();
+        if(str_starts_with($uriPath, '/tools')) {
+            log_message('debug', "uri is " . $uriPath);
+            // Ensure that one does not use more than 5 times a minutes.
+            if ($throttler->check(md5($request->getIPAddress()), 5, MINUTE) === false) {
+
+                $body = "<h3 class='text-warning'>Too many requests. This service allows maximum 5 usage of any tools per minutes. Try again in some time.</h3>";
+                return service('response')->setStatusCode(429)->setBody($body);
+            }
+        }
+
         // Restrict an IP address to no more than 1 request
         // per second across the entire site.
         if ($throttler->check(md5($request->getIPAddress()), 60, MINUTE) === false) {
+            $body = "<h3 class='text-warning'>Too many requests. This free service allows a maximum of 60 requests per minute.</h3>";
             return service('response')->setStatusCode(429);
         }
-
-        // TODO: request using tool no more than 5 times per minutes.
 
         return null;
     }

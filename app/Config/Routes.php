@@ -2,7 +2,6 @@
 
 use App\Controllers\ToolImageCompressor;
 use App\Controllers\ToolImageConvertor;
-use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 
