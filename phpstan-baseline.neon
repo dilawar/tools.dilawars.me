@@ -37,6 +37,12 @@ parameters:
 			path: app/Config/Events.php
 
 		-
+			message: '#^Class CodeIgniter\\Filters\\Throttle not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Config/Filters.php
+
+		-
 			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1

@@ -9,8 +9,9 @@ use Symfony\Component\Filesystem\Path;
 class ToolImageConvertor extends BaseController
 {
     /**
-     * Convert image to another. If format are empty, the user
-     * will be asked to select format.
+     * Convert image to another format.
+     *
+     * If format are empty, the user will be asked to select format.
      */
     public function viewConvertTo(string $to = ''): string
     {
