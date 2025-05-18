@@ -90,10 +90,10 @@ echo '</form>';
 if($thumbnailUri) 
 {
     echo "<div class='mt-3'>";
-    echo "<h4 class='text-info'>Your image is ready!</h4> 
-        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click Here To Download </a>";
+    echo "<h4 class='text-success'>Result is ready!</h4> 
+        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
 
-    echo "<p>Following is a thumbnail (preview) image.</p>";
+    echo "<p>Following is a preview of your result.</p>";
     echo "<div>";
     echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
     echo "<br />";

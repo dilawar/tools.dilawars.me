@@ -127,8 +127,36 @@ function isProduction(): bool
 /**
  * @return array<string>
  */
-function supportedImageFormats(): array 
+function supportedImageFormats(bool $sortByPopulatiry = true): array 
 {
     $imagick = new \Imagick();
-    return $imagick->queryFormats();
+    $formats = $imagick->queryFormats();
+
+    if($sortByPopulatiry) {
+        $popular = [
+            'JPEG', 
+            'JPG', 
+            'WEBP',   
+            'HEIC',
+            'PNG', 
+            'BMP', 
+            'GIF', 
+            'TIFF',
+            'PDF',   
+            'PSD', 
+            'ICO',
+            'SVG',
+            'AVIF',
+            'TGA', 
+            'XBM',
+            'XPM',
+            'EPS',
+            'DIB',
+            'PCX',
+            'EMF',
+        ];
+        $formats = array_unique([...$popular, ...$formats]);
+    }
+
+    return $formats;
 }
