@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\DownloadResponse;
+use CodeIgniter\HTTP\ResponseInterface;
+
 class Home extends BaseController
 {
     public function index(): string
@@ -12,7 +15,7 @@ class Home extends BaseController
     /**
      * Download a file.
      */
-    public function download(string $sha256)
+    public function download(string $sha256): DownloadResponse|ResponseInterface
     {
         $dir = WRITEPATH . 'converted/' . $sha256;
         log_message('debug', "Downloading $sha256. Searching in $dir");
