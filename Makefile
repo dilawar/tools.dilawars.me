@@ -2,12 +2,12 @@ PHPSTAN:=./vendor/bin/phpstan --memory-limit=1G
 PHPDOC:=podman run --rm -v $(PWD):/data docker.io/phpdoc/phpdoc:3
 export COMPOSER_MEMORY_LIMIT:=-1
 
-dev:
+dev: install_dev
 	ENVIRONMENT=testing php spark serve
 
 install:
 	sudo pecl install parallel
-	composer update && composer install
+	composer install --no-dev
 
 bootstrap:
 	curl https://frankenphp.dev/install.sh | sh
@@ -18,8 +18,9 @@ deploy frankenphp: install
 	sudo /usr/local/bin/frankenphp start
 
 .PHONY: install
-install:
-	composer install --no-dev
+
+install_dev:
+	composer install 
 
 fix fmt:
 	./vendor/bin/ecs --fix
@@ -42,6 +43,6 @@ test_group:
 doc doc_docker:
 	$(PHPDOC) run -d app -t docs
 
-ci:
-	$(MAKE) install
+ci: install_dev
+	$(MAKE) fmt
 	$(MAKE) lint
