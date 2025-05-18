@@ -9,13 +9,13 @@
 
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2EXCRQHVDJ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-42NCPYMR9Z"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-2EXCRQHVDJ');
+      gtag('config', 'G-42NCPYMR9Z');
     </script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
