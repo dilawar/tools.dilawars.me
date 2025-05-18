@@ -93,7 +93,7 @@ if($thumbnailUri)
     echo "<h4 class='text-success'>Result is ready!</h4> 
         <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
 
-    echo "<p>Following is a preview of your result.</p>";
+    echo "<p>Following is a preview of your result. Some result may not have a visible preview.</p>";
     echo "<div>";
     echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
     echo "<br />";
@@ -102,7 +102,12 @@ if($thumbnailUri)
     echo "</div>";
 }
 ?>
+</section>
 
+<section style="margin-top: 2ex;">
+    <div style="max-width: 300px; margin: auto;">
+        <?= App\Data\StatsName::table() ?>
+    </div>
 </section>
 
 <?php echo $this->endSection(); ?>

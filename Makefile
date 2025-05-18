@@ -6,16 +6,13 @@ dev: install_dev
 	ENVIRONMENT=testing php spark serve
 
 install:
-	sudo pecl install parallel
 	composer install --no-dev
 
-bootstrap:
-	curl https://frankenphp.dev/install.sh | sh
-	sudo mv frankenphp /usr/local/bin/
-	sudo chmod +x /usr/local/bin/frankenphp
+deploy: install db_migrate
 
-deploy frankenphp: install
-	sudo /usr/local/bin/frankenphp start
+db_migrate:
+	./spark migrate
+	./spark db:seed StatsSeeder
 
 .PHONY: install
 

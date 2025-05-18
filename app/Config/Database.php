@@ -26,12 +26,12 @@ class Database extends Config
      */
     public array $default = [
         'DSN' => '',
-        'hostname' => 'localhost',
-        'username' => 'iuoubwdv_maxflow_in_tools',
-        'password' => ']S0npE316-',
-        'database' => 'iuoubwdv_maxflow_in_tools',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
         'DBDriver' => 'MySQLi',
-        'DBPrefix' => 'u2',
+        'DBPrefix' => '',
         'pConnect' => false,
         'DBDebug' => true,
         'charset' => 'utf8mb4',
@@ -185,6 +185,7 @@ class Database extends Config
         'dateFormat' => [
             'date' => 'Y-m-d',
             'datetime' => 'Y-m-d H:i:s',
+            'timestamp' => 'Y-m-d H:i:s.f',
             'time' => 'H:i:s',
         ],
     ];

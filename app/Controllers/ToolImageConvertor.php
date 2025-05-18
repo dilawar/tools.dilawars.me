@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Data\StatsName;
 use Assert\Assert;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use Symfony\Component\Filesystem\Path;
@@ -20,7 +21,9 @@ class ToolImageConvertor extends BaseController
 
     public function convert(): string 
     {
+        log_message('debug', "Converting image...");
         try {
+            StatsName::TotalImageConvcersions->increment();
             return $this->convertUsingImagick();
         } catch (\Throwable $th) {
             setUserFlashMessage($th->getMessage());
@@ -67,6 +70,8 @@ class ToolImageConvertor extends BaseController
         $imagick = new \Imagick($pathOnDisk);
         $imagick->thumbnailImage(256, 256, true, true);
         $thumbnail = $imagick->getImageBlob();
+
+        StatsName::TotalImageConvcersions->increment(subkey: $to);
 
         return $this->loadMainView($to, extra: [
             'download_url' => $downloadUrl,
