@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MaxFlow Tools</title>
-    <meta name="description" content="Tools made by MaxFlow">
+    <title> <?= $page_title ?? 'MaxFlow Tools' ?> </title>
+    <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.png">
 
@@ -44,7 +44,7 @@
 
 
 <!-- Add hx-ext ajax-header here. See https://codeigniter.com/user_guide/general/ajax.html#htmx -->
-<body ajax-header>
+<body>
     <!-- Navigation bar -->
     <header>
         <nav class="navbar navbar-expand">
@@ -67,7 +67,7 @@
             <?php foreach ($msgs as $msg) { ?>
             <div class="toast show" data-bs-autohide=true data-bs-delay="10000">
                 <div class="toast-header">
-                    <strong class="me-auto">MaxFlow Tools</strong>
+                    <strong class="me-auto">Image Tools by MaxFlow</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
