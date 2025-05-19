@@ -11,6 +11,7 @@ use App\Models\KvStore;
  */
 enum StatsName: string {
     case TotalImageConvcersions = 'stat_total_image_conversions';
+    case TotalImageCompressed = 'state_total_image_compressed';
 
     public function get(string $subkey = ''): ?int
     {
@@ -77,6 +78,7 @@ enum StatsName: string {
     {
         $value = match($this) {
             self::TotalImageConvcersions => "Total Images Converted",
+            self::TotalImageCompressed => "Total Images Compressed",
         };
         return $value;
     }

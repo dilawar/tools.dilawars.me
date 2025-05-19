@@ -79,12 +79,6 @@ parameters:
 			path: app/Controllers/ToolImageCompressor.php
 
 		-
-			message: '#^Cannot call method store\(\) on CodeIgniter\\HTTP\\Files\\UploadedFile\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Controllers/ToolImageCompressor.php
-
-		-
 			message: '#^Parameter \#1 \$data of method CodeIgniter\\Controller\:\:validateData\(\) expects array, array\|bool\|float\|int\|object\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1

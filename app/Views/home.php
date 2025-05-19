@@ -29,19 +29,32 @@ if(! function_exists('renderToolCard')) {
 ?>
 
 <section>
-    <div class="row mx-1">
-        <!--
-        <div class="col-4">
-            <div class="card mx-1">
-                <div class="card-body">
-                    <h5 class="card-title">Compress Image</h5>
-                    <p class="card-text">Yet another tools to compress images.</p>
-                    <a href="/tool/compress/image" class="card-link">Open Image Compressor</a>
-                </div>
+    <div class="row mx-1 g-2">
+        <!-- Compress image -->
+        <div class="col-12 col-sm-6">
+            <?= renderToolCard("Compress Image",
+                body: 'Compress image',
+                link: [
+                    'href' => '/tool/compress',
+                    'text' => 'Open Image Compressor',
+                ]); 
+            ?>
+
+            <div id="translations" style="display: none;">
+              <div data-lang="en">Compress your image file</div>
+              <div data-lang="hi">अपनी छवि फ़ाइल को संकुचित करें</div>
+              <div data-lang="bn">আপনার ইমেজ ফাইল সংকুচিত করুন</div>
+              <div data-lang="ta">உங்கள் படக் கோப்பை சுருக்கவும்</div>
+              <div data-lang="te">మీ చిత్ర ఫైల్‌ను సంకోచించండి</div>
+              <div data-lang="kn">ನಿಮ್ಮ ಚಿತ್ರ ಫೈಲ್ ಅನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಿ</div>
+              <div data-lang="ml">നിങ്ങളുടെ ചിത്രം ഫയൽ കമ്പ്രസ് ചെയ്യുക</div>
+              <div data-lang="mr">आपली प्रतिमा फाइल संकुचित करा</div>
+              <div data-lang="gu">તમારી છબી ફાઇલને સંકોચો</div>
+              <div data-lang="pa">ਆਪਣੀ ਚਿੱਤਰ ਫਾਈਲ ਨੂੰ ਸੰਕੁਚਿਤ ਕਰੋ</div>
             </div>
         </div>
-        -->
-            
+
+    
         <!-- Convert one image format to another -->
         <div class="col-12 col-sm-6">
             <?= renderToolCard("Convert To Multiple Format",

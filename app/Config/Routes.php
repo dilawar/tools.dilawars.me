@@ -9,8 +9,8 @@ $routes->get('/', 'Home::index');
 $routes->get('/download/(:any)', 'Home::download/$1');
 
 // Compress tools.
-$routes->get('tool/compress/image', 'ToolImageCompressor::index');
-$routes->post('tool/compress/action/(:segment)', [[ToolImageCompressor::class, 'handleAction'], '$1']);
+$routes->get('tool/compress', 'ToolImageCompressor::index');
+$routes->post('tool/action/compress/(:segment)', [[ToolImageCompressor::class, 'handleAction'], '$1']);
 
 // conversion tools.
 $routes->get('/tool/convert', [[ToolImageConvertor::class, 'viewConvertTo'], '']);
