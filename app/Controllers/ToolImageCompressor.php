@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Data\StatsName;
 use App\Data\ToolActionName;
 use CodeIgniter\Exceptions\RuntimeException;
 use Symfony\Component\Filesystem\Path;
@@ -50,6 +51,8 @@ class ToolImageCompressor extends BaseController
         $uploadFileName = $img->getName();
         $compressedImageBlob = $this->compressDefaultJpeg($img->getTempName());
         $outfile = Path::changeExtension($uploadFileName, '.jpg');
+
+        StatsName::TotalImageCompressed->increment();
 
         $data = [
             'download_url' => Home::writeResultFile($compressedImageBlob, $outfile),
