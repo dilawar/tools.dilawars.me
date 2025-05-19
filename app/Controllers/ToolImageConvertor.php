@@ -109,8 +109,14 @@ class ToolImageConvertor extends BaseController
      */
     private function loadMainView(string $to, array $extra = []): string 
     {
+        $pageTitle = "Convert Image";
+        if($to) {
+            $pageTitle .= " To $to";
+        }
+
         return view('/tools/convertor', [
             'to' => $to,
+            'page_title' => $pageTitle,
             ...$extra,
         ]);
     }

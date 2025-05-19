@@ -13,6 +13,18 @@ parameters:
 			path: app/Config/Events.php
 
 		-
+			message: '#^Cannot call method get\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			message: '#^Cannot call method respond\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Events.php
+
+		-
 			message: '#^Instantiation of internal class CodeIgniter\\HotReloader\\HotReloader\.$#'
 			identifier: new.internalClass
 			count: 1
@@ -43,10 +55,160 @@ parameters:
 			path: app/Config/Logger.php
 
 		-
+			message: '#^Variable \$routes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: app/Config/Routes.php
+
+		-
 			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
 			path: app/Config/Security.php
+
+		-
+			message: '#^Method App\\Controllers\\Home\:\:download\(\) should return CodeIgniter\\HTTP\\ResponseInterface but returns CodeIgniter\\HTTP\\DownloadResponse\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Controllers/Home.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getFile\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Controllers/ToolImageCompressor.php
+
+		-
+			message: '#^Cannot call method store\(\) on CodeIgniter\\HTTP\\Files\\UploadedFile\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Controllers/ToolImageCompressor.php
+
+		-
+			message: '#^Parameter \#1 \$data of method CodeIgniter\\Controller\:\:validateData\(\) expects array, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageCompressor.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getFile\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Cannot access offset ''to_format'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Cannot call method getName\(\) on CodeIgniter\\HTTP\\Files\\UploadedFile\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \#1 \$data of method CodeIgniter\\Controller\:\:validateData\(\) expects array, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \#1 \$to of method App\\Controllers\\ToolImageConvertor\:\:convertToUsingImagick\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \#1 \$to of method App\\Controllers\\ToolImageConvertor\:\:loadMainView\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \#2 \$uploadedFile of method App\\Controllers\\ToolImageConvertor\:\:convertToUsingImagick\(\) expects CodeIgniter\\HTTP\\Files\\UploadedFile, CodeIgniter\\HTTP\\Files\\UploadedFile\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \$image of method Imagick\:\:readImageBlob\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \$subkey of method App\\Data\\StatsName\:\:increment\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Parameter \$to of method App\\Controllers\\ToolImageConvertor\:\:loadMainView\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Part \$to \(array\|bool\|float\|int\|object\|string\|null\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: app/Controllers/ToolImageConvertor.php
+
+		-
+			message: '#^Cannot access offset ''value_int'' on array\|object\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Data/StatsName.php
+
+		-
+			message: '#^Cannot call method check\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Filters/Throttle.php
+
+		-
+			message: '#^Cannot call method setStatusCode\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Filters/Throttle.php
+
+		-
+			message: '#^Function _getKeyVal\(\) should return array\<string\>\|bool\|int\|string\|null but returns array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_unique expects array, array\|bool\|float\|int\|object\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Parameter \#1 \$string of function base64_encode expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Parameter \#1 \$string of function trim expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, int\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/default.php
 
 		-
 			message: '#^Variable \$code might not be defined\.$#'
@@ -85,6 +247,18 @@ parameters:
 			path: app/Views/errors/cli/error_exception.php
 
 		-
+			message: '#^Parameter \#1 \$string of function nl2br expects string, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Views/errors/html/error_400.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 2
+			path: app/Views/errors/html/error_400.php
+
+		-
 			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
@@ -97,6 +271,18 @@ parameters:
 			path: app/Views/errors/html/error_400.php
 
 		-
+			message: '#^Parameter \#1 \$string of function nl2br expects string, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Views/errors/html/error_404.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 2
+			path: app/Views/errors/html/error_404.php
+
+		-
 			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
@@ -107,6 +293,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/Views/errors/html/error_404.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and array\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: app/Views/errors/html/error_exception.php
 
 		-
 			message: '#^Calling static\:\:describeMemory\(\) outside of class scope\.$#'
@@ -118,6 +310,102 @@ parameters:
 			message: '#^Calling static\:\:highlightFile\(\) outside of class scope\.$#'
 			identifier: outOfClass.static
 			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getHeaderLine\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getIPAddress\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getMethod\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getReasonPhrase\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getStatusCode\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getUri\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method getUserAgent\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method headers\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method isAJAX\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method isCLI\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method isSecure\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Cannot call method setStatusCode\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Parameter \#1 \$string of function nl2br expects string, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 41
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Parameter \#2 \(array\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
 			path: app/Views/errors/html/error_exception.php
 
 		-
@@ -157,7 +445,73 @@ parameters:
 			path: app/Views/errors/html/error_exception.php
 
 		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 3
+			path: app/Views/errors/html/production.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Views/errors/html/production.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/home.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/templates/section_template.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/convertor.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/image_compressor.php
+
+		-
+			message: '#^Cannot call method getResult\(\) on CodeIgniter\\Database\\ResultInterface\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/database/ExampleDatabaseTest.php
+
+		-
+			message: '#^Cannot call method get\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/session/ExampleSessionTest.php
+
+		-
+			message: '#^Cannot call method set\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/session/ExampleSessionTest.php
+
+		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with bool will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Cannot call method check\(\) on object\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/unit/HealthTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of function preg_grep expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
 			count: 1
 			path: tests/unit/HealthTest.php

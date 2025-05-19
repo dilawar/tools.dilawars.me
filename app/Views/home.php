@@ -17,7 +17,7 @@ if(! function_exists('renderToolCard')) {
         $html[] = "<p class='card-text'>$body</p>";
 
         if($link) {
-            $html[] = "<a class='btn btn-primary' href='" . $link['href'] . "'>" . $link['text'] . "</a>";
+            $html[] = "<a class='btn btn-primary stretched-link' href='" . $link['href'] . "'>" . $link['text'] . "</a>";
         }
         $html[] = "</div>";
 
@@ -44,7 +44,7 @@ if(! function_exists('renderToolCard')) {
             
         <!-- Convert one image format to another -->
         <div class="col-12 col-sm-6">
-            <?= renderToolCard("Convert Image",
+            <?= renderToolCard("Convert To Multiple Format",
                 body: 'Convert your image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats',
                 link: [
                     'href' => '/tool/convert',
@@ -78,9 +78,9 @@ if(! function_exists('renderToolCard')) {
         <!-- HEIF to JPEG -->
         <div class="col-12 col-sm-6">
 
-            <?= renderToolCard("HEIC To JPEG", body : 'Convert HEIC image to a JPEG', link: [
-                'href' => '/tool/convert/heic/jpeg',
-                'text' => 'HEIC to JPEG',
+            <?= renderToolCard("Convert To JPEG", body : 'Convert HEIC, PNG, etc. to a JPEG', link: [
+                'href' => '/tool/convert/jpeg',
+                'text' => 'Convert to JPEG',
             ], ); ?>
 
             <div hidden>
