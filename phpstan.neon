@@ -2,10 +2,7 @@ includes:
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
     - ./phpstan-baseline.neon
 parameters:
-  level: 6
-  ignoreErrors:
-    - '#^Variable \$routes might not be defined\.$#'
-    - '#^Variable \$this might not be defined\.$#'
+  level: 8
   paths:
     - app
     - tests
