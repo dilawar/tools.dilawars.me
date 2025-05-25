@@ -33,7 +33,7 @@ if(! function_exists('renderToolCard')) {
         <!-- Compress image -->
         <div class="col-12 col-sm-6">
             <?= renderToolCard("Compress Image",
-                body: 'Compress image',
+                body: 'Compress images to JPEG',
                 link: [
                     'href' => '/tool/compress',
                     'text' => 'Open Image Compressor',
@@ -57,7 +57,7 @@ if(! function_exists('renderToolCard')) {
     
         <!-- Convert one image format to another -->
         <div class="col-12 col-sm-6">
-            <?= renderToolCard("Convert To Multiple Format",
+            <?= renderToolCard("Convert Image To Any Other Format",
                 body: 'Convert your image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats',
                 link: [
                     'href' => '/tool/convert',
