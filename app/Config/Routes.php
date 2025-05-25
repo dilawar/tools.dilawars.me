@@ -15,4 +15,7 @@ $routes->post('tool/action/compress/(:segment)', [[ToolImageCompressor::class, '
 // conversion tools.
 $routes->get('/tool/convert', [[ToolImageConvertor::class, 'viewConvertTo'], '']);
 $routes->get('/tool/convert/(:segment)', [[ToolImageConvertor::class, 'viewConvertTo'], '$1']);
+$routes->get('/tool/convert/(:segment)/(:segment)', [[ToolImageConvertor::class, 'viewConvertTo'], '$1/$2']);
+
+// conversion action
 $routes->post('/tools/convertor/convert', 'ToolImageConvertor::convert');

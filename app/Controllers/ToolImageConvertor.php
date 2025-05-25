@@ -14,9 +14,9 @@ class ToolImageConvertor extends BaseController
      *
      * If format are empty, the user will be asked to select format.
      */
-    public function viewConvertTo(string $to = ''): string
+    public function viewConvertTo(string $to = '', ?string $from = null): string
     {
-        return $this->loadMainView(to: $to);
+        return $this->loadMainView(to: $to, from: $from);
     }
 
     public function convert(): string 
@@ -107,7 +107,7 @@ class ToolImageConvertor extends BaseController
     /**
      * @param array<string, mixed> $extra
      */
-    private function loadMainView(string $to, array $extra = []): string 
+    private function loadMainView(string $to, ?string $from = null, array $extra = []): string 
     {
         $pageTitle = "Convert Image";
         if($to) {
@@ -116,6 +116,7 @@ class ToolImageConvertor extends BaseController
 
         return view('/tools/convertor', [
             'to' => $to,
+            'from' => $from,
             'page_title' => $pageTitle,
             ...$extra,
         ]);
