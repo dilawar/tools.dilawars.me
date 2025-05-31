@@ -50,7 +50,7 @@ class ToolImageConvertor extends BaseController
             'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
-                'mime_in[image,image/*,application/pdf]',
+                'is_image[image]',
                 'max_size[image,20480]',
             ],
         ];
@@ -86,36 +86,6 @@ class ToolImageConvertor extends BaseController
             'converted_file_filename' => $outFilename,
             'thumbnail' => self::blobToUri('jpeg', $thumbnail),
         ]);
-    }
-
-    /**
-     * Convert PDF to JPGs
-     *
-     * @return array<string>
-     */
-    private function convertPdfToJpgs(string $pdffile): array 
-    {
-        $pdf = new \Imagick($pdffile);
-        $numPages = $pdf->getNumberImages();
-        $pdf->clear();
-        $pdf->destroy();
-
-        $result = [];
-
-        for($i = 0; $i < $numPages; $i++) {
-            $uri = $pdffile . '[' . $i . ']';
-            $imagick = new \Imagick();
-            $imagick->readImage($uri);
-            $imagick->setResolution(400, 400);
-            $imagick->setCompressionQuality(100);
-            $imagick->sharpenImage(radius: 0, sigma: 1.0);
-            $imagick->setImageFormat('jpg');
-            $result[] = $imagick->getImageBlob();
-            $imagick->clear();
-            $imagick->destroy();
-        }
-        return $result;
-
     }
 
     /**
