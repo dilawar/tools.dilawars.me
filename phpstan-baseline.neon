@@ -1,26 +1,8 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Strict comparison using \=\=\= between ''testing'' and ''testing'' will always evaluate to true\.$#'
-			identifier: identical.alwaysTrue
-			count: 1
-			path: app/Config/Database.php
-
-		-
 			message: '#^Call to method run\(\) of internal class CodeIgniter\\HotReloader\\HotReloader from outside its root namespace CodeIgniter\.$#'
 			identifier: method.internalClass
-			count: 1
-			path: app/Config/Events.php
-
-		-
-			message: '#^Cannot call method get\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Config/Events.php
-
-		-
-			message: '#^Cannot call method respond\(\) on object\|null\.$#'
-			identifier: method.nonObject
 			count: 1
 			path: app/Config/Events.php
 
@@ -31,40 +13,10 @@ parameters:
 			path: app/Config/Events.php
 
 		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: app/Config/Events.php
-
-		-
-			message: '#^Strict comparison using \!\=\= between ''testing'' and ''testing'' will always evaluate to false\.$#'
-			identifier: notIdentical.alwaysFalse
-			count: 1
-			path: app/Config/Events.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between ''testing'' and ''development'' will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: app/Config/Events.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: app/Config/Logger.php
-
-		-
 			message: '#^Variable \$routes might not be defined\.$#'
 			identifier: variable.undefined
-			count: 7
+			count: 10
 			path: app/Config/Routes.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between ''testing'' and ''production'' will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: app/Config/Security.php
 
 		-
 			message: '#^Method App\\Controllers\\Home\:\:download\(\) should return CodeIgniter\\HTTP\\ResponseInterface but returns CodeIgniter\\HTTP\\DownloadResponse\|null\.$#'
@@ -97,43 +49,7 @@ parameters:
 			path: app/Controllers/ToolImageConvertor.php
 
 		-
-			message: '#^Cannot call method getName\(\) on CodeIgniter\\HTTP\\Files\\UploadedFile\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
 			message: '#^Parameter \#1 \$data of method CodeIgniter\\Controller\:\:validateData\(\) expects array, array\|bool\|float\|int\|object\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
-			message: '#^Parameter \#1 \$to of method App\\Controllers\\ToolImageConvertor\:\:convertToUsingImagick\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
-			message: '#^Parameter \#1 \$to of method App\\Controllers\\ToolImageConvertor\:\:loadMainView\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
-			message: '#^Parameter \#2 \$uploadedFile of method App\\Controllers\\ToolImageConvertor\:\:convertToUsingImagick\(\) expects CodeIgniter\\HTTP\\Files\\UploadedFile, CodeIgniter\\HTTP\\Files\\UploadedFile\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
-			message: '#^Parameter \$image of method Imagick\:\:readImageBlob\(\) expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Controllers/ToolImageConvertor.php
-
-		-
-			message: '#^Parameter \$subkey of method App\\Data\\StatsName\:\:increment\(\) expects string, array\|bool\|float\|int\|object\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Controllers/ToolImageConvertor.php
@@ -145,26 +61,20 @@ parameters:
 			path: app/Controllers/ToolImageConvertor.php
 
 		-
-			message: '#^Part \$to \(array\|bool\|float\|int\|object\|string\|null\) of encapsed string cannot be cast to string\.$#'
-			identifier: encapsedStringPart.nonString
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getFile\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: app/Controllers/ToolImageConvertor.php
+			path: app/Controllers/ToolPdfConvertor.php
 
 		-
-			message: '#^Cannot access offset ''value_int'' on array\|object\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
+			message: '#^Binary operation "\+" between 0\|string and int results in an error\.$#'
+			identifier: binaryOp.invalid
 			count: 1
 			path: app/Data/StatsName.php
 
 		-
-			message: '#^Cannot call method check\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: app/Filters/Throttle.php
-
-		-
-			message: '#^Cannot call method setStatusCode\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to internal method CodeIgniter\\Throttle\\Throttler\:\:check\(\) from outside its root namespace CodeIgniter\.$#'
+			identifier: method.internal
 			count: 2
 			path: app/Filters/Throttle.php
 
@@ -253,12 +163,6 @@ parameters:
 			path: app/Views/errors/html/error_400.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: app/Views/errors/html/error_400.php
-
-		-
 			message: '#^Variable \$message might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -277,12 +181,6 @@ parameters:
 			path: app/Views/errors/html/error_404.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between ''testing'' and ''production'' will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: app/Views/errors/html/error_404.php
-
-		-
 			message: '#^Variable \$message might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -292,6 +190,24 @@ parameters:
 			message: '#^Binary operation "\." between non\-falsy\-string and array\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getUserAgent\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:isAJAX\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Views/errors/html/error_exception.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:isSecure\(\)\.$#'
+			identifier: method.notFound
+			count: 1
 			path: app/Views/errors/html/error_exception.php
 
 		-
@@ -307,74 +223,8 @@ parameters:
 			path: app/Views/errors/html/error_exception.php
 
 		-
-			message: '#^Cannot call method getHeaderLine\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getIPAddress\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getMethod\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getReasonPhrase\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getStatusCode\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getUri\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method getUserAgent\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method headers\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method isAJAX\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method isCLI\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method isSecure\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Views/errors/html/error_exception.php
-
-		-
-			message: '#^Cannot call method setStatusCode\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Parameter \#1 \$code of method CodeIgniter\\HTTP\\ResponseInterface\:\:setStatusCode\(\) expects int, bool\|int given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Views/errors/html/error_exception.php
 
@@ -475,33 +325,27 @@ parameters:
 			path: app/Views/tools/image_compressor.php
 
 		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/pdf.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with list\<stdClass\> will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 1
+			path: tests/database/ExampleDatabaseTest.php
+
+		-
 			message: '#^Cannot call method getResult\(\) on CodeIgniter\\Database\\ResultInterface\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: tests/database/ExampleDatabaseTest.php
 
 		-
-			message: '#^Cannot call method get\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/session/ExampleSessionTest.php
-
-		-
-			message: '#^Cannot call method set\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/session/ExampleSessionTest.php
-
-		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with bool will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
-			path: tests/unit/HealthTest.php
-
-		-
-			message: '#^Cannot call method check\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: tests/unit/HealthTest.php
 
 		-

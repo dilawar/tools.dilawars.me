@@ -13,7 +13,7 @@ enum StatsName: string {
     case TotalImageConvcersions = 'stat_total_image_conversions';
     case TotalImageCompressed = 'state_total_image_compressed';
 
-    public function get(string $subkey = ''): ?int
+    public function get(string $subkey = ''): ?string
     {
         return model(KvStore::class)->select('value_int')
             ->where('key_name', $this->value)

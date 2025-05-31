@@ -33,7 +33,7 @@ if(! function_exists('renderToolCard')) {
         <!-- Compress image -->
         <div class="col-12 col-sm-6">
             <?= renderToolCard("Compress Image",
-                body: 'Compress image',
+                body: 'Compress images to JPEG',
                 link: [
                     'href' => '/tool/compress',
                     'text' => 'Open Image Compressor',
@@ -57,7 +57,7 @@ if(! function_exists('renderToolCard')) {
     
         <!-- Convert one image format to another -->
         <div class="col-12 col-sm-6">
-            <?= renderToolCard("Convert To Multiple Format",
+            <?= renderToolCard("Convert Image To Any Other Format",
                 body: 'Convert your image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats',
                 link: [
                     'href' => '/tool/convert',
@@ -91,17 +91,17 @@ if(! function_exists('renderToolCard')) {
         <!-- HEIF to JPEG -->
         <div class="col-12 col-sm-6">
 
-            <?= renderToolCard("Convert To JPEG", body : 'Convert HEIC, PNG, etc. to a JPEG', link: [
-                'href' => '/tool/convert/jpeg',
-                'text' => 'Convert to JPEG',
+            <?= renderToolCard("Convert PDF To JPG", body : 'Convert PDF to images', link: [
+                'href' => '/tool/pdf/convert_to_jpeg',
+                'text' => 'PDF to JPG',
             ], ); ?>
 
             <div hidden>
-                <p><strong>Hindi (हिन्दी):</strong> HEIC को JPEG में बदलें</p>
-                <p><strong>Kannada (ಕನ್ನಡ):</strong> HEIC ಅನ್ನು JPEG ಗೆ ಪರಿವರ್ತಿಸಿ</p>
-                <p><strong>Tamil (தமிழ்):</strong> HEIC-ஐ JPEG-ஆக மாற்றவும்</p>
-                <p><strong>Telugu (తెలుగు):</strong> HEIC ను JPEG గా మార్చండి</p>
-                <p><strong>Marathi (मराठी):</strong> HEIC चे JPEG मध्ये रूपांतर करा</p>
+                <p><strong>Hindi (हिन्दी):</strong> PDF को JPG/PNG में बदलें</p>
+                <p><strong>Kannada (ಕನ್ನಡ):</strong> PDF ಅನ್ನು JPG/PNG ಗೆ ಪರಿವರ್ತಿಸಿ</p>
+                <p><strong>Tamil (தமிழ்):</strong> PDF-ஐ JPG-ஆக மாற்றவும்</p>
+                <p><strong>Telugu (తెలుగు):</strong> PDF ను JPG గా మార్చండి</p>
+                <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>
             </div>
         </div>
     </div>

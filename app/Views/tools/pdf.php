@@ -1,29 +1,27 @@
 <?php
 
+use App\Data\ToolActionName;
+
 echo $this->extend('default');
 echo $this->section('content');
 
-// @phpstan-ignore variable.undefined
-$toFormat = $to;
+$toFormat = $to ?? 'jpeg';
 
 // From format.
-$fromFormat = $from ?? '*';
+$fromFormat = 'pdf';
 
-$thumbnailUri = $thumbnail ?? null;
-$downloadUrl = $download_url ?? null;
-$convertedFileFilename = $converted_file_filename ?? '';
+$imagesArtifacts = $image_artifacts ?? [];
 
 /**
  * @var array<string>
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('_renderUploadFormInner')) {
-
+if(! function_exists('renderUploadForm')) {
     /**
      * @param array<string> $formats
      */
-    function _renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
+    function renderUploadFormInner(string $toFormat, array $formats): string 
     {
         $imageFormats = [];
         foreach($formats as $fmt) {
@@ -34,16 +32,11 @@ if(! function_exists('_renderUploadFormInner')) {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        $accept = "image/*";
-        if($toFormat) {
-            $accept = ".$fromFormat";
-        }
-
         // Select file
         $html[] = '<div class="col-sm-5">';
         $html[] = form_input("image", type: "file", extra: [
             'class' => 'form-control',
-            'accept' => $accept,
+            'accept' => '.pdf',
         ]);
         $html[] = '</div>';
 
@@ -78,42 +71,22 @@ if(! function_exists('_renderUploadFormInner')) {
 ?>
 
 <section>
-<div class='h5'>
-    Welcome to image conversion tool.
-</div>
-
-<details style="margin:10px;">
-    <summary> Total <?= count($supportedFormats) ?> formats are supported. </summary>
-    <?= implode(', ', $supportedFormats) ?>.
-</details>
-
+<div class='h5'> PDF Tools </div>
 <?php
 $hidden = [
     'from' => $fromFormat,
     'to' => $toFormat,
 ];
-echo form_open_multipart('/tools/convertor/convert', hidden: $hidden);
-echo _renderUploadFormInner($toFormat, fromFormat: $fromFormat, formats: $supportedFormats);
+echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfConvertToJpeg->value, hidden: $hidden);
+echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
+</section>
 
-<!-- result -->
-<?php
-if($thumbnailUri) 
-{
-    echo "<div class='mt-3'>";
-    echo "<h4 class='text-success'>Result is ready!</h4> 
-        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
-
-    echo "<p>Following is a preview of your result. Some result may not have a visible preview.</p>";
-    echo "<div>";
-    echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
-    echo "<br />";
-    echo "</div>";
-
-    echo "</div>";
-}
-?>
+<section>
+    <?= view_cell('DownloadFileCell', [
+        'images' => $imagesArtifacts,
+    ]) ?>
 </section>
 
 <section style="margin-top: 2ex;">
