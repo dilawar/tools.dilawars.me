@@ -331,12 +331,6 @@ parameters:
 			path: app/Views/tools/pdf_compress.php
 
 		-
-			message: '#^Function renderUploadFormInner invoked with 2 parameters, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/Views/tools/pdf_to_image.php
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 3

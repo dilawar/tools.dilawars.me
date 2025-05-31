@@ -18,8 +18,8 @@ $imagesArtifacts = $image_artifacts ?? [];
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('renderUploadFormInner')) {
-    function renderUploadFormInner(): string 
+if(! function_exists('renderPdfCompressForm')) {
+    function renderPdfCompressForm(): string 
     {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
@@ -52,7 +52,7 @@ if(! function_exists('renderUploadFormInner')) {
 
 <?php
 echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfCompress->value);
-echo renderUploadFormInner();
+echo renderPdfCompressForm();
 echo '</form>';
 ?>
 </section>
