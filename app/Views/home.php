@@ -88,11 +88,9 @@ if(! function_exists('renderToolCard')) {
             </div>
         </div>
 
-        <!-- HEIF to JPEG -->
         <div class="col-12 col-sm-6">
-
             <?= renderToolCard("Convert PDF To JPG", body : 'Convert PDF to images', link: [
-                'href' => '/tool/pdf/convert_to_jpeg',
+                'href' => '/tool/pdf/to_jpeg',
                 'text' => 'PDF to JPG',
             ], ); ?>
 
@@ -104,6 +102,29 @@ if(! function_exists('renderToolCard')) {
                 <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>
             </div>
         </div>
+
+        <div class="col-12 col-sm-6">
+            <?= renderToolCard("Compress PDF", body : 'Compress PDF', link: [
+                'href' => '/tool/pdf/compress',
+                'text' => 'Compress PDF',
+            ], ); ?>
+
+            <div style="display: none;">
+                <p>Hindi: पीडीएफ संपीड़ित करें</p>
+                <p>Bengali: পিডিএফ সংকুচিত করুন</p>
+                <p>Telugu: పీడీఎఫ్ సంకోచించండి</p>
+                <p>Marathi: पीडीएफ संकुचित करा</p>
+                <p>Tamil: PDF ஐ சுருக்கவும்</p>
+                <p>Gujarati: પીડીએફ સંકોચો</p>
+                <p>Kannada: ಪಿಡಿಎಫ್ ಸಂಕೋಚಿಸಿ</p>
+                <p>Malayalam: പി.ഡി.എഫ് സംക്ഷിപിക്കുക</p>
+                <p>Punjabi: ਪੀਡੀਐਫ ਸੰਕੋਚੋ</p>
+                <p>Urdu: پی ڈی ایف کو کمپریس کریں</p>
+                <p>Odia: ପିଡିଏଫ୍ ସଂକୋଚନ କରନ୍ତୁ</p>
+                <p>Assamese: পিডিএফ চুঁহি কৰক</p>
+            </div>
+        </div>
+
     </div>
 </section>
 

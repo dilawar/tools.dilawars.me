@@ -8,37 +8,33 @@ use App\Data\ToolActionName;
 use Assert\Assert;
 use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use CodeIgniter\HTTP\RedirectResponse;
 
 class ToolPdfConvertor extends BaseController
 {
     public function index(string $what): string
     {
-        return $this->loadMainView([
-            'what' => $what,
-        ]);
+        if($what === "compress") {
+            return view('tools/pdf_compress');
+        }
+        if($what === "to_jpeg") {
+            return view('tools/pdf_to_image');
+        }
+
+        return new RuntimeException("Invalid router paramter `$what`.");
     }
 
     /**
      * Handle action.
      */
-    public function handlePdfAction(string $action): string
+    public function handlePdfAction(string $action): string | RedirectResponse
     {
         log_message('info', "Handling action `$action`");
         $action = ToolActionName::from($action);
 
-        if($action === ToolActionName::PdfConvertToJpeg) {
-            return $this->convertUsingImagick();
-        }
-
-        throw new RuntimeException("Invalid PDF action " . $action->value);
-    }
-
-    private function convertUsingImagick(): string
-    {
         $post = (array) $this->request->getPost();
         log_message('debug', "post data " . json_encode($post));
         $rules = [
-            'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
                 'mime_in[image,application/pdf]',
@@ -46,14 +42,7 @@ class ToolPdfConvertor extends BaseController
             ],
         ];
         if (! $this->validateData($post, $rules)) {
-            return $this->loadMainView([
-                'to' => $post['to_format'],
-            ]);
-        }
-
-        $to = $this->request->getPost('to_format');
-        if($to) {
-            assert(is_string($to));
+            return redirect()->back();
         }
 
         $uploadedFile = $this->request->getFile('image');
@@ -61,6 +50,48 @@ class ToolPdfConvertor extends BaseController
             return new RuntimeException("Invalid image");
         }
 
+        if($action === ToolActionName::PdfConvertToJpeg) {
+            return $this->convertUsingImagick($uploadedFile);
+        }
+        if($action === ToolActionName::PdfCompress) {
+            return $this->compressUsingImagick($uploadedFile);
+        }
+
+        throw new RuntimeException("Invalid PDF action " . $action->value);
+    }
+
+    private function compressUsingImagick(UploadedFile $uploadedFile): string
+    {
+        log_message("info", "Compressing pdf using imagick");
+
+        $pdffile = $uploadedFile->getTempName();
+        $originalName = $uploadedFile->getClientName();
+        $convertedFilename = $originalName . "_compressed.pdf";
+
+        $imagick = new \Imagick();
+        $imagick->setResolution(100, 100);
+        $imagick->readImage($pdffile);
+
+        // Set image format and compression
+        $imagick->setImageFormat('pdf');
+        $imagick->setImageCompression(\Imagick::COMPRESSION_JPEG);
+        $imagick->setImageCompressionQuality(50); // Range: 0 (worst) to 100 (best)
+
+        $result = new ImageData(
+            data: $imagick->getImageBlob(),
+            originalFilename: $originalName,
+            convertedFilename: $convertedFilename,
+        );
+
+        $imagick->clear();
+
+        return view('tools/pdf_compress', [
+            'image_artifacts' => [$result],
+        ]);
+    }
+
+    private function convertUsingImagick(UploadedFile $uploadedFile): string
+    {
         $images = $this->convertPdfToJpgs($uploadedFile);
         foreach($images as &$image) {
             // store and generate download uri.
@@ -70,7 +101,7 @@ class ToolPdfConvertor extends BaseController
             StatsName::TotalImageConvcersions->increment(subkey: 'pdf');
         }
 
-        return $this->loadMainView(extra: [
+        return view('tools/pdf_to_image', [
             'image_artifacts' => $images,
         ]);
     }
@@ -112,14 +143,5 @@ class ToolPdfConvertor extends BaseController
         }
         return $result;
 
-    }
-
-    /**
-     * @param array<string, mixed> $extra
-     */
-    private function loadMainView(array $extra): string 
-    {
-        $data = [...$extra];
-        return view('tools/pdf', $data);
     }
 }
