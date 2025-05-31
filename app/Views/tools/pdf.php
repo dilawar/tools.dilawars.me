@@ -1,13 +1,15 @@
 <?php
 
+use App\Data\ToolActionName;
+
 echo $this->extend('default');
 echo $this->section('content');
 
 // @phpstan-ignore variable.undefined
-$toFormat = $to;
+$toFormat = $to ?? 'jpeg';
 
 // From format.
-$fromFormat = $from ?? '*';
+$fromFormat = 'pdf';
 
 $thumbnailUri = $thumbnail ?? null;
 $downloadUrl = $download_url ?? null;
@@ -22,7 +24,7 @@ if(! function_exists('renderUploadForm')) {
     /**
      * @param array<string> $formats
      */
-    function renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
+    function renderUploadFormInner(string $toFormat, array $formats): string 
     {
         $imageFormats = [];
         foreach($formats as $fmt) {
@@ -33,16 +35,11 @@ if(! function_exists('renderUploadForm')) {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        $accept = "image/*";
-        if($toFormat) {
-            $accept = ".$fromFormat";
-        }
-
         // Select file
         $html[] = '<div class="col-sm-5">';
         $html[] = form_input("image", type: "file", extra: [
             'class' => 'form-control',
-            'accept' => $accept,
+            'accept' => '.pdf',
         ]);
         $html[] = '</div>';
 
@@ -77,22 +74,15 @@ if(! function_exists('renderUploadForm')) {
 ?>
 
 <section>
-<div class='h5'>
-    Welcome to MaxFlow PDF Tools.
-</div>
-
-<details style="margin:10px;">
-    <summary> Total <?= count($supportedFormats) ?> formats are supported. </summary>
-    <?= implode(', ', $supportedFormats) ?>.
-</details>
+<div class='h5'> PDF Tools </div>
 
 <?php
 $hidden = [
     'from' => $fromFormat,
     'to' => $toFormat,
 ];
-echo form_open_multipart('/tools/convertor/convert', hidden: $hidden);
-echo renderUploadFormInner($toFormat, $fromFormat, $supportedFormats);
+echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfConvertToJpeg->value, hidden: $hidden);
+echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
 

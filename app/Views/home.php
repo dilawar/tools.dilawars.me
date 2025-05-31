@@ -91,8 +91,8 @@ if(! function_exists('renderToolCard')) {
         <!-- HEIF to JPEG -->
         <div class="col-12 col-sm-6">
 
-            <?= renderToolCard("Convert PDF To JPG/PNG", body : 'Convert PDF to images', link: [
-                'href' => '/tool/convert/jpeg/pdf',
+            <?= renderToolCard("Convert PDF To JPG", body : 'Convert PDF to images', link: [
+                'href' => '/tool/pdf/convert_to_jpeg',
                 'text' => 'PDF to JPG',
             ], ); ?>
 

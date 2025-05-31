@@ -90,6 +90,7 @@ class Autoload extends AutoloadConfig
     public $helpers = [
         'app_helper',
         'view_helper',
+        'image_helper',
         'form',
     ];
 }

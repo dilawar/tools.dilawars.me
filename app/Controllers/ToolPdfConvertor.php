@@ -2,11 +2,32 @@
 
 namespace App\Controllers;
 
+use App\Data\StatsName;
+use App\Data\ToolActionName;
+use CodeIgniter\Exceptions\RuntimeException;
+
 class ToolPdfConvertor extends BaseController
 {
-    public function index()
+    public function index(string $what): string
     {
-        //
+        return $this->loadMainView([
+            'what' => $what,
+        ]);
+    }
+
+    /**
+     * Handle action.
+     */
+    public function handlePdfAction(string $action): string
+    {
+        log_message('info', "Handling action `$action`");
+        $action = ToolActionName::from($action);
+
+        if($action === ToolActionName::PdfConvertToJpeg) {
+            return $this->convertUsingImagick();
+        }
+
+        throw new RuntimeException("Invalid PDF action $action");
     }
 
     private function convertUsingImagick(): string
@@ -17,12 +38,14 @@ class ToolPdfConvertor extends BaseController
             'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
-                'is_image[image]',
+                'mime_in[image,application/pdf]',
                 'max_size[image,20480]',
             ],
         ];
         if (! $this->validateData($post, $rules)) {
-            return $this->loadMainView(to: $post['to_format']);
+            return $this->loadMainView([
+                'to' => $post['to_format'],
+            ]);
         }
 
         $to = $this->request->getPost('to_format');
@@ -35,7 +58,7 @@ class ToolPdfConvertor extends BaseController
             return new RuntimeException("Invalid image");
         }
 
-        $imageData = $this->convertToUsingImagickSingle($to, $uploadedFile);
+        $imageData = convertToUsingImagickSingle($to, $uploadedFile);
 
         $outFilename = $imageData->convertedFilename;
 
@@ -48,10 +71,10 @@ class ToolPdfConvertor extends BaseController
 
         StatsName::TotalImageConvcersions->increment(subkey: $to);
 
-        return $this->loadMainView($to, extra: [
+        return $this->loadMainView(extra: [
             'download_url' => $downloadUrl,
             'converted_file_filename' => $outFilename,
-            'thumbnail' => self::blobToUri('jpeg', $thumbnail),
+            'thumbnail' => blobToUri('jpeg', $thumbnail),
         ]);
     }
 
@@ -83,5 +106,11 @@ class ToolPdfConvertor extends BaseController
         }
         return $result;
 
+    }
+
+    private function loadMainView(array $extra): string 
+    {
+        $data = [...$extra];
+        return view('tools/pdf', $data);
     }
 }
