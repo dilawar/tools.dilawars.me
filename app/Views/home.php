@@ -91,14 +91,14 @@ if(! function_exists('renderToolCard')) {
         <!-- HEIF to JPEG -->
         <div class="col-12 col-sm-6">
 
-            <?= renderToolCard("Convert PDF To Images", body : 'Convert PDF to images', link: [
+            <?= renderToolCard("Convert PDF To JPG/PNG", body : 'Convert PDF to images', link: [
                 'href' => '/tool/convert/jpeg/pdf',
                 'text' => 'PDF to JPG',
             ], ); ?>
 
             <div hidden>
-                <p><strong>Hindi (हिन्दी):</strong> PDF को JPG में बदलें</p>
-                <p><strong>Kannada (ಕನ್ನಡ):</strong> PDF ಅನ್ನು JPG ಗೆ ಪರಿವರ್ತಿಸಿ</p>
+                <p><strong>Hindi (हिन्दी):</strong> PDF को JPG/PNG में बदलें</p>
+                <p><strong>Kannada (ಕನ್ನಡ):</strong> PDF ಅನ್ನು JPG/PNG ಗೆ ಪರಿವರ್ತಿಸಿ</p>
                 <p><strong>Tamil (தமிழ்):</strong> PDF-ஐ JPG-ஆக மாற்றவும்</p>
                 <p><strong>Telugu (తెలుగు):</strong> PDF ను JPG గా మార్చండి</p>
                 <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>

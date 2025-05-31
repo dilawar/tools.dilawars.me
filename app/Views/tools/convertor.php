@@ -6,6 +6,9 @@ echo $this->section('content');
 // @phpstan-ignore variable.undefined
 $toFormat = $to;
 
+// From format.
+$fromFormat = $from ?? '*';
+
 $thumbnailUri = $thumbnail ?? null;
 $downloadUrl = $download_url ?? null;
 $convertedFileFilename = $converted_file_filename ?? '';
@@ -16,12 +19,11 @@ $convertedFileFilename = $converted_file_filename ?? '';
 $supportedFormats = supportedImageFormats();
 
 if(! function_exists('renderUploadForm')) {
-
     /**
      * @param array<string> $formats
      */
-    function renderUploadFormInner(string $toFormat, array $formats): string {
-
+    function renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
+    {
         $imageFormats = [];
         foreach($formats as $fmt) {
             $fmt = strtolower($fmt);
@@ -31,11 +33,16 @@ if(! function_exists('renderUploadForm')) {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
+        $accept = "image/*";
+        if($toFormat) {
+            $accept = ".$fromFormat";
+        }
+
         // Select file
         $html[] = '<div class="col-sm-5">';
         $html[] = form_input("image", type: "file", extra: [
             'class' => 'form-control',
-            'accept' => "image/*",
+            'accept' => $accept,
         ]);
         $html[] = '</div>';
 
@@ -80,8 +87,12 @@ if(! function_exists('renderUploadForm')) {
 </details>
 
 <?php
-echo form_open_multipart('/tools/convertor/convert');
-echo renderUploadFormInner($toFormat, $supportedFormats);
+$hidden = [
+    'from' => $fromFormat,
+    'to' => $toFormat,
+];
+echo form_open_multipart('/tools/convertor/convert', hidden: $hidden);
+echo renderUploadFormInner($toFormat, $fromFormat, $supportedFormats);
 echo '</form>';
 ?>
 

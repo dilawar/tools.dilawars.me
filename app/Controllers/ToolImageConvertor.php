@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Data\ImageData;
 use App\Data\StatsName;
 use Assert\Assert;
 use CodeIgniter\HTTP\Files\UploadedFile;
+use RuntimeException;
 use Symfony\Component\Filesystem\Path;
 
 class ToolImageConvertor extends BaseController
@@ -40,7 +42,7 @@ class ToolImageConvertor extends BaseController
 
     }
 
-    private function convertUsingImagick(): string 
+    private function convertUsingImagick(): string
     {
         $post = $this->request->getPost();
         log_message('debug', "post data " . json_encode($post));
@@ -48,7 +50,7 @@ class ToolImageConvertor extends BaseController
             'to_format' => 'required',
             'image' => [
                 'uploaded[image]',
-                'is_image[image]',
+                'mime_in[image,image/*,application/pdf]',
                 'max_size[image,20480]',
             ],
         ];
@@ -57,14 +59,20 @@ class ToolImageConvertor extends BaseController
         }
 
         $to = $this->request->getPost('to_format');
+        if($to) {
+            assert(is_string($to));
+        }
 
         $uploadedFile = $this->request->getFile('image');
-        $uploadFilename = $uploadedFile->getName();
-        $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
-        log_message('debug', "Uploaded filename=$uploadFilename, result filename $outFilename");
+        if(! $uploadedFile) {
+            return new RuntimeException("Invalid image");
+        }
 
-        $imageBlob = $this->convertToUsingImagick($to, $uploadedFile);
-        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageBlob, $outFilename);
+        $imageData = $this->convertToUsingImagickSingle($to, $uploadedFile);
+
+        $outFilename = $imageData->convertedFilename;
+
+        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageData->data, $outFilename);
         log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
 
         $imagick = new \Imagick($pathOnDisk);
@@ -81,6 +89,36 @@ class ToolImageConvertor extends BaseController
     }
 
     /**
+     * Convert PDF to JPGs
+     *
+     * @return array<string>
+     */
+    private function convertPdfToJpgs(string $pdffile): array 
+    {
+        $pdf = new \Imagick($pdffile);
+        $numPages = $pdf->getNumberImages();
+        $pdf->clear();
+        $pdf->destroy();
+
+        $result = [];
+
+        for($i = 0; $i < $numPages; $i++) {
+            $uri = $pdffile . '[' . $i . ']';
+            $imagick = new \Imagick();
+            $imagick->readImage($uri);
+            $imagick->setResolution(400, 400);
+            $imagick->setCompressionQuality(100);
+            $imagick->sharpenImage(radius: 0, sigma: 1.0);
+            $imagick->setImageFormat('jpg');
+            $result[] = $imagick->getImageBlob();
+            $imagick->clear();
+            $imagick->destroy();
+        }
+        return $result;
+
+    }
+
+    /**
      * Convert image blob to base64 image URI.
      */
     private static function blobToUri(string $type, string $blob): string 
@@ -89,19 +127,32 @@ class ToolImageConvertor extends BaseController
     }
 
     /**
-     * Convert image to given format
+     * Convert image to a given format
      *
      * @return string Converted image as blob.
      */
-    private function convertToUsingImagick(string $to, UploadedFile $uploadedFile): string
+    private function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): ImageData
     {
         $imagick = new \Imagick();
         $imagick->readImageBlob(image: file_get_contents($uploadedFile->getTempName()));
 
+        $uploadFilename = $uploadedFile->getName();
+        $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
+
+        $uploadFilename = $uploadedFile->getName();
+        $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
+        log_message('debug', "Uploaded filename=$uploadFilename, result filename $outFilename");
+
         $res = $imagick->setImageFormat($to);
         Assert::that($res)->true();
+        $data = $imagick->getImageBlob();
+        $imagick->clear();
 
-        return $imagick->getImageBlob();
+        return new ImageData(
+            data: $data,
+            originalFilename: $uploadFilename,
+            convertedFilename: $outFilename
+        );
     }
 
     /**
@@ -109,6 +160,8 @@ class ToolImageConvertor extends BaseController
      */
     private function loadMainView(string $to, ?string $from = null, array $extra = []): string 
     {
+        log_message('info', "loadMainView: from=$from to=$to " . json_encode($extra));
+
         $pageTitle = "Convert Image";
         if($to) {
             $pageTitle .= " To $to";
