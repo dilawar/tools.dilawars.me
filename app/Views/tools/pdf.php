@@ -75,7 +75,6 @@ if(! function_exists('renderUploadForm')) {
 
 <section>
 <div class='h5'> PDF Tools </div>
-
 <?php
 $hidden = [
     'from' => $fromFormat,
@@ -85,24 +84,13 @@ echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfConvertToJpeg->value,
 echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
+</section>
 
-<!-- result -->
-<?php
-if($thumbnailUri) 
-{
-    echo "<div class='mt-3'>";
-    echo "<h4 class='text-success'>Result is ready!</h4> 
-        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
-
-    echo "<p>Following is a preview of your result. Some result may not have a visible preview.</p>";
-    echo "<div>";
-    echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
-    echo "<br />";
-    echo "</div>";
-
-    echo "</div>";
-}
-?>
+<section>
+    <?= view_cell('DownloadFileCell', [
+        'downloads' => [$downloadUrl],
+        'thumbnails' => [$thumbnailUri],
+    ]) ?>
 </section>
 
 <section style="margin-top: 2ex;">
