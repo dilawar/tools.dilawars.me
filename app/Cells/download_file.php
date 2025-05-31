@@ -12,7 +12,10 @@ if($images ?? [])
 
         echo "<div class='col-6'>";
         echo "<figure class='p-1' style='border: 1px solid gray; border-radius: 20px;'>";
-        echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
+        if(! str_contains($thumbnailUri, "application/pdf")) {
+            echo "<img style='width:90%; margin: auto;' src='$thumbnailUri' class='img-fluid conversion-result-image' />";
+        }
+
         echo '<figcaption class="d-flex justify-content-center">';
         echo "<a class='btn btn-link' target='_blank' href='$downloadUrl'>Download </a>";
         echo '</figcaption>';

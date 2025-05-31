@@ -37,6 +37,9 @@ class ImageData
      */
     public function downloadUrl(): ?string 
     {
+        if(! $this->downloadUrl) {
+            $this->getDownloadUri();
+        }
         return $this->downloadUrl;
     }
 

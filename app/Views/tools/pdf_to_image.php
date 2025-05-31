@@ -5,6 +5,7 @@ use App\Data\ToolActionName;
 echo $this->extend('default');
 echo $this->section('content');
 
+// To format.
 $toFormat = $to ?? 'jpeg';
 
 // From format.
@@ -71,7 +72,9 @@ if(! function_exists('renderUploadForm')) {
 ?>
 
 <section>
-<div class='h5'> PDF Tools </div>
+
+<div class='h5 section-title'> Convert PDF to JPEG </div>
+
 <?php
 $hidden = [
     'from' => $fromFormat,
