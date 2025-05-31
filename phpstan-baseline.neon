@@ -328,7 +328,13 @@ parameters:
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 3
-			path: app/Views/tools/pdf.php
+			path: app/Views/tools/pdf_compress.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/pdf_to_image.php
 
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with list\<stdClass\> will always evaluate to false\.$#'
