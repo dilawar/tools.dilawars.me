@@ -5,15 +5,12 @@ use App\Data\ToolActionName;
 echo $this->extend('default');
 echo $this->section('content');
 
-// @phpstan-ignore variable.undefined
 $toFormat = $to ?? 'jpeg';
 
 // From format.
 $fromFormat = 'pdf';
 
-$thumbnailUri = $thumbnail ?? null;
-$downloadUrl = $download_url ?? null;
-$convertedFileFilename = $converted_file_filename ?? '';
+$imagesArtifacts = $image_artifacts ?? [];
 
 /**
  * @var array<string>
@@ -88,8 +85,7 @@ echo '</form>';
 
 <section>
     <?= view_cell('DownloadFileCell', [
-        'downloads' => [$downloadUrl],
-        'thumbnails' => [$thumbnailUri],
+        'images' => $imagesArtifacts,
     ]) ?>
 </section>
 

@@ -2,17 +2,13 @@
 
 namespace App\Cells;
 
+use App\Data\ImageData;
 use CodeIgniter\View\Cells\Cell;
 
 class DownloadFileCell extends Cell
 {
     /**
-     * @var array<string>
+     * @var array<ImageData>
      */
-    public array $thumbnails = [];
-
-    /**
-     * @var array<string>
-     */
-    public array $downloads = [];
+    public array $images = [];
 }

@@ -7,15 +7,15 @@ use Symfony\Component\Filesystem\Path;
 
 /**
  * Convert image to a given format
- *
- * @return string Converted image as blob.
  */
 function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): ImageData
 {
     $imagick = new \Imagick();
-    $imagick->readImageBlob(image: file_get_contents($uploadedFile->getTempName()));
 
-    $uploadFilename = $uploadedFile->getName();
+    $content = (string) file_get_contents($uploadedFile->getTempName());
+    $imagick->readImageBlob(image: $content);
+
+    $uploadFilename = $uploadedFile->getClientName();
     $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
 
     $uploadFilename = $uploadedFile->getName();
@@ -37,7 +37,11 @@ function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): Im
 /**
  * Convert image blob to base64 image URI.
  */
-function blobToUri(string $type, string $blob): string 
+function blobToUri(string $blob, ?string $mime = null): string 
 {
-    return 'data:' . $type . ';base64,' . base64_encode($blob);
+    if(! $mime) {
+        $finfo = new finfo(FILEINFO_MIME);
+        $mime = $finfo->buffer($blob);
+    }
+    return 'data:' . $mime . ';base64,' . base64_encode($blob);
 }

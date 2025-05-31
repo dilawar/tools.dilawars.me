@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Data\ImageData;
 use App\Data\StatsName;
 use App\Data\ToolActionName;
+use Assert\Assert;
 use CodeIgniter\Exceptions\RuntimeException;
+use CodeIgniter\HTTP\Files\UploadedFile;
 
 class ToolPdfConvertor extends BaseController
 {
@@ -27,12 +30,12 @@ class ToolPdfConvertor extends BaseController
             return $this->convertUsingImagick();
         }
 
-        throw new RuntimeException("Invalid PDF action $action");
+        throw new RuntimeException("Invalid PDF action " . $action->value);
     }
 
     private function convertUsingImagick(): string
     {
-        $post = $this->request->getPost();
+        $post = (array) $this->request->getPost();
         log_message('debug', "post data " . json_encode($post));
         $rules = [
             'to_format' => 'required',
@@ -58,39 +61,37 @@ class ToolPdfConvertor extends BaseController
             return new RuntimeException("Invalid image");
         }
 
-        $imageData = convertToUsingImagickSingle($to, $uploadedFile);
-
-        $outFilename = $imageData->convertedFilename;
-
-        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageData->data, $outFilename);
-        log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
-
-        $imagick = new \Imagick($pathOnDisk);
-        $imagick->thumbnailImage(256, 256, true, true);
-        $thumbnail = $imagick->getImageBlob();
-
-        StatsName::TotalImageConvcersions->increment(subkey: $to);
+        $images = $this->convertPdfToJpgs($uploadedFile);
+        foreach($images as &$image) {
+            // store and generate download uri.
+            $image->getDownloadUri();
+            // generate thumbnail.
+            $image->genThumbnail();
+            StatsName::TotalImageConvcersions->increment(subkey: 'pdf');
+        }
 
         return $this->loadMainView(extra: [
-            'download_url' => $downloadUrl,
-            'converted_file_filename' => $outFilename,
-            'thumbnail' => blobToUri('jpeg', $thumbnail),
+            'image_artifacts' => $images,
         ]);
     }
 
     /**
      * Convert PDF to JPGs
      *
-     * @return array<string>
+     * @return array<ImageData>
      */
-    private function convertPdfToJpgs(string $pdffile): array 
+    private function convertPdfToJpgs(UploadedFile $file): array 
     {
+        $pdffile = $file->getTempName();
         $pdf = new \Imagick($pdffile);
         $numPages = $pdf->getNumberImages();
         $pdf->clear();
-        $pdf->destroy();
 
         $result = [];
+
+        $originalName = $file->getClientName();
+        log_message('info', "> Converting PDF file `$originalName`.");
+        Assert::that($originalName)->minLength(3);
 
         for($i = 0; $i < $numPages; $i++) {
             $uri = $pdffile . '[' . $i . ']';
@@ -100,14 +101,22 @@ class ToolPdfConvertor extends BaseController
             $imagick->setCompressionQuality(100);
             $imagick->sharpenImage(radius: 0, sigma: 1.0);
             $imagick->setImageFormat('jpg');
-            $result[] = $imagick->getImageBlob();
+
+            $result[] = new ImageData(
+                data: $imagick->getImageBlob(),
+                originalFilename: $originalName,
+                convertedFilename: $originalName . "-" . ($i + 1) . ".jpg",
+            );
+
             $imagick->clear();
-            $imagick->destroy();
         }
         return $result;
 
     }
 
+    /**
+     * @param array<string, mixed> $extra
+     */
     private function loadMainView(array $extra): string 
     {
         $data = [...$extra];

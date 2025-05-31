@@ -18,11 +18,12 @@ $convertedFileFilename = $converted_file_filename ?? '';
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('renderUploadForm')) {
+if(! function_exists('_renderUploadFormInner')) {
+
     /**
      * @param array<string> $formats
      */
-    function renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
+    function _renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
     {
         $imageFormats = [];
         foreach($formats as $fmt) {
@@ -92,7 +93,7 @@ $hidden = [
     'to' => $toFormat,
 ];
 echo form_open_multipart('/tools/convertor/convert', hidden: $hidden);
-echo renderUploadFormInner($toFormat, $fromFormat, $supportedFormats);
+echo _renderUploadFormInner($toFormat, fromFormat: $fromFormat, formats: $supportedFormats);
 echo '</form>';
 ?>
 

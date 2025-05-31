@@ -55,9 +55,7 @@ class ToolImageConvertor extends BaseController
         }
 
         $to = $this->request->getPost('to_format');
-        if($to) {
-            assert(is_string($to));
-        }
+        assert(is_string($to));
 
         $uploadedFile = $this->request->getFile('image');
         if(! $uploadedFile) {
@@ -80,7 +78,7 @@ class ToolImageConvertor extends BaseController
         return $this->loadMainView($to, extra: [
             'download_url' => $downloadUrl,
             'converted_file_filename' => $outFilename,
-            'thumbnail' => blobToUri('jpeg', $thumbnail),
+            'thumbnail' => blobToUri($thumbnail),
         ]);
     }
 
