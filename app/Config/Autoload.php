@@ -92,5 +92,6 @@ class Autoload extends AutoloadConfig
         'view_helper',
         'image_helper',
         'form',
+        'html',
     ];
 }

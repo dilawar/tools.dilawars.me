@@ -39,3 +39,38 @@ function showFilesize(int $sizeInBytes): string
     return number_format($gb, 1) . " GB";
 
 }
+
+function formInputBootstrap(string $id, string $label, string $value, string $type = 'text'): string 
+{
+    $html[] = "<div class='form-group row'>";
+    $html[] = "<label for='$id' class='col-5 col-form-label'>$label</label>";
+
+    $html[] = "<div class='col-4'>";
+    $html[] = form_input($id, value: $value, type: $type, extra: [
+        'id' => $id,
+        'class' => 'form-control',
+    ]);
+    $html[] = "</div>";
+    $html[] = "</div>";
+
+    return implode(' ', $html);
+}
+
+/**
+ * @param array<string, string> $options
+ */
+function formSelectBootstrap(string $id, string $label, string $value, array $options): string 
+{
+    $html[] = "<div class='row form-group'>";
+    $html[] = "<label for='$id' class='col-5 col-form-label'>$label</label>";
+
+    $html[] = "<div class='col-4'>";
+    $html[] = form_dropdown($id, $options, $value, extra: [
+        'id' => $id,
+        'class' => 'form-control',
+    ]);
+    $html[] = "</div>";
+    $html[] = "</div>";
+
+    return implode(' ', $html);
+}

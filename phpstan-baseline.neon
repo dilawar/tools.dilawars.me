@@ -15,7 +15,7 @@ parameters:
 		-
 			message: '#^Variable \$routes might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 12
 			path: app/Config/Routes.php
 
 		-
@@ -65,6 +65,30 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/Controllers/ToolPdfConvertor.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$eccLevel\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$imageTransparent\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$outputBase64\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$outputInterface\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
 
 		-
 			message: '#^Binary operation "\+" between 0\|string and int results in an error\.$#'
@@ -335,6 +359,12 @@ parameters:
 			identifier: variable.undefined
 			count: 3
 			path: app/Views/tools/pdf_to_image.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/qrcodes.php
 
 		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with list\<stdClass\> will always evaluate to false\.$#'
