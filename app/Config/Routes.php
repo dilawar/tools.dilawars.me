@@ -9,6 +9,10 @@ $routes->get('/', 'Home::index');
 // Download files.
 $routes->get('/download/(:any)', 'Home::download/$1');
 
+// qr tool.
+$routes->get('tool/qrcodes', 'ToolQrCodes::index');
+$routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
+
 // Compress tools.
 $routes->get('tool/compress', 'ToolImageCompressor::index');
 $routes->post('tool/action/compress/(:segment)', [[ToolImageCompressor::class, 'handleAction'], '$1']);

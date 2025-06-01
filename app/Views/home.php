@@ -13,7 +13,7 @@ if(! function_exists('renderToolCard')) {
         $html = ["<div class='card h-100'>"];
 
         $html[] = "<div class='card-body'>";
-        $html[] = "<h4 class='card-title'>$title</h4>";
+        $html[] = "<h4 class='card-title' style='display: none'>$title</h4>";
         $html[] = "<p class='card-text'>$body</p>";
 
         if($link) {
@@ -30,10 +30,41 @@ if(! function_exists('renderToolCard')) {
 
 <section>
     <div class="row mx-1 g-2">
+
+        <!-- QR Generator  -->
+        <div class="col-12 col-sm-6">
+
+            <?= renderToolCard("Generate QR codes",
+                body: 'Generate Simple QR codes.',
+                link: [
+                    'href' => '/tool/qrcodes',
+                    'text' => 'Open Qr Generator',
+                ]); 
+            ?>
+
+
+            <div style="display: none;">
+              <p>English: Generate QR codes</p>
+              <p>हिन्दी (Hindi): क्यूआर कोड जनरेट करें</p>
+              <p>বাংলা (Bengali): কিউআর কোড তৈরি করুন</p>
+              <p>தமிழ் (Tamil): QR குறியீடுகளை உருவாக்கவும்</p>
+              <p>తెలుగు (Telugu): క్యూఆర్ కోడ్లు సృష్టించండి</p>
+              <p>ಕನ್ನಡ (Kannada): ಕ್ಯೂಆರ್ ಕೋಡ್‌ಗಳನ್ನು ಸೃಷ್ಟಿಸಿ</p>
+              <p>മലയാളം (Malayalam): QR കോഡുകൾ സൃഷ്‌ടിക്കുക</p>
+              <p>ગુજરાતી (Gujarati): QR કોડ બનાવો</p>
+              <p>ਪੰਜਾਬੀ (Punjabi): QR ਕੋਡ ਬਣਾਓ</p>
+              <p>ଓଡ଼ିଆ (Odia): QR କୋଡ୍ ସୃଷ୍ଟି କରନ୍ତୁ</p>
+              <p>मराठी (Marathi): QR कोड तयार करा</p>
+              <p>اردو (Urdu): کیو آر کوڈز تیار کریں</p>
+            </div>
+
+        </div>
+
         <!-- Compress image -->
         <div class="col-12 col-sm-6">
             <?= renderToolCard("Compress Image",
-                body: 'Compress images to JPEG',
+                body: 'Compress images. Result will be a JPEG. This tool does not change 
+                the dimension of the image. The result will be of slightly lower quality.',
                 link: [
                     'href' => '/tool/compress',
                     'text' => 'Open Image Compressor',
@@ -58,7 +89,7 @@ if(! function_exists('renderToolCard')) {
         <!-- Convert one image format to another -->
         <div class="col-12 col-sm-6">
             <?= renderToolCard("Convert Image To Any Other Format",
-                body: 'Convert your image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats',
+                body: 'Change your image type to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format. The quality of result may be slightly different.',
                 link: [
                     'href' => '/tool/convert',
                     'text' => 'Open Image Convertor',
@@ -89,10 +120,10 @@ if(! function_exists('renderToolCard')) {
         </div>
 
         <div class="col-12 col-sm-6">
-            <?= renderToolCard("Convert PDF To JPG", body : 'Convert PDF to images', link: [
-                'href' => '/tool/pdf/to_jpeg',
-                'text' => 'PDF to JPG',
-            ], ); ?>
+        <?= renderToolCard("Convert PDF To JPGs", body : 'Convert multiple page PDF to JPEG images', link: [
+            'href' => '/tool/pdf/to_jpeg',
+            'text' => 'PDF to JPG',
+        ], ); ?>
 
             <div hidden>
                 <p><strong>Hindi (हिन्दी):</strong> PDF को JPG/PNG में बदलें</p>
@@ -104,7 +135,7 @@ if(! function_exists('renderToolCard')) {
         </div>
 
         <div class="col-12 col-sm-6">
-            <?= renderToolCard("Compress PDF", body : 'Compress PDF', link: [
+            <?= renderToolCard("Compress PDF", body : 'Compress a big PDF to reduce its size.', link: [
                 'href' => '/tool/pdf/compress',
                 'text' => 'Compress PDF',
             ], ); ?>

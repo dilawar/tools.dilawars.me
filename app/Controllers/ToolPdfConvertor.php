@@ -75,7 +75,7 @@ class ToolPdfConvertor extends BaseController
         // Set image format and compression
         $imagick->setImageFormat('pdf');
         $imagick->setImageCompression(\Imagick::COMPRESSION_JPEG);
-        $imagick->setImageCompressionQuality(50); // Range: 0 (worst) to 100 (best)
+        $imagick->setImageCompressionQuality(80); // Range: 0 (worst) to 100 (best)
 
         $result = new ImageData(
             data: $imagick->getImageBlob(),
