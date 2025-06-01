@@ -8,7 +8,7 @@ dev: install_dev
 install:
 	composer install --no-dev
 
-deploy: install db_migrate
+deploy: install migrate
 
 db_migrate:
 	./spark migrate
@@ -43,3 +43,8 @@ doc doc_docker:
 ci: install_dev
 	$(MAKE) fmt
 	$(MAKE) lint
+
+sync_github:
+	git-delete-merged-branches
+	git-delete-squashed-branches
+	git push github --all
