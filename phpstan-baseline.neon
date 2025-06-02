@@ -67,6 +67,24 @@ parameters:
 			path: app/Controllers/ToolPdfConvertor.php
 
 		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$addLogoSpace\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$circleRadius\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$drawCircularModules\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$eccLevel\.$#'
 			identifier: property.protected
 			count: 1
@@ -74,6 +92,24 @@ parameters:
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$imageTransparent\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$keepAsSquare\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$logoSpaceHeight\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$logoSpaceWidth\.$#'
 			identifier: property.protected
 			count: 1
 			path: app/Controllers/ToolQrCodes.php
@@ -87,6 +123,18 @@ parameters:
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$outputInterface\.$#'
 			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$version\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/Controllers/ToolQrCodes.php
+
+		-
+			message: '#^Class constant name in dynamic fetch can only be a string, bool\|int\|string given\.$#'
+			identifier: classConstant.nameType
 			count: 1
 			path: app/Controllers/ToolQrCodes.php
 

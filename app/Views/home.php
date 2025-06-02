@@ -11,14 +11,14 @@ if(! function_exists('renderToolCard')) {
     function renderToolCard(string $title, string $body = '', ?array $link = null): string 
     {
         $html = ["<div class='card h-100'>"];
-
         $html[] = "<div class='card-body'>";
+        if($link) {
+            $html[] = "<a class='w-100 btn btn-link stretched-link' href='" . $link['href'] . "'>" . $link['text'] . "</a>";
+        }
+
         $html[] = "<h4 class='card-title' style='display: none'>$title</h4>";
         $html[] = "<p class='card-text'>$body</p>";
 
-        if($link) {
-            $html[] = "<a class='btn btn-primary stretched-link' href='" . $link['href'] . "'>" . $link['text'] . "</a>";
-        }
         $html[] = "</div>";
 
         $html[] = "</div>";
@@ -35,7 +35,7 @@ if(! function_exists('renderToolCard')) {
         <div class="col-12 col-sm-6">
 
             <?= renderToolCard("Generate QR codes",
-                body: 'Generate Simple QR codes.',
+                body: 'Generate multiple QR codes individually on on a PDF page.',
                 link: [
                     'href' => '/tool/qrcodes',
                     'text' => 'Open Qr Generator',
