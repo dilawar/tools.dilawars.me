@@ -96,10 +96,12 @@
     </div>
     <?php } ?>
 
- 
     <?php echo $this->renderSection('content'); ?>
 
     <footer style="width: 100%; margin-top: 10vh;">
+        <section style="margin-top: 2ex;">
+            <?= App\Data\StatsName::table() ?>
+        </section>
 
         <?php if(! isProduction()) { ?>
 
