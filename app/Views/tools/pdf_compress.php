@@ -62,11 +62,4 @@ echo '</form>';
         'images' => $imagesArtifacts,
     ]) ?>
 </section>
-
-<section style="margin-top: 2ex;">
-    <div style="max-width: 300px; margin: auto;">
-        <?= App\Data\StatsName::table() ?>
-    </div>
-</section>
-
 <?php echo $this->endSection(); ?>

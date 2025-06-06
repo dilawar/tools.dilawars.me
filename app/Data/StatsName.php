@@ -61,15 +61,16 @@ enum StatsName: string {
         }
     }
 
+    /**
+     * Statistics table.
+     */
     public static function table(): string
     {
-        $html = [];
+        $html = ['<div class="row d-flex justify-content-center">'];
         foreach(self::cases() as $item) {
-            $html[] = "<div class='row bg-light px-2 py-1 mt-1'>";
-            $html[] = "<div class='col-10'>" . $item->label() . "</div>";
-            $html[] = "<div class='col-2'>" . $item->get() . "</div>";
-            $html[] = "</div>";
+            $html[] = "<div class='m-1 col-3 badge badge-info bg-info'>" . $item->label() . " <strong>" . $item->get() . "</strong></div>";
         }
+        $html[] = "</div>";
 
         return implode(' ', $html);
     }
