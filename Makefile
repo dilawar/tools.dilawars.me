@@ -6,7 +6,7 @@ dev: install_dev
 	ENVIRONMENT=testing php spark serve
 
 install:
-	composer install --no-dev
+	php composer.phar install --no-dev
 
 deploy: install migrate
 
@@ -17,7 +17,7 @@ db_migrate:
 .PHONY: install
 
 install_dev:
-	composer install 
+	php composer.phar install 
 
 fix fmt:
 	./vendor/bin/ecs --fix
