@@ -148,6 +148,13 @@ if(! function_exists('renderToolCard')) {
         <p>Assamese: পিডিএফ চুঁহি কৰক</p>
     </div>
 
+    <!-- OCR -->
+    <?= renderToolCard("OCR: Extract Text From Images/PDF", body : 'Extract text from PDF and images (no file is uploaded to server)', link: [
+        'href' => '/tool/ocr/extract',
+        'text' => 'OCR',
+    ], ); ?>
+
+
 </section>
 
 <?php echo $this->endSection(); ?>
