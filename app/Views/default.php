@@ -53,10 +53,10 @@
                     <a class="navbar-brand" href="/">
                         <img src="/icon.png" height="64px" />
                     </a>
-                    <span class="display-6"> MaxFlow Tools </span>
+                    <span class="h3 page-title">
+                        MaxFlow Tools 
+                    </span>
                 </div>
-                <ul class="navbar-nav se-auto sb-2">
-                </ul>
             </div>
         </nav>
     </header>

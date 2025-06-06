@@ -8,17 +8,18 @@ if(! function_exists('renderToolCard')) {
     /**
      * @param array{href: string, text: string} $link
      */
-    function renderToolCard(string $title, string $body = '', ?array $link = null): string 
+    function renderToolCard(string $title, string $body, array $link): string 
     {
         $html = ["<div class='card h-100'>"];
         $html[] = "<div class='card-body'>";
-        if($link) {
-            $html[] = "<a class='w-100 btn btn-link stretched-link' href='" . $link['href'] . "'>" . $link['text'] . "</a>";
-        }
 
-        $html[] = "<h4 class='card-title' style='display: none'>$title</h4>";
-        $html[] = "<p class='card-text'>$body</p>";
+        $html[] = "<a class='w-100 btn btn-link stretched-link' href='" . $link['href'] . "'>" 
+            . "<span class='h3'>" . $link['text'] . "</span>"
+            . "</a>";
 
+        // mostly for SEO.
+        $html[] = "<p style='display: none'>$title</p>";
+        $html[] = "<div class='card-text'> $body </div>";
         $html[] = "</div>";
 
         $html[] = "</div>";

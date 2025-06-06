@@ -81,9 +81,9 @@ if(! function_exists('renderQrForm')) {
 
 ?>
 
-<h3 class="section-title">Generate Qr Codes</h3>
-
 <section>
+<h4 class="section-title">Generate Qr Codes</h4>
+
 <?php echo form_open('/tool/qrcodes/generate');
 echo '<p>Write one line for each QR code (maximum of 20 lines).</p>';
 echo renderQrForm($lines, params: [
