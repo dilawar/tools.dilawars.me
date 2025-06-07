@@ -17,11 +17,11 @@ if(! function_exists('renderToolCard')) {
 
         $html[] = '<div class="row justify-content-center">';
 
-        $html[] = "<a class='col-3 btn btn-link stretched-link' href='" . $link['href'] . "'>" 
+        $html[] = "<a class='col-6 col-sm-3 btn btn-link' href='" . $link['href'] . "'>" 
             . "<span class='h5'>" . $link['text'] . "</span>"
             . "</a>";
 
-        $html[] = "<div class='col-8'>$body</div>";
+        $html[] = "<div class='col-6 col-sm-8'>$body</div>";
 
         $html[] = '</div>';
 
