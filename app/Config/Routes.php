@@ -1,8 +1,8 @@
 <?php
 
+use App\Controllers\ToolGeo;
 use App\Controllers\ToolImageCompressor;
 use App\Controllers\ToolImageConvertor;
-use App\Controllers\ToolOcr;
 use App\Controllers\ToolPdfConvertor;
 
 $routes->get('/', 'Home::index');
@@ -31,4 +31,9 @@ $routes->post('/tool/pdf/(:segment)', [[ToolPdfConvertor::class, 'handlePdfActio
 $routes->post('/tools/convertor/convert', 'ToolImageConvertor::convert');
 
 // ocr tool
-$routes->get('/tool/ocr/extract', [ToolOcr::class, 'index']);
+$routes->view('/tool/ocr/extract', 'tools/ocr');
+
+// geo tools.
+$routes->get('/tool/geo/map_route', [ToolGeo::class, 'viewMapRoute']);
+$routes->post('/tool/geo/map_route', [ToolGeo::class, 'handleMapRoute']);
+

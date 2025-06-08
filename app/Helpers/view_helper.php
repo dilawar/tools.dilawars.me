@@ -43,7 +43,7 @@ function showFilesize(int $sizeInBytes): string
 function formInputBootstrap(string $id, string $label, string $value, string $type = 'text'): string 
 {
     $html[] = "<div class='form-group row'>";
-    $html[] = "<label for='$id' class='col-5 col-form-label'>$label</label>";
+    $html[] = _labelColumnBootstrap($label, $id);
 
     $html[] = "<div class='col-4'>";
     $html[] = form_input($id, value: $value, type: $type, extra: [
@@ -62,7 +62,7 @@ function formInputBootstrap(string $id, string $label, string $value, string $ty
 function formSelectBootstrap(string $id, string $label, string $value, array $options): string 
 {
     $html[] = "<div class='row form-group'>";
-    $html[] = "<label for='$id' class='col-5 col-form-label'>$label</label>";
+    $html[] = _labelColumnBootstrap($label, $id);
 
     $html[] = "<div class='col-4'>";
     $html[] = form_dropdown($id, $options, $value, extra: [
@@ -74,3 +74,64 @@ function formSelectBootstrap(string $id, string $label, string $value, array $op
 
     return implode(' ', $html);
 }
+
+function submitButton(string $label = 'Upload', string $extraClass = '', ?string $divClass = null): string 
+{
+    $html = ['<div class="row form-group mt-1">'];
+    $html[] = _labelColumnBootstrap('', '');
+    if($divClass) {
+        $html[] = "<div class='$divClass'>";
+    }
+    $html[] = form_submit("submit", $label, extra: [
+        'class' => "$extraClass btn btn-primary",
+    ]);
+
+    if($divClass)  {
+        $html[] = "</div>";
+    }
+
+    $html[] = "</div>";
+
+    return implode(' ', $html);
+}
+
+function _labelColumnBootstrap(string $label, string $id): string 
+{
+    return "<label for='$id' class='col-5 col-form-label'>$label</label>";
+}
+
+function formUploadFile(string $name, string $label, string $accept = '*'): string 
+{
+    $html[] = "<div class='d-flex row'>";
+
+    $html[] = _labelColumnBootstrap($label, $name);
+
+    $html[] = "<div class='col'>";
+    $html[] = form_upload($name, extra: [
+        'class' => 'form-control',
+        'accept' => $accept,
+    ]);
+    $html[] = "</div>"; // col
+    $html[] = "</div>"; // row
+
+    return implode(' ', $html);
+
+}
+
+function iconify(string $iconName, string $tooltip, int $size = 32): string 
+{
+    return "<div title='$tooltip'>
+        <iconify-icon icon='$iconName' width='$size'></iconify-icon>
+    </div>";
+
+}
+
+/**
+ * @brief Convert given datetime/timestamp to HTML input with type
+ * datetime-local.
+ */
+function htmlDatetimeLocal(string $datetime): string 
+{
+    return date('Y-m-d\TH:i', intval(strtotime($datetime)));
+}
+

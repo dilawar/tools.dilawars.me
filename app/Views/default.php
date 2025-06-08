@@ -39,6 +39,9 @@
           integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" 
           crossorigin="anonymous">
 
+    <!-- icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.0/dist/iconify-icon.min.js"></script>
+
     <link href="<?php echo base_url(); ?>assets/app.css" rel="stylesheet">
 </head>
 

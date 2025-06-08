@@ -154,6 +154,12 @@ if(! function_exists('renderToolCard')) {
         'text' => 'OCR',
     ], ); ?>
 
+    <!-- Map My Run -->
+    <?= renderToolCard("Map my run", body : 'Map your run/route and download GPX', link: [
+        'href' => '/tool/geo/map_route',
+        'text' => 'Map My Route',
+    ], ); ?>
+
 
 </section>
 
