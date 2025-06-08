@@ -125,6 +125,16 @@ function isProduction(): bool
 }
 
 /**
+ * Change extension of a given filepath. If filename does not have extension,
+ * the new extension is simply appended.
+ */
+function changeExtension(string $filepath, string $newExt): string 
+{
+    $ext = str_starts_with($newExt, '.') ? $newExt : '.' . $newExt;
+    return preg_replace('/\.[^.]+$/', '', $filepath) . $ext;
+}
+
+/**
  * @return array<string>
  */
 function supportedImageFormats(bool $sortByPopulatiry = true): array 
