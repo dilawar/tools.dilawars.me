@@ -4,7 +4,7 @@ echo $this->section('content');
 
 use App\Data\ToolActionName;
 
-$downloadUrl = $download_url[1] ?? null;
+$downloadUrl = $download_url ?? null;
 $uploadSize = $filesize_uploaded ?? null;
 $downloadSize = $filesize_result ?? null;
 
@@ -52,21 +52,18 @@ echo "</form>";
 </section>
 
 <section>
+    <div class='result'>
 <?php
 if($downloadUrl) {
-    $perc = floatval($downloadSize) / floatval($uploadSize) * 100.0;
-    $xTimes = number_format(100.0 / $perc, 1);
-
     echo '<h4>Your compressed image is ready. ';
     echo "<a href='$downloadUrl' class='btn btn-success'>Click Here To Download</a>";
     echo '</h4>';
-
-    echo "Uploaded file (" . showFilesize($uploadSize ?? -1) . ") is reduced to <strong>" . showFilesize($downloadSize ?? -1) . "</strong>.";
-    echo " Compression ratio <strong>" . number_format(100.0 / $perc, 1) . '</strong>.';
-    echo '</p>';
+    echo compressionStats($downloadSize ?? -1, uploadSize: $uploadSize ?? -1);
 }
 
 ?>
+
+    </div>
 </section>
 
 <?php echo $this->endSection(); ?>

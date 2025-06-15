@@ -105,3 +105,10 @@ a.glossary {
     max-width: 600px;
     margin: auto;
 }
+
+div.result {
+    padding: 2ex;
+    margin: 5ex 0 0 0;
+    border: 1px solid gray;
+    border-radius: 20px;
+}

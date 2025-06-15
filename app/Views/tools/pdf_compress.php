@@ -62,4 +62,5 @@ echo '</form>';
         'images' => $imagesArtifacts,
     ]) ?>
 </section>
+
 <?php echo $this->endSection(); ?>

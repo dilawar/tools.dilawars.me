@@ -66,7 +66,10 @@ class ToolImageConvertor extends BaseController
 
         $outFilename = $imageData->convertedFilename;
 
-        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($imageData->data, $outFilename);
+        $res = Downloader::saveImage(blob: $imageData->data, filename: $outFilename);
+        $downloadUrl = $res['url'];
+        $pathOnDisk = $res['path'];
+
         log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
 
         $imagick = new \Imagick($pathOnDisk);

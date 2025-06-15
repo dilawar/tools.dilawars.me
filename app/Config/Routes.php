@@ -8,7 +8,7 @@ use App\Controllers\ToolPdfConvertor;
 $routes->get('/', 'Home::index');
 
 // Download files.
-$routes->get('/download/(:any)', 'Home::download/$1');
+$routes->get('/download/(:any)', 'Downloader::index/$1');
 
 // qr tool.
 $routes->get('tool/qrcodes', 'ToolQrCodes::index');

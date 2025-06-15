@@ -28,6 +28,8 @@ class ToolImageCompressor extends BaseController
     }
 
     /**
+     * Compress uploaded image.
+     *
      * @return array<string, mixed>
      */
     private function handleCompressImage(): array
@@ -54,8 +56,10 @@ class ToolImageCompressor extends BaseController
 
         StatsName::TotalImageCompressed->increment();
 
+        $res = Downloader::saveImage($compressedImageBlob, $outfile);
         $data = [
-            'download_url' => Home::writeResultFile($compressedImageBlob, $outfile),
+            'download_url' => $res['url'],
+            'download_filename' => basename($outfile),
             'filesize_uploaded' => $img->getSize(),
             'filesize_result' => strlen($compressedImageBlob),
         ];

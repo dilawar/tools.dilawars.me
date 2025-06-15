@@ -135,3 +135,33 @@ function htmlDatetimeLocal(string $datetime): string
     return date('Y-m-d\TH:i', intval(strtotime($datetime)));
 }
 
+/**
+ * A link target.
+ */
+function a(string $href, ?string $label = null, string $target = '_self'): string
+{
+    $html = "<a href='$href' _target='$target'>" . ($label ?? $href) . "</a>";
+    return $html;
+}
+
+/**
+ * Show compression statistics.
+ */
+function compressionStats(int $downloadSize, int $uploadSize): string
+{
+    $html[] = "";
+
+    $perc = floatval($downloadSize) / floatval($uploadSize) * 100.0;
+    // $xTimes = number_format(100.0 / $perc, 1);
+
+    if($downloadSize < $uploadSize) {
+        $html[] = "Uploaded file of size " . showFilesize($uploadSize) . " is compressed to <strong>" . showFilesize($downloadSize) . "</strong>.";
+        $html[] = " Compression ratio <strong>" . number_format(100.0 / $perc, 1) . '</strong>.';
+    } else {
+        $html[] = "<p class='text-warning'>We ended up increasing the file size from!</p>";
+    }
+    $html[] = '</p>';
+
+    return implode('', $html);
+
+}

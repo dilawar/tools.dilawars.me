@@ -2,6 +2,8 @@
 
 namespace App\Data;
 
+use App\Controllers\Downloader;
+
 class ImageData 
 {
     private ?string $pathOnDisk = null;
@@ -26,7 +28,10 @@ class ImageData
      */
     public function getDownloadUri(): void
     {
-        [$pathOnDisk, $downloadUrl] = \App\Controllers\Home::writeResultFile($this->data, $this->convertedFilename);
+        $res = Downloader::saveImage(blob: $this->data, filename: $this->convertedFilename);
+        $pathOnDisk = $res['path'];
+        $downloadUrl = $res['url'];
+
         log_message('info', "Created donwload url $downloadUrl for path $pathOnDisk.");
         $this->pathOnDisk = $pathOnDisk;
         $this->downloadUrl = $downloadUrl;

@@ -46,9 +46,10 @@ textarea {
 </style>
 
 <section>
-    <h3 class="section-title">Optical Character Recognition</h3>
+    <h3 class="section-title">OCR For Image & PDF</h3>
     <p> No file is uploaded to our server. The OCR happens in your browser (locally and offline).
-        This tool is based on <a target="_blank" href="https://tools.simonwillison.net/ocr">Simon Willson OCR Tool</a>.
+        This tool is based on 
+        <?= a("https://tools.simonwillison.net/ocr", "Simon Willson OCR Tool")?>.
     </p>
 
     <p><label>Language: <select id="id_language"><option>ENG</option></select></label></p>
