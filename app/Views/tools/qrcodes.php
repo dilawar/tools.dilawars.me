@@ -7,6 +7,8 @@ $lines = $lines ?? 'https://tools.maxflow.in';
 
 // result as pdf file.
 $qrCodesAsPdf = $pdf ?? '';
+// results as zip file.
+$qrCodesAsZip = $zip ?? '';
 
 // base64 encoded QR codes.
 $qrCodesBase64 = $result ?? [];
@@ -29,6 +31,18 @@ if(! function_exists('renderQrForm')) {
         $qrLogoSpace = $params['qr_logo_space'] ?? '10';
 
         $html[] = "<div>";
+
+        $html[] = "<details class='mt-1'>
+            <summary style='float:right'>Help</summary>
+            <ul>
+                <li>
+                    <strong>ECC</strong> is the error correction level. High level of ECC
+                    makes your QR code readable (for a cost of larger size) even with some 
+                    damages to prints.
+                </li>
+            </ul>
+        </details>";
+
         // Row for textarea
         $html[] = "<div class='row'>";
         $html[] = "<div class='col-10'>";
@@ -54,7 +68,7 @@ if(! function_exists('renderQrForm')) {
         ];
         $html[] = formSelectBootstrap(
             'ecc_level',
-            label: "Error Correction Code (ECC) Level",
+            label: "ECC (Error Correction) Level",
             value: $params['ecc_level'] ?? 'M',
             options: $options,
         );
@@ -82,10 +96,10 @@ if(! function_exists('renderQrForm')) {
 ?>
 
 <section>
-<h4 class="section-title">Generate Qr Codes</h4>
+<h4 class="section-title">QR Code Generator</h4>
 
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p>Write one line for each QR code (maximum of 20 lines).</p>';
+echo '<p>Write one line for each QR code (maximum of 20 lines)</p>';
 echo renderQrForm($lines, params: [
     'qr_size_in_px' => $qrSizeInPx,
     'ecc_level' => $eccLevel,
@@ -97,12 +111,26 @@ echo form_close();
 </section>
 
 <section>
-<?php
 
+<?php
+echo "<div class='row mt-5 px-1 d-flex justify-content-around'>";
 if($qrCodesBase64 && ! $error) {
-    echo "<p>Download your QR codes. These are in SVG formats that you can open in image editors such as " 
-        . link_tag("https://inkscape.org", "Inkscape") 
-        . " and edit them further.</p>";
+
+    echo "<p>QR codes are in SVG format that you can open in image editors such as " 
+        . a("https://inkscape.org", "Inkscape") . " to edit them further.</p>";
+
+    if($qrCodesAsPdf) {
+        echo "<div class='col-4'>";
+        echo "<a class='btn btn-link' download='qr_codes.pdf' href='$qrCodesAsPdf'>Download All As PDF</a>";
+        echo "</div>";
+    }
+    if($qrCodesAsZip) {
+        echo "<div class='col-4'>";
+        echo "<a class='btn btn-link' download='qr_codes.zip' href='$qrCodesAsZip'>Download All (zip)</a>";
+        echo "</div>";
+    }
+    echo "</div>";
+
     echo "<div class='row'>";
     foreach($qrCodesBase64 as $i => $b64QrCode) {
         echo "<div class='col-4'>";
@@ -111,17 +139,13 @@ if($qrCodesBase64 && ! $error) {
         ]) . '<br />';
 
         $filename = "qrcode-{$qrSizeInPx}x{$qrSizeInPx}-$i.svg";
-        echo "<a style='float:right' download='$filename' href='$b64QrCode'>Download</a>";
+        echo "<a style='float:right' download='$filename' href='$b64QrCode'>Download SVG</a>";
         echo "</div>";
     }
     echo "</div>";
 }
 if($error) {
     echo "<div class='row text-warning'>" . $error . "</div>";
-}
-
-if($qrCodesAsPdf) {
-    echo "<a download='qr_codes.pdf' href='$qrCodesAsPdf'>Download All QR Codes As PDF</a>";
 }
 
 ?>

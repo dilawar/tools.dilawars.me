@@ -19,12 +19,6 @@ parameters:
 			path: app/Config/Routes.php
 
 		-
-			message: '#^Method App\\Controllers\\Home\:\:download\(\) should return CodeIgniter\\HTTP\\ResponseInterface but returns CodeIgniter\\HTTP\\DownloadResponse\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Controllers/Home.php
-
-		-
 			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getFile\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -76,73 +70,73 @@ parameters:
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$addLogoSpace\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$circleRadius\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$drawCircularModules\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$eccLevel\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$imageTransparent\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$keepAsSquare\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$logoSpaceHeight\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$logoSpaceWidth\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$outputBase64\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$outputInterface\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Access to protected property chillerlan\\QRCode\\QROptions\:\:\$version\.$#'
 			identifier: property.protected
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Class constant name in dynamic fetch can only be a string, bool\|int\|string given\.$#'
 			identifier: classConstant.nameType
 			count: 1
-			path: app/Controllers/ToolQrCodes.php
+			path: app/Data/AppQrCode.php
 
 		-
 			message: '#^Binary operation "\+" between 0\|string and int results in an error\.$#'

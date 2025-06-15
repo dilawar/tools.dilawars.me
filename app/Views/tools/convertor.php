@@ -101,9 +101,8 @@ echo '</form>';
 <?php
 if($thumbnailUri) 
 {
-    echo "<div class='mt-3'>";
-    echo "<h4 class='text-success'>Result is ready!</h4> 
-        <a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
+    echo "<div class='mt-3 result'>";
+    echo "<a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
 
     echo "<p>Following is a preview of your result. Some result may not have a visible preview.</p>";
     echo "<div>";

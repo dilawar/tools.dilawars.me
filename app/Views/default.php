@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?= $page_title ?? 'MaxFlow Tools' ?> </title>
+    <title> <?= $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR' ?> </title>
     <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.png">
