@@ -68,13 +68,15 @@ enum StatsName: string {
      */
     public static function table(): string
     {
-        $html = ['<div class="row d-flex justify-content-center">'];
+        $html = ['<div class="row d-flex justify-content-between">'];
         foreach(self::cases() as $item) {
-            $html[] = "<div class='m-1 col-3 badge badge-info bg-info'>" 
+            $html[] = "<div class='col-4 col-sm-3'>";
+            $html[] = "<div class='badge badge-info bg-info'>" 
                 . $item->label() 
                 . " <strong>" 
                 . $item->get() 
                 . "</strong></div>";
+            $html[] = "</div>";
         }
         $html[] = "</div>";
 
@@ -84,9 +86,9 @@ enum StatsName: string {
     private function label(): string 
     {
         $value = match($this) {
-            self::TotalImageConvcersions => "Total Images Converted",
-            self::TotalImageCompressed => "Total Images Compressed",
-            self::TotalQrGenerated => "Total QR generated",
+            self::TotalImageConvcersions => "#Images Converted",
+            self::TotalImageCompressed => "#Images Compressed",
+            self::TotalQrGenerated => "#QR generated",
         };
         return $value;
     }

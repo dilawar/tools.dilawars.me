@@ -52,21 +52,11 @@ L.easyButton(icon, function (btn, map) {
 icon = iconify("mdi:download", "Download GeoJSON");
 L.easyButton(icon, function (btn, map) {
     console.info("Downloading route...");
-    route = loadRoute();
-    geoJSON = {
-        type: "Feature",
-        geometry: {
-            type: "LineString",
-            coordinates: route,
-        },
-    };
-
-    console.info("GeoJSON file: ", geoJSON);
+    const geoJSON = routeDataAsJsonStr();
     var element = document.createElement("a");
     element.setAttribute(
         "href",
-        "data:text/plain;charset=utf-8," +
-            encodeURIComponent(JSON.stringify(geoJSON))
+        "data:text/plain;charset=utf-8," + encodeURIComponent(geoJSON)
     );
     element.setAttribute("download", "route.geojson");
     element.style.display = "none";
@@ -75,6 +65,23 @@ L.easyButton(icon, function (btn, map) {
     document.body.removeChild(element);
 }).addTo(map);
 
+/**
+ * Get route data as geojson string.
+ */
+function routeDataAsJsonStr() {
+    route = loadRoute();
+    const geoJSON = {
+        type: "Feature",
+        geometry: {
+            type: "LineString",
+            coordinates: route,
+        },
+    };
+    console.info("GeoJSON data: ", geoJSON);
+    return JSON.stringify(geoJSON);
+}
+
+// TODO:
 // Snap to roads computation using OSRM API.
 icon = iconify("streamline-ultimate:trip-road", "Snap to roads");
 L.easyButton(icon, async function (btn, map) {
@@ -179,3 +186,4 @@ function storeRoute(route) {
     console.debug("Saving route ", route);
     sessionStorage.setItem("route", JSON.stringify(route));
 }
+
