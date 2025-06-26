@@ -113,7 +113,12 @@ function getDataURI(string $imagePath): string
 {
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->file($imagePath);
-    return 'data:' . $type . ';base64,' . base64_encode(file_get_contents($imagePath));
+    return dataUri((string) file_get_contents($imagePath), (string) $type);
+}
+
+function dataUri(string $content, string $type): string 
+{
+    return 'data:' . $type . ';base64,' . base64_encode($content);
 }
 
 /**

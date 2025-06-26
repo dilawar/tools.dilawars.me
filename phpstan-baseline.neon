@@ -163,12 +163,6 @@ parameters:
 			path: app/Helpers/app_helper.php
 
 		-
-			message: '#^Parameter \#1 \$string of function base64_encode expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Helpers/app_helper.php
-
-		-
 			message: '#^Parameter \#1 \$string of function trim expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1

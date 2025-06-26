@@ -56,16 +56,80 @@ class AppQrCode {
             ];
         }
 
+        $logoImg = null;
+
         $logoSpace = intval($params['qr_logo_space'] ?? '0');
         if($logoSpace > 0) {
             $options->addLogoSpace = true;
             $options->logoSpaceWidth = $logoSpace;
             $options->logoSpaceHeight = $logoSpace;
+
+            // add logo.
+            $qrLogoUrl = (string) $params['qr_logo_url'];
+            if($qrLogoUrl) {
+                log_message('debug', "Adding qr logo from $qrLogoUrl...");
+                try {
+                    $imgContent = file_get_contents($qrLogoUrl);
+                    assert(is_string($imgContent));
+                    $logoImg = new \Imagick();
+                    $logoImg->readImageBlob($imgContent);
+
+                    // Not sure yet how this will correlate.
+                    $logoSize = $logoSpace * $logoSpace;
+                    $logoImg->resizeImage($logoSize, $logoSize, \Imagick::FILTER_LANCZOS, 0.85, true);
+
+                } catch (\Throwable $th) {
+                    log_message('error', "failed to add logo " . $th->getMessage());
+                }
+            }
         }
 
         $eccLevel = $params['ecc_level'] ?? 'H';
         $options->eccLevel = EccLevel::{$eccLevel};
 
-        return (new QRCode($options))->render($line);
+        $svgText = (new QRCode($options))->render($line);
+        log_message('info', "svg:\n " . $svgText);
+
+        if($logoImg) {
+            $svgText = $this->addLogoToSvg($svgText, $logoImg, intval($logoSpace));
+        }
+
+        return $svgText;
+    }
+
+    private function addLogoToSvg(string $svgText, \Imagick $logoImg, int $logoSpace): string 
+    {
+        // We insert logo as data URI inside SVG. We first parse the SVG and
+        // then add the logo.
+        $dom = new \DOMDocument();
+        $dom->loadXML($svgText);
+
+        $svg = $dom->getElementsByTagName("svg")[0];
+
+        // Add a attribute with xlink as namespace.
+        $namespaceAttr = $dom->createAttribute("xmlns:xlink");
+        $namespaceAttr->value = "http://www.w3.org/1999/xlink";
+        $svg->appendChild($namespaceAttr);
+
+        $logoElem = $dom->createElement("image");
+        // attributes.
+        $perc = intval(2 * $logoSpace);
+        $xPerc = 50 - $perc / 2;
+        $attrs = [
+            'x' => $xPerc . "%",
+            'y' => $xPerc . '%',
+            'width' => $perc . '%',
+            'height' => $perc . '%',
+            'xlink:href' => dataUri((string) $logoImg->getImageBlob(), 'image/png'),
+        ];
+        foreach($attrs as $attrName => $attrValue) {
+            $attr = $dom->createAttribute($attrName);
+            $attr->value = $attrValue;
+            $logoElem->appendChild($attr);
+        }
+        // Append logo
+        $svg->appendChild($logoElem);
+
+        return (string) $dom->saveXML();
     }
 }
