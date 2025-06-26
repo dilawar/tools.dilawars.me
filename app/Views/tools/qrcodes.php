@@ -17,6 +17,7 @@ $error = $error ?? null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';
+$qrLogoUrl = $qr_logo_url ?? '';
 $qrVersion = $qr_version ?? '5';
 
 if(! function_exists('renderQrForm')) {
@@ -29,9 +30,9 @@ if(! function_exists('renderQrForm')) {
         $qrSizeInPx = $params['qr_size_in_px'] ?? '256';
         $qrVersion = $params['qr_version'] ?? '5';
         $qrLogoSpace = $params['qr_logo_space'] ?? '10';
+        $qrLogoUrl = $params['qr_logo_url'] ?? '10';
 
         $html[] = "<div>";
-
         $html[] = "<details class='mt-1'>
             <summary style='float:right'>Help</summary>
             <ul>
@@ -44,14 +45,19 @@ if(! function_exists('renderQrForm')) {
         </details>";
 
         // Row for textarea
+        $html[] = "<div class='form-label text-info'>
+            Each line will be converted to a QR code. You can type a maximum 20 lines.
+        </div>";
         $html[] = "<div class='row'>";
         $html[] = "<div class='col-10'>";
         $html[] = form_textarea("lines", $lines, extra: [
             'class' => 'form-control',
-            'rows' => "3",
+            'rows' => "4",
         ]);
         $html[] = "</div>";
         $html[] = "</div>";
+
+        $html[] = "<div class='h4 mt-2'>QR Options</div>";
 
         // Row for size.
         $html[] = formInputBootstrap('qr_size_in_px', label: "QR Size (px)", value: $qrSizeInPx, type: 'number');
@@ -74,7 +80,20 @@ if(! function_exists('renderQrForm')) {
         );
 
         // logo space.
-        $html[] = formInputBootstrap('qr_logo_space', label: "Logo Space (typically between 10 and 25)", value: $qrLogoSpace, type: 'number');
+        $html[] = formInputBootstrap(
+            'qr_logo_space',
+            label: "Logo Space (typically between 10 and 25)",
+            value: $qrLogoSpace,
+            type: 'number'
+        );
+
+        // logo url.
+        $html[] = formInputBootstrap(
+            'qr_logo_url',
+            label: "Logo URL",
+            value: $qrLogoUrl,
+            type: 'text',
+        );
 
         // Row for the submit button.
         $html[] = "<div class='row d-flex justify-content-end mt-3'>";
@@ -99,12 +118,17 @@ if(! function_exists('renderQrForm')) {
 <h4 class="section-title">QR Code Generator</h4>
 
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p>Write one line for each QR code (maximum of 20 lines)</p>';
+echo '<p>
+    You can generate multiple QR codes (upto 20) with or without your logo.
+    Download them as ZIP or PDF file.
+</p>';
+
 echo renderQrForm($lines, params: [
     'qr_size_in_px' => $qrSizeInPx,
     'ecc_level' => $eccLevel,
     'qr_version' => $qrVersion,
     'qr_logo_space' => $qrLogoSpace,
+    'qr_logo_url' => $qrLogoUrl,
 ]);
 echo form_close();
 ?>
