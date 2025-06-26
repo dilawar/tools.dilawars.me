@@ -7,5 +7,10 @@ build-and-test:
   tags:
     - docker
   script:
+    - apt update
+    - apt install -y firefox-esr
     - composer install
     - make ci
+  artifacts:
+    paths:
+      - "_screenshots/*.png"

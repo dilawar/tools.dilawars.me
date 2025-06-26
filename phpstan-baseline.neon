@@ -19,8 +19,8 @@ parameters:
 			path: app/Config/Routes.php
 
 		-
-			message: '#^Call to an undefined method CodeIgniter\\HTTP\\CLIRequest\|CodeIgniter\\HTTP\\IncomingRequest\:\:getFile\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Method App\\Controllers\\ToolGeo\:\:handleMapRoute\(\) should return CodeIgniter\\HTTP\\DownloadResponse\|string but returns CodeIgniter\\HTTP\\DownloadResponse\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Controllers/ToolGeo.php
 

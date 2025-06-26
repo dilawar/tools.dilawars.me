@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\DownloadResponse;
 use phpGPX\Helpers\GeoHelper;
 use phpGPX\Models\GpxFile;
 use phpGPX\Models\Point;
@@ -15,7 +16,10 @@ class ToolGeo extends BaseController
         return $this->loadView();
     }
 
-    public function handleMapRoute(): string 
+    /**
+     * Handle request from map route.
+     */
+    public function handleMapRoute(): string | DownloadResponse
     {
         log_message('info', "Handling map route...");
 
@@ -23,35 +27,24 @@ class ToolGeo extends BaseController
         log_message('debug', "post data " . json_encode($post));
 
         $rules = [
-            'geojson' => [
-                'uploaded[geojson]',
-            ],
+            'geojson' => 'required',
             'start_time' => 'valid_date',
             'end_time' => 'valid_date',
         ];
+
         if (! $this->validateData($post, $rules)) {
             return $this->loadView();
         }
 
-        $data = (array) $this->request->getPost();
-        // log_message('debug', "Got data  " . json_encode($data));
-
-        $file = $this->request->getFile('geojson');
-        assert(! is_null($file));
-        $fileOnDisk = $file->getTempName();
-        $content = json_decode((string) file_get_contents($fileOnDisk), true);
-
+        $content = json_decode($post['geojson'], true);
         $coords = $content['geometry']['coordinates'];
-        $result = $this->createGpx($coords, startTime: $post['start_time'], endTime: $post['end_time']);
-        log_message('debug', "Result is " . $result);
 
-        $data = [
-            'result' => [
-                'filename' => changeExtension($file->getClientName(), '.gpx'),
-                'xml' => $result,
-            ],
-        ];
-        return view('tools/map_route', $data);
+        $gpx = $this->createGpx($coords, startTime: $post['start_time'], endTime: $post['end_time']);
+        log_message('debug', "Result is " . $gpx);
+
+        $date = date('Y-m-d');
+        $filename = "maxflow-{$date}.gpx";
+        return $this->response->download($filename, $gpx);
     }
 
     /**

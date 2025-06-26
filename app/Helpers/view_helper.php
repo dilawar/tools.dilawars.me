@@ -45,7 +45,7 @@ function formInputBootstrap(string $id, string $label, string $value, string $ty
     $html[] = "<div class='form-group row'>";
     $html[] = _labelColumnBootstrap($label, $id);
 
-    $html[] = "<div class='col-4'>";
+    $html[] = "<div class='col-12 col-sm-4'>";
     $html[] = form_input($id, value: $value, type: $type, extra: [
         'id' => $id,
         'class' => 'form-control',
@@ -75,7 +75,14 @@ function formSelectBootstrap(string $id, string $label, string $value, array $op
     return implode(' ', $html);
 }
 
-function submitButton(string $label = 'Upload', string $extraClass = '', ?string $divClass = null): string 
+/**
+ * Render a submit button.
+ */
+function submitButton(
+    string $label = 'Upload',
+    string $extraClass = '',
+    ?string $divClass = null
+): string 
 {
     $html = ['<div class="row form-group mt-1">'];
     $html[] = _labelColumnBootstrap('', '');
@@ -97,19 +104,25 @@ function submitButton(string $label = 'Upload', string $extraClass = '', ?string
 
 function _labelColumnBootstrap(string $label, string $id): string 
 {
-    return "<label for='$id' class='col-5 col-form-label'>$label</label>";
+    return "<label for='$id' class='col-12 col-sm-5 col-form-label'>$label</label>";
 }
 
-function formUploadFile(string $name, string $label, string $accept = '*'): string 
+function formUploadFile(
+    string $name,
+    string $label,
+    string $accept = '*',
+    string $extra = '',
+): string 
 {
     $html[] = "<div class='d-flex row'>";
 
     $html[] = _labelColumnBootstrap($label, $name);
 
-    $html[] = "<div class='col'>";
+    $html[] = "<div class='col-12 col-sm-6'>";
     $html[] = form_upload($name, extra: [
         'class' => 'form-control',
         'accept' => $accept,
+        'extra' => $extra,
     ]);
     $html[] = "</div>"; // col
     $html[] = "</div>"; // row
