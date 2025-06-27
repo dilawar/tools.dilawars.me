@@ -3,7 +3,10 @@
 echo $this->extend('default');
 echo $this->section('content');
 
-$lines = $lines ?? 'https://tools.maxflow.in';
+$lines = $lines ?? 'https://tools.maxflow.in
+tel:9876543210
+mailto:sherpa@maxflow.in
+';
 
 // result as pdf file.
 $qrCodesAsPdf = $pdf ?? '';
@@ -17,7 +20,7 @@ $error = $error ?? null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';
-$qrLogoUrl = $qr_logo_url ?? '';
+$qrLogoUrl = $qr_logo_url ?? 'https://tools.maxflow.in/icon.png';
 $qrVersion = $qr_version ?? '5';
 
 if(! function_exists('renderQrForm')) {
@@ -33,21 +36,34 @@ if(! function_exists('renderQrForm')) {
         $qrLogoUrl = $params['qr_logo_url'] ?? '10';
 
         $html[] = "<div>";
-        $html[] = "<details class='mt-1'>
+        $html[] = "<details class='mt-1 readable'>
             <summary style='float:right'>Help</summary>
-            <ul>
+            <ul class='help'>
                 <li>
-                    <strong>ECC</strong> is the error correction level. High level of ECC
-                    makes your QR code readable (for a cost of larger size) even with some 
-                    damages to prints.
+                    <strong>QR Version</strong>
+                    The more content you include, the larger the QR version you should select.
+                </li>
+                <li>
+                    <strong>ECC (Error Correction Level)</strong> 
+                    ECC helps make your QR code resistant to damage. A higher
+                    ECC level improves durability. If you're adding a logo, it's
+                    recommended to choose ECC level ‘H’ for better reliability.
+                </li>
+                <li>
+                    <strong>Adding a logo</strong>
+                    To include a logo in your QR code, provide a URL to the logo
+                    image. We currently do not support uploading logo files
+                    directly. If we're unable to fetch the logo from the
+                    provided link, the logo area will be left blank.
                 </li>
             </ul>
         </details>";
 
         // Row for textarea
         $html[] = "<div class='form-label text-info'>
-            Each line will be converted to a QR code. You can type a maximum 20 lines.
+            <small> Each line in the form below will be converted to a separate QR code. </small>
         </div>";
+
         $html[] = "<div class='row'>";
         $html[] = "<div class='col-10'>";
         $html[] = form_textarea("lines", $lines, extra: [
@@ -57,13 +73,23 @@ if(! function_exists('renderQrForm')) {
         $html[] = "</div>";
         $html[] = "</div>";
 
-        $html[] = "<div class='h4 mt-2'>QR Options</div>";
+        $html[] = "<div class='h5 mt-5 title'>QR Options</div>";
 
         // Row for size.
-        $html[] = formInputBootstrap('qr_size_in_px', label: "QR Size (px)", value: $qrSizeInPx, type: 'number');
+        $html[] = formInputBootstrap(
+            'qr_size_in_px',
+            label: "QR Size For PDF (in px)",
+            value: $qrSizeInPx,
+            type: 'number'
+        );
 
         // row for version.
-        $html[] = formInputBootstrap('qr_version', label: "QR Version", value: $qrVersion, type: 'number');
+        $html[] = formInputBootstrap(
+            'qr_version',
+            label: "QR Version",
+            value: $qrVersion,
+            type: 'number'
+        );
 
         // Row for select.
         $options = [
@@ -82,7 +108,7 @@ if(! function_exists('renderQrForm')) {
         // logo space.
         $html[] = formInputBootstrap(
             'qr_logo_space',
-            label: "Logo Space (typically between 10 and 25)",
+            label: "Logo Space (typically between 10% and 25%)",
             value: $qrLogoSpace,
             type: 'number'
         );
@@ -90,7 +116,7 @@ if(! function_exists('renderQrForm')) {
         // logo url.
         $html[] = formInputBootstrap(
             'qr_logo_url',
-            label: "Logo URL",
+            label: "Logo URL (image url)",
             value: $qrLogoUrl,
             type: 'text',
         );
@@ -115,12 +141,13 @@ if(! function_exists('renderQrForm')) {
 ?>
 
 <section>
-<h4 class="section-title">QR Code Generator</h4>
+<div class="h3 section-title">QR Code Generator</div>
 
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p>
-    You can generate multiple QR codes (upto 20) with or without your logo.
-    Download them as ZIP or PDF file.
+echo '<p class="readable">
+    This tool can generate upto 20 QR codes in one go. To insert your logo, add
+    its image URL.  Download them as ZIP or PDF file.
+
 </p>';
 
 echo renderQrForm($lines, params: [
@@ -135,14 +162,11 @@ echo form_close();
 </section>
 
 <section>
-
+    <div class='result'>
 <?php
-echo "<div class='row mt-5 px-1 d-flex justify-content-around'>";
 if($qrCodesBase64 && ! $error) {
 
-    echo "<p>QR codes are in SVG format that you can open in image editors such as " 
-        . a("https://inkscape.org", "Inkscape") . " to edit them further.</p>";
-
+    echo '<div class="row">';
     if($qrCodesAsPdf) {
         echo "<div class='col-4'>";
         echo "<a class='btn btn-link' download='qr_codes.pdf' href='$qrCodesAsPdf'>Download All As PDF</a>";
@@ -155,7 +179,12 @@ if($qrCodesBase64 && ! $error) {
     }
     echo "</div>";
 
-    echo "<div class='row'>";
+    echo '<section>';
+    echo "<p>You can also download individual QR code. These are in SVG format that 
+        you can edit in image editors such as " 
+        . a("https://inkscape.org", "Inkscape") . ".</p>";
+
+    echo "<div class='row d-flex justify-content-between'>";
     foreach($qrCodesBase64 as $i => $b64QrCode) {
         echo "<div class='col-4'>";
         echo img($b64QrCode, attributes: [
@@ -163,16 +192,23 @@ if($qrCodesBase64 && ! $error) {
         ]) . '<br />';
 
         $filename = "qrcode-{$qrSizeInPx}x{$qrSizeInPx}-$i.svg";
-        echo "<a style='float:right' download='$filename' href='$b64QrCode'>Download SVG</a>";
+        echo "<a class='btn btn-link text-align-center' download='$filename' href='$b64QrCode'>Download SVG</a>";
         echo "</div>";
     }
     echo "</div>";
+    echo '</section>';
 }
+
 if($error) {
     echo "<div class='row text-warning'>" . $error . "</div>";
 }
-
 ?>
+    </div>
+</section>
+
+<section class="mt-5 px-5">
+    <span class='h6'>Credits:</span> This tool uses excellent 
+    <a href="https://github.com/chillerlan/php-qrcode">chillerlan/php-qrcode</a> library.
 </section>
 
 <?php echo $this->endSection(); ?>

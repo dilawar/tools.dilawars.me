@@ -23,15 +23,9 @@
             crossorigin="anonymous">
     </script>
 
-
-    <!-- selecize -->
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-            integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-            />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" 
+          rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" 
@@ -101,21 +95,19 @@
 
     <?php echo $this->renderSection('content'); ?>
 
-    <footer style="width: 100%; margin-top: 10vh;">
+    <footer style="max-width: 500px; margin: auto; margin-top: 10vh;">
         <section style="margin-top: 2ex;">
             <?= App\Data\StatsName::table() ?>
         </section>
 
         <?php if(! isProduction()) { ?>
-
-        <span style="font-size: small;"> 
-            (version <?php echo APP_VERSION; ?>)
-        </span>
-
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory. 
         Environment: <?php echo ENVIRONMENT; ?></p>
         <?php  } ?>
 
+        <span style="font-size: small;"> 
+            (version <?php echo APP_VERSION; ?>)
+        </span>
         <div class="copyrights">
             <p>&copy; <?php echo date('Y'); ?> <a href="https://maxflow.in">MaxFlow </a>
         </div>
@@ -123,25 +115,12 @@
 
 
 <!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-        crossorigin="anonymous">
-</script>
-
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer">
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" 
         crossorigin="anonymous">
 </script>
 
-<?php echo "<script> $('[id^=" . SELECTIZE_ID_PREFIX . "]').selectize(); </script>"; ?>
+<?php echo "<script> $('[id^=" . SELECTIZE_ID_PREFIX . "]').select2(); </script>"; ?>
 
 </body>
 </html>

@@ -38,32 +38,33 @@ if(! function_exists('renderImageCompressorForm'))
 ?>
 
 <section>
-    <p>
+    <div class='h3 section-title'>Image Compressor</div>
+    <div class='readable'>
         This tool reduces the size of image by compressing it. The final image will be in JPEG
         format. This tool does not change the dimentions (width and height) of the file.
-    </p>
+    </div>
 
-
+    <section class='mt-3'>
 <?php
 echo form_open_multipart("tool/action/compress/" . ToolActionName::CompressImage->value);
 echo renderImageCompressorForm();
 echo "</form>";
 ?>
+    </section>
+
 </section>
 
 <section>
-    <div class='result'>
 <?php
 if($downloadUrl) {
+    echo "<div class='result'>";
     echo '<h4>Your compressed image is ready. ';
     echo "<a href='$downloadUrl' class='btn btn-success'>Click Here To Download</a>";
     echo '</h4>';
     echo compressionStats($downloadSize ?? -1, uploadSize: $uploadSize ?? -1);
+    echo "</div>";
 }
-
 ?>
-
-    </div>
 </section>
 
 <?php echo $this->endSection(); ?>
