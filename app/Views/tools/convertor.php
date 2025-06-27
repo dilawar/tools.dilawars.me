@@ -49,18 +49,16 @@ if(! function_exists('_renderUploadFormInner')) {
 
         // Convert to column.
         $html[] = '<div class="col-sm-4">';
-        $html[] = '<div class="input-group">';
-        $html[] = "<div class='input-group-prepend'> <span class='input-group-text'>Convert To</span> </div>";
+        $html[] = "<span> Convert To </span>";
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
             selected: $toFormat,
             extra: [
                 'id' => SELECTIZE_ID_PREFIX . '_to_format',
-                'class' => 'form-control',
+                'class' => 'form-control col',
             ],
         );
-        $html[] = '</div>';
         $html[] = '</div>';
 
         $html[] = '<div class="col-sm-3">';
@@ -78,8 +76,8 @@ if(! function_exists('_renderUploadFormInner')) {
 ?>
 
 <section>
-<div class='h5'>
-    Welcome to image conversion tool.
+<div class='h3 section-title'>
+    Image conversion Tool
 </div>
 
 <details style="margin:10px;">
