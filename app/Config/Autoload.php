@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\AutoloadConfig;
@@ -7,7 +19,7 @@ use CodeIgniter\Config\AutoloadConfig;
 /**
  * -------------------------------------------------------------------
  * AUTOLOADER CONFIGURATION
- * -------------------------------------------------------------------
+ * -------------------------------------------------------------------.
  *
  * This file defines the namespaces and class maps so the Autoloader
  * can find the files as needed.
@@ -83,7 +95,7 @@ class Autoload extends AutoloadConfig
      * Prototype:
      *   $helpers = [
      *       'form',
-     *   ];
+     *   ];.
      *
      * @var list<string>
      */

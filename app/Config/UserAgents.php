@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
@@ -7,7 +19,7 @@ use CodeIgniter\Config\BaseConfig;
 /**
  * -------------------------------------------------------------------
  * User Agents
- * -------------------------------------------------------------------
+ * -------------------------------------------------------------------.
  *
  * This file contains four arrays of user agent data. It is used by the
  * User Agent Class to help identify browser, platform, robot, and
@@ -19,7 +31,7 @@ class UserAgents extends BaseConfig
     /**
      * -------------------------------------------------------------------
      * OS Platforms
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @var array<string, string>
      */
@@ -71,7 +83,7 @@ class UserAgents extends BaseConfig
     /**
      * -------------------------------------------------------------------
      * Browsers
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * The order of this array should NOT be changed. Many browsers return
      * multiple browser types so we want to identify the subtype first.
@@ -115,7 +127,7 @@ class UserAgents extends BaseConfig
     /**
      * -------------------------------------------------------------------
      * Mobiles
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @var array<string, string>
      */
@@ -222,7 +234,7 @@ class UserAgents extends BaseConfig
     /**
      * -------------------------------------------------------------------
      * Robots
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * There are hundred of bots but these are the most common.
      *

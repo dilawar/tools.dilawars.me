@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
+use App\Controllers\Subscription;
 use App\Controllers\ToolGeo;
 use App\Controllers\ToolImageCompressor;
 use App\Controllers\ToolImageConvertor;
@@ -37,3 +50,5 @@ $routes->view('/tool/ocr/extract', 'tools/ocr');
 $routes->get('/tool/geo/map_route', [ToolGeo::class, 'viewMapRoute']);
 $routes->post('/tool/geo/map_route', [ToolGeo::class, 'handleMapRoute']);
 
+// subscription.
+$routes->get('/tool/subscription/lwn', [Subscription::class, 'lwn']);

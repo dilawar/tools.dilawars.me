@@ -1,15 +1,13 @@
 <?php
 
-/**
- * The goal of this file is to allow developers a location
- * where they can overwrite core procedural functions and
- * replace them with their own. This file is loaded during
- * the bootstrap process and is called during the framework's
- * execution.
+/*
+ * This file is part of the proprietary project.
  *
- * This can be looked at as a `master helper` file that is
- * loaded early on, and may also contain additional functions
- * that you'd like to use throughout your entire application
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
  *
- * @see: https://codeigniter.com/user_guide/extending/common.html
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><?= lang('Errors.badRequest') ?></title>
+    <title><?php echo lang('Errors.badRequest'); ?></title>
 
     <style>
         div.logo {
@@ -73,11 +73,11 @@
     <h1>400</h1>
 
     <p>
-        <?php if (ENVIRONMENT !== 'production') : ?>
-            <?= nl2br(esc($message)) ?>
-        <?php else : ?>
-            <?= lang('Errors.sorryBadRequest') ?>
-        <?php endif; ?>
+        <?php if (ENVIRONMENT !== 'production') { ?>
+            <?php echo nl2br(esc($message)); ?>
+        <?php } else { ?>
+            <?php echo lang('Errors.sorryBadRequest'); ?>
+        <?php } ?>
     </p>
 </div>
 </body>

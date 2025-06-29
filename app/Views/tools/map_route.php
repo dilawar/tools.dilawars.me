@@ -10,28 +10,29 @@ $default = [
     'end_time' => htmlDatetimeLocal($end_time ?? '+1 hour'),
 ];
 
-if(! function_exists('renderBuildMyRouteForm')) {
-    function renderBuildMyRouteForm(array $default = []): string 
+if (! function_exists('renderBuildMyRouteForm')) {
+    function renderBuildMyRouteForm(array $default = []): string
     {
-        $html[] = form_open("/tool/geo/map_route");
+        $html[] = form_open('/tool/geo/map_route');
         $html[] = form_input('geojson', value: '', extra: [
             'hidden' => true,
             'id' => 'map_route_geojson_data',
         ]);
 
-        $html[] = formInputBootstrap('start_time', "Start Time", value: $default['start_time'] ?? '', type: 'datetime-local');
-        $html[] = formInputBootstrap('end_time', "End Time", value: $default['end_time'] ?? '', type: 'datetime-local');
+        $html[] = formInputBootstrap('start_time', 'Start Time', value: $default['start_time'] ?? '', type: 'datetime-local');
+        $html[] = formInputBootstrap('end_time', 'End Time', value: $default['end_time'] ?? '', type: 'datetime-local');
 
         $html[] = "<div class='row justify-content-center'>";
         $html[] = "<div class='btn btn-primary mt-1' onclick='downloadGpx()'>Download GPX</div>";
-        $html[] = "</div>";
+        $html[] = '</div>';
 
         $html[] = form_submit('submit', extra: [
             'hidden' => true,
             'id' => 'map_route_submit',
         ]);
         $html[] = form_close();
-        $html[] = "</div>"; // row
+        $html[] = '</div>'; // row
+
         return implode(' ', $html);
     }
 }
@@ -62,7 +63,7 @@ if(! function_exists('renderBuildMyRouteForm')) {
         Map your route, add start time and end time of the run and download GPX file to 
         upload it on Strava or other services.
         <small> For more advanced needs, try
-            <?= a("https://gotoes.org/strava/Add_Timestamps_To_GPX.php", "this amazing tool") ?>.
+            <?php echo a('https://gotoes.org/strava/Add_Timestamps_To_GPX.php', 'this amazing tool'); ?>.
         </small>
     </p>
 </section>
@@ -72,7 +73,7 @@ if(! function_exists('renderBuildMyRouteForm')) {
 <!-- Input form -->
 <section>
     <section class='mb-2'>
-        <?=  renderBuildMyRouteForm($default) ?>
+        <?php echo  renderBuildMyRouteForm($default); ?>
     </section>
 </section>
 
@@ -80,9 +81,9 @@ if(! function_exists('renderBuildMyRouteForm')) {
 
 <section>
 <?php
-if($resultGpx) {
+if ($resultGpx) {
     $gpxFileName = $resultGpx['filename'];
-    $gpxFileContent = 'data:application/geo+json;base64,' . base64_encode($resultGpx['xml']);
+    $gpxFileContent = 'data:application/geo+json;base64,'.base64_encode($resultGpx['xml']);
 
     echo "<div class='h4 mx-4 text-info'>
         Your result is ready <a class='btn btn-link h4' href='$gpxFileContent' download='$gpxFileName'>Download GPX</a>

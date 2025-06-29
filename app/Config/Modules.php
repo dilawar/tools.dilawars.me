@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Modules\Modules as BaseModules;
@@ -15,7 +27,7 @@ class Modules extends BaseModules
     /**
      * --------------------------------------------------------------------------
      * Enable Auto-Discovery?
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * If true, then auto-discovery will happen across all elements listed in
      * $aliases below. If false, no auto-discovery will happen at all,
@@ -28,7 +40,7 @@ class Modules extends BaseModules
     /**
      * --------------------------------------------------------------------------
      * Enable Auto-Discovery Within Composer Packages?
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * If true, then auto-discovery will happen across all namespaces loaded
      * by Composer, as well as the namespaces configured locally.
@@ -63,7 +75,7 @@ class Modules extends BaseModules
     /**
      * --------------------------------------------------------------------------
      * Auto-Discovery Rules
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Aliases list of all discovery classes that will be active and used during
      * the current application request.

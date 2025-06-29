@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?= $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR' ?> </title>
+    <title> <?php echo $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
     <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.png">
@@ -97,10 +97,10 @@
 
     <footer style="max-width: 500px; margin: auto; margin-top: 10vh;">
         <section style="margin-top: 2ex;">
-            <?= App\Data\StatsName::table() ?>
+            <?php echo App\Data\StatsName::table(); ?>
         </section>
 
-        <?php if(! isProduction()) { ?>
+        <?php if (! isProduction()) { ?>
         <p>Page rendered in {elapsed_time} seconds using {memory_usage} MB of memory. 
         Environment: <?php echo ENVIRONMENT; ?></p>
         <?php  } ?>
@@ -120,7 +120,7 @@
         crossorigin="anonymous">
 </script>
 
-<?php echo "<script> $('[id^=" . SELECTIZE_ID_PREFIX . "]').select2(); </script>"; ?>
+<?php echo "<script> $('[id^=".SELECTIZE_ID_PREFIX."]').select2(); </script>"; ?>
 
 </body>
 </html>

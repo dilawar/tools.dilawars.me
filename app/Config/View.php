@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\View as BaseView;
@@ -34,7 +46,8 @@ class View extends BaseView
      *  { title|esc(js) }
      *  { created_on|date(Y-m-d)|esc(attr) }
      *
-     * @var         array<string, string>
+     * @var array<string, string>
+     *
      * @phpstan-var array<string, parser_callable_string>
      */
     public $filters = [];
@@ -44,7 +57,8 @@ class View extends BaseView
      * by the core Parser by creating aliases that will be replaced with
      * any callable. Can be single or tag pair.
      *
-     * @var         array<string, callable|list<string>|string>
+     * @var array<string, callable|list<string>|string>
+     *
      * @phpstan-var array<string, list<parser_callable_string>|parser_callable_string|parser_callable>
      */
     public $plugins = [];

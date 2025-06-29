@@ -1,16 +1,28 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 use App\Data\ImageData;
 use Assert\Assert;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use Symfony\Component\Filesystem\Path;
 
 /**
- * Convert image to a given format
+ * Convert image to a given format.
  */
 function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): ImageData
 {
-    $imagick = new \Imagick();
+    $imagick = new Imagick();
 
     $content = (string) file_get_contents($uploadedFile->getTempName());
     $imagick->readImageBlob(image: $content);
@@ -37,26 +49,27 @@ function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): Im
 /**
  * Convert image blob to base64 image URI.
  */
-function blobToUri(string $blob, ?string $mime = null): string 
+function blobToUri(string $blob, ?string $mime = null): string
 {
-    if(! $mime) {
+    if (! $mime) {
         $finfo = new finfo(FILEINFO_MIME);
         $mime = $finfo->buffer($blob);
     }
-    return 'data:' . $mime . ';base64,' . base64_encode($blob);
+
+    return 'data:'.$mime.';base64,'.base64_encode($blob);
 }
 
 /**
  * Convert SVG to PNG.
  */
-function svgToPng(string $svg, int $sizeInPx, int $resolution = 1024): string 
+function svgToPng(string $svg, int $sizeInPx, int $resolution = 1024): string
 {
-    $img = new \Imagick();
+    $img = new Imagick();
     $img->setResolution($resolution, $resolution);
     $img->readImageBlob($svg);
-    $img->setImageFormat("png24");
+    $img->setImageFormat('png24');
     log_message('info', "Resizing PNG to $sizeInPx x $sizeInPx.");
-    $img->resizeImage($sizeInPx, $sizeInPx, \Imagick::FILTER_LANCZOS, 2);
+    $img->resizeImage($sizeInPx, $sizeInPx, Imagick::FILTER_LANCZOS, 2);
     $data = $img->getImageBlob();
     $img->clear();
 

@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
@@ -9,7 +21,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Protection Method
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Protection Method for Cross Site Request Forgery protection.
      *
@@ -20,7 +32,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Token Randomization
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Randomize the CSRF Token for added security.
      */
@@ -29,7 +41,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Token Name
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Token name for Cross Site Request Forgery protection.
      */
@@ -38,7 +50,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Header Name
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Header name for Cross Site Request Forgery protection.
      */
@@ -47,7 +59,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Cookie Name
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Cookie name for Cross Site Request Forgery protection.
      */
@@ -56,7 +68,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Expires
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Expiration time for Cross Site Request Forgery protection cookie.
      *
@@ -67,7 +79,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Regenerate
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Regenerate CSRF Token on every submission.
      */
@@ -76,7 +88,7 @@ class Security extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * CSRF Redirect
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Redirect to previous page with error on failure.
      *

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><?= lang('Errors.pageNotFound') ?></title>
+    <title><?php echo lang('Errors.pageNotFound'); ?></title>
 
     <style>
         div.logo {
@@ -73,11 +73,11 @@
         <h1>404</h1>
 
         <p>
-            <?php if (ENVIRONMENT !== 'production') : ?>
-                <?= nl2br(esc($message)) ?>
-            <?php else : ?>
-                <?= lang('Errors.sorryCannotFind') ?>
-            <?php endif; ?>
+            <?php if (ENVIRONMENT !== 'production') { ?>
+                <?php echo nl2br(esc($message)); ?>
+            <?php } else { ?>
+                <?php echo lang('Errors.sorryCannotFind'); ?>
+            <?php } ?>
         </p>
     </div>
 </body>

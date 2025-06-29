@@ -1,9 +1,20 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controllers;
 
 use App\Data\StatsName;
-use RuntimeException;
 
 class ToolImageConvertor extends BaseController
 {
@@ -17,17 +28,19 @@ class ToolImageConvertor extends BaseController
         return $this->loadMainView(to: $to, from: $from);
     }
 
-    public function convert(): string 
+    public function convert(): string
     {
-        log_message('debug', "Converting image...");
+        log_message('debug', 'Converting image...');
         try {
             StatsName::TotalImageConvcersions->increment();
+
             return $this->convertUsingImagick();
         } catch (\Throwable $th) {
             setUserFlashMessage($th->getMessage());
-            if(! isProduction()) {
+            if (! isProduction()) {
                 throw $th;
             }
+
             return $this->loadMainView(
                 to: $this->request->getPost('to_format'),
                 extra: [
@@ -41,7 +54,7 @@ class ToolImageConvertor extends BaseController
     private function convertUsingImagick(): string
     {
         $post = $this->request->getPost();
-        log_message('debug', "post data " . json_encode($post));
+        log_message('debug', 'post data '.json_encode($post));
         $rules = [
             'to_format' => 'required',
             'image' => [
@@ -58,8 +71,8 @@ class ToolImageConvertor extends BaseController
         assert(is_string($to));
 
         $uploadedFile = $this->request->getFile('image');
-        if(! $uploadedFile) {
-            return new RuntimeException("Invalid image");
+        if (! $uploadedFile) {
+            return new \RuntimeException('Invalid image');
         }
 
         $imageData = convertToUsingImagickSingle($to, $uploadedFile);
@@ -88,12 +101,12 @@ class ToolImageConvertor extends BaseController
     /**
      * @param array<string, mixed> $extra
      */
-    private function loadMainView(string $to, ?string $from = null, array $extra = []): string 
+    private function loadMainView(string $to, ?string $from = null, array $extra = []): string
     {
-        log_message('info', "loadMainView: from=$from to=$to " . json_encode($extra));
+        log_message('info', "loadMainView: from=$from to=$to ".json_encode($extra));
 
-        $pageTitle = "Convert Image";
-        if($to) {
+        $pageTitle = 'Convert Image';
+        if ($to) {
             $pageTitle .= " To $to";
         }
 

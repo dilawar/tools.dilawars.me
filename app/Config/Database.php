@@ -1,18 +1,30 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Database\Config;
 
 /**
- * Database Configuration
+ * Database Configuration.
  */
 class Database extends Config
 {
     /**
      * The directory that holds the Migrations and Seeds directories.
      */
-    public string $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
+    public string $filesPath = APPPATH.'Database'.DIRECTORY_SEPARATOR;
 
     /**
      * Lets you choose which connection group to use if no other is specified.

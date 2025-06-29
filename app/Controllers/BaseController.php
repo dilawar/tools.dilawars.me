@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
@@ -13,7 +25,7 @@ use Psr\Log\LoggerInterface;
  * BaseController provides a convenient place for loading components
  * and performing functions that are needed by all your controllers.
  * Extend this class in any new controllers:
- *     class Home extends BaseController
+ *     class Home extends BaseController.
  *
  * For security be sure to declare any new methods as protected or private.
  */

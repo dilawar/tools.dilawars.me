@@ -1,7 +1,20 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
+use App\Services\EmailService;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -19,14 +32,40 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
+    /**
+     * SMTP service.
      */
+    public static function smtp(bool $getShared = true): EmailService
+    {
+        if ($getShared) {
+            /**
+             * @var EmailService
+             */
+            $smtp = static::getSharedInstance('smtp');
+
+            return $smtp;
+        }
+
+        return new EmailService();
+    }
+
+    /**
+     * Templeate rendering using TWIG.
+     */
+    public static function twig(bool $getShared = true): \Twig\Environment
+    {
+        if ($getShared) {
+            /**
+             * @var \Twig\Environment
+             */
+            $twig = static::getSharedInstance('twig');
+
+            return $twig;
+        }
+
+        $loader = new \Twig\Loader\FilesystemLoader(APPPATH.'/Views/templates');
+        $twig = new \Twig\Environment($loader);
+
+        return $twig;
+    }
 }

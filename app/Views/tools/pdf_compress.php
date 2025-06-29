@@ -18,27 +18,27 @@ $imagesArtifacts = $image_artifacts ?? [];
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('renderPdfCompressForm')) {
-    function renderPdfCompressForm(): string 
+if (! function_exists('renderPdfCompressForm')) {
+    function renderPdfCompressForm(): string
     {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
         // Select file
         $html[] = '<div class="col-sm-5">';
-        $html[] = form_input("image", type: "file", extra: [
+        $html[] = form_input('image', type: 'file', extra: [
             'class' => 'form-control',
             'accept' => '.pdf',
         ]);
         $html[] = '</div>';
 
         $html[] = '<div class="col-sm-3">';
-        $html[] = form_submit('submit', "Compress", extra: [
+        $html[] = form_submit('submit', 'Compress', extra: [
             'class' => 'form-control btn btn-primary',
         ]);
         $html[] = '</div>';
 
-        $html[] = "</div>"; // ends row
+        $html[] = '</div>'; // ends row
 
         return implode(' ', $html);
     }
@@ -51,16 +51,16 @@ if(! function_exists('renderPdfCompressForm')) {
 <div class='h5 section-title'> Compress PDF </div>
 
 <?php
-echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfCompress->value);
+echo form_open_multipart('/tool/pdf/'.ToolActionName::PdfCompress->value);
 echo renderPdfCompressForm();
 echo '</form>';
 ?>
 </section>
 
 <section>
-    <?= view_cell('DownloadFileCell', [
+    <?php echo view_cell('DownloadFileCell', [
         'images' => $imagesArtifacts,
-    ]) ?>
+    ]); ?>
 </section>
 
 <?php echo $this->endSection(); ?>

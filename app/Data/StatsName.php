@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Data;
 
 use App\Models\KvStore;
@@ -10,7 +22,8 @@ use App\Models\KvStore;
  * These are stored inside a database table kv_store which is modelled by
  * `App\Models\KvStore`.
  */
-enum StatsName: string {
+enum StatsName: string
+{
     case TotalImageConvcersions = 'stat_total_image_conversions';
     case TotalImageCompressed = 'state_total_image_compressed';
     case TotalQrGenerated = 'state_total_qr_generated';
@@ -36,7 +49,7 @@ enum StatsName: string {
             'value_int' => 0,
         ];
 
-        if(is_null($oldValue)) {
+        if (is_null($oldValue)) {
             model(KvStore::class)->insert($data);
             $oldValue = 0;
         }
@@ -49,10 +62,10 @@ enum StatsName: string {
 
     }
 
-    public static function initialize(): void 
+    public static function initialize(): void
     {
-        log_message('info', "Seeding/Initializing StatsName values");
-        foreach(self::cases() as $item) {
+        log_message('info', 'Seeding/Initializing StatsName values');
+        foreach (self::cases() as $item) {
             $data = [
                 'key_name' => $item->value,
                 'value_int' => 0,
@@ -69,27 +82,28 @@ enum StatsName: string {
     public static function table(): string
     {
         $html = ['<div class="row d-flex justify-content-between">'];
-        foreach(self::cases() as $item) {
+        foreach (self::cases() as $item) {
             $html[] = "<div class='col-4 col-sm-3'>";
-            $html[] = "<div class='badge badge-info bg-info'>" 
-                . $item->label() 
-                . " <strong>" 
-                . $item->get() 
-                . "</strong></div>";
-            $html[] = "</div>";
+            $html[] = "<div class='badge badge-info bg-info'>"
+                .$item->label()
+                .' <strong>'
+                .$item->get()
+                .'</strong></div>';
+            $html[] = '</div>';
         }
-        $html[] = "</div>";
+        $html[] = '</div>';
 
         return implode(' ', $html);
     }
 
-    private function label(): string 
+    private function label(): string
     {
         $value = match($this) {
-            self::TotalImageConvcersions => "#Images Converted",
-            self::TotalImageCompressed => "#Images Compressed",
-            self::TotalQrGenerated => "#QR generated",
+            self::TotalImageConvcersions => '#Images Converted',
+            self::TotalImageCompressed => '#Images Compressed',
+            self::TotalQrGenerated => '#QR generated',
         };
+
         return $value;
     }
 }

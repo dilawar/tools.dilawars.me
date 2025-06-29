@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
@@ -20,7 +32,7 @@ class ContentSecurityPolicy extends BaseConfig
     // -------------------------------------------------------------------------
 
     /**
-     * Default CSP report context
+     * Default CSP report context.
      */
     public bool $reportOnly = false;
 
@@ -43,7 +55,7 @@ class ContentSecurityPolicy extends BaseConfig
     // -------------------------------------------------------------------------
 
     /**
-     * Will default to self if not overridden
+     * Will default to self if not overridden.
      *
      * @var list<string>|string|null
      */
@@ -80,7 +92,7 @@ class ContentSecurityPolicy extends BaseConfig
     public $baseURI;
 
     /**
-     * Lists the URLs for workers and embedded frame contents
+     * Lists the URLs for workers and embedded frame contents.
      *
      * @var list<string>|string
      */
@@ -160,17 +172,17 @@ class ContentSecurityPolicy extends BaseConfig
     public $sandbox;
 
     /**
-     * Nonce tag for style
+     * Nonce tag for style.
      */
     public string $styleNonceTag = '{csp-style-nonce}';
 
     /**
-     * Nonce tag for script
+     * Nonce tag for script.
      */
     public string $scriptNonceTag = '{csp-script-nonce}';
 
     /**
-     * Replace nonce tag automatically
+     * Replace nonce tag automatically.
      */
     public bool $autoNonce = true;
 }
