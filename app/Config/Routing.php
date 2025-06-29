@@ -1,12 +1,15 @@
 <?php
 
-/**
- * This file is part of CodeIgniter 4 framework.
+/*
+ * This file is part of the proprietary project.
  *
- * (c) CodeIgniter Foundation <admin@codeigniter.com>
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
  *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace Config;
@@ -14,7 +17,7 @@ namespace Config;
 use CodeIgniter\Config\Routing as BaseRouting;
 
 /**
- * Routing configuration
+ * Routing configuration.
  */
 class Routing extends BaseRouting
 {
@@ -29,7 +32,7 @@ class Routing extends BaseRouting
      * @var list<string>
      */
     public array $routeFiles = [
-        APPPATH . 'Config/Routes.php',
+        APPPATH.'Config/Routes.php',
     ];
 
     /**
@@ -70,7 +73,7 @@ class Routing extends BaseRouting
 
     /**
      * Sets the class/method that should be called if routing doesn't
-     * find a match. It can be the controller/method name like: Users::index
+     * find a match. It can be the controller/method name like: Users::index.
      *
      * This setting is passed to the Router class and handled there.
      *
@@ -130,7 +133,7 @@ class Routing extends BaseRouting
     /**
      * For Auto Routing (Improved).
      * Whether to translate dashes in URIs for controller/method to CamelCase.
-     * E.g., blog-controller -> BlogController
+     * E.g., blog-controller -> BlogController.
      *
      * If you enable this, $translateURIDashes is ignored.
      *

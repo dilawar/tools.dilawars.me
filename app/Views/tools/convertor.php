@@ -18,15 +18,15 @@ $convertedFileFilename = $converted_file_filename ?? '';
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('_renderUploadFormInner')) {
+if (! function_exists('_renderUploadFormInner')) {
 
     /**
      * @param array<string> $formats
      */
-    function _renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string 
+    function _renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string
     {
         $imageFormats = [];
-        foreach($formats as $fmt) {
+        foreach ($formats as $fmt) {
             $fmt = strtolower($fmt);
             $imageFormats[$fmt] = $fmt;
         }
@@ -34,14 +34,14 @@ if(! function_exists('_renderUploadFormInner')) {
         $html = [];
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        $accept = "image/*";
-        if($toFormat) {
+        $accept = 'image/*';
+        if ($toFormat) {
             $accept = ".$fromFormat";
         }
 
         // Select file
         $html[] = '<div class="col-sm-5">';
-        $html[] = form_input("image", type: "file", extra: [
+        $html[] = form_input('image', type: 'file', extra: [
             'class' => 'form-control',
             'accept' => $accept,
         ]);
@@ -49,25 +49,25 @@ if(! function_exists('_renderUploadFormInner')) {
 
         // Convert to column.
         $html[] = '<div class="col-sm-4">';
-        $html[] = "<span> Convert To </span>";
+        $html[] = '<span> Convert To </span>';
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
             selected: $toFormat,
             extra: [
-                'id' => SELECTIZE_ID_PREFIX . '_to_format',
+                'id' => SELECTIZE_ID_PREFIX.'_to_format',
                 'class' => 'form-control col',
             ],
         );
         $html[] = '</div>';
 
         $html[] = '<div class="col-sm-3">';
-        $html[] = form_submit('submit', "Convert", extra: [
+        $html[] = form_submit('submit', 'Convert', extra: [
             'class' => 'form-control btn btn-primary',
         ]);
         $html[] = '</div>';
 
-        $html[] = "</div>"; // ends row
+        $html[] = '</div>'; // ends row
 
         return implode(' ', $html);
     }
@@ -81,8 +81,8 @@ if(! function_exists('_renderUploadFormInner')) {
 </div>
 
 <details style="margin:10px;">
-    <summary> Total <?= count($supportedFormats) ?> formats are supported. </summary>
-    <?= implode(', ', $supportedFormats) ?>.
+    <summary> Total <?php echo count($supportedFormats); ?> formats are supported. </summary>
+    <?php echo implode(', ', $supportedFormats); ?>.
 </details>
 
 <?php
@@ -97,18 +97,17 @@ echo '</form>';
 
 <!-- result -->
 <?php
-if($thumbnailUri) 
-{
+if ($thumbnailUri) {
     echo "<div class='mt-3 result'>";
     echo "<a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
 
-    echo "<p>Following is a preview of your result. Some result may not have a visible preview.</p>";
-    echo "<div>";
+    echo '<p>Following is a preview of your result. Some result may not have a visible preview.</p>';
+    echo '<div>';
     echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
-    echo "<br />";
-    echo "</div>";
+    echo '<br />';
+    echo '</div>';
 
-    echo "</div>";
+    echo '</div>';
 }
 ?>
 </section>

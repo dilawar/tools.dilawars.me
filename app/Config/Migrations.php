@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
@@ -9,7 +21,7 @@ class Migrations extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * Enable/Disable Migrations
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * Migrations are enabled by default.
      *
@@ -21,7 +33,7 @@ class Migrations extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * Migrations Table
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * This is the name of the table that will store the current migrations state.
      * When migrations runs it will store in a database table which migration
@@ -32,7 +44,7 @@ class Migrations extends BaseConfig
     /**
      * --------------------------------------------------------------------------
      * Timestamp Format
-     * --------------------------------------------------------------------------
+     * --------------------------------------------------------------------------.
      *
      * This is the format that will be used when creating new migrations
      * using the CLI command:

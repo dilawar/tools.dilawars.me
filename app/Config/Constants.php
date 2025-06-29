@@ -1,21 +1,20 @@
 <?php
 
 /*
- | --------------------------------------------------------------------
- | App Namespace
- | --------------------------------------------------------------------
- |
- | This defines the default Namespace that is used throughout
- | CodeIgniter to refer to the Application directory. Change
- | this constant to change the namespace that all application
- | classes should use.
- |
- | NOTE: changing this will require manually modifying the
- | existing namespaces of App\* namespaced-classes.
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
+
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
-$baseUrl = isset($_SERVER['HTTPS']) && 'off' != $_SERVER['HTTPS'] ? 'https://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) : 'http://localhost:8080';
+$baseUrl = isset($_SERVER['HTTPS']) && 'off' != $_SERVER['HTTPS'] ? 'https://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']) : 'http://localhost:8080';
 defined('BASEURL') || define('BASEURL', $baseUrl);
 
 /*
@@ -26,7 +25,7 @@ defined('BASEURL') || define('BASEURL', $baseUrl);
  | The path that Composer's autoload file is expected to live. By default,
  | the vendor folder is in the Root directory, but you can customize that here.
  */
-defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH . 'vendor/autoload.php');
+defined('COMPOSER_PATH') || define('COMPOSER_PATH', ROOTPATH.'vendor/autoload.php');
 
 /*
  |--------------------------------------------------------------------------
@@ -86,4 +85,4 @@ defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125);    // highest automa
 defined('APP_VERSION') || define('APP_VERSION', '1.0');
 
 // use this id on input that will be rendered using selectize js.
-defined('SELECTIZE_ID_PREFIX') || define('SELECTIZE_ID_PREFIX', "selectize-normalize");
+defined('SELECTIZE_ID_PREFIX') || define('SELECTIZE_ID_PREFIX', 'selectize-normalize');

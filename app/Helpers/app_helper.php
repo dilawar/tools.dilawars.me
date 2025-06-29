@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 use Assert\Assert;
 use Symfony\Component\Filesystem\Path;
 
@@ -48,11 +60,11 @@ function goBack(?string $message = null, ?string $href = null): string
     $href = $href ?? previous_url();
 
     $html = '<div class="mt-3">';
-    if($message) {
+    if ($message) {
         $html .= "<span class='display-6'>{$message}</span>";
     }
-    $html .= "<a class='btn btn-link' href='" . $href . "'>Go Back</a>";
-    $html .= "</div>";
+    $html .= "<a class='btn btn-link' href='".$href."'>Go Back</a>";
+    $html .= '</div>';
 
     return $html;
 }
@@ -85,7 +97,7 @@ function base64_url_decode(string $input): string
  */
 function _setKeyVal(string $key, string|array|int|bool $value): void
 {
-    log_message('debug', "Saving {$key}=`" . json_encode($value) . '`.');
+    log_message('debug', "Saving {$key}=`".json_encode($value).'`.');
     session()->set($key, $value);
 }
 
@@ -104,65 +116,67 @@ function _deleteKey(string $key): void
     session()->remove($key);
 }
 
-function storageForConvertedFile(string $filename = ''): string 
+function storageForConvertedFile(string $filename = ''): string
 {
-    return Path::canonicalize(WRITEPATH . 'converted/' . "$filename");
+    return Path::canonicalize(WRITEPATH.'converted/'."$filename");
 }
 
 function getDataURI(string $imagePath): string
 {
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->file($imagePath);
+
     return dataUri((string) file_get_contents($imagePath), (string) $type);
 }
 
-function dataUri(string $content, string $type): string 
+function dataUri(string $content, string $type): string
 {
-    return 'data:' . $type . ';base64,' . base64_encode($content);
+    return 'data:'.$type.';base64,'.base64_encode($content);
 }
 
 /**
  * Are we running in production mode.
  */
-function isProduction(): bool 
+function isProduction(): bool
 {
-    return strtolower(trim(getenv('CI_ENVIRONMENT'))) === 'production';
+    return 'production' === strtolower(trim(getenv('CI_ENVIRONMENT')));
 }
 
 /**
  * Change extension of a given filepath. If filename does not have extension,
  * the new extension is simply appended.
  */
-function changeExtension(string $filepath, string $newExt): string 
+function changeExtension(string $filepath, string $newExt): string
 {
-    $ext = str_starts_with($newExt, '.') ? $newExt : '.' . $newExt;
-    return preg_replace('/\.[^.]+$/', '', $filepath) . $ext;
+    $ext = str_starts_with($newExt, '.') ? $newExt : '.'.$newExt;
+
+    return preg_replace('/\.[^.]+$/', '', $filepath).$ext;
 }
 
 /**
  * @return array<string>
  */
-function supportedImageFormats(bool $sortByPopulatiry = true): array 
+function supportedImageFormats(bool $sortByPopulatiry = true): array
 {
-    $imagick = new \Imagick();
+    $imagick = new Imagick();
     $formats = $imagick->queryFormats();
 
-    if($sortByPopulatiry) {
+    if ($sortByPopulatiry) {
         $popular = [
-            'JPEG', 
-            'JPG', 
-            'WEBP',   
+            'JPEG',
+            'JPG',
+            'WEBP',
             'HEIC',
-            'PNG', 
-            'BMP', 
-            'GIF', 
+            'PNG',
+            'BMP',
+            'GIF',
             'TIFF',
-            'PDF',   
-            'PSD', 
+            'PDF',
+            'PSD',
             'ICO',
             'SVG',
             'AVIF',
-            'TGA', 
+            'TGA',
             'XBM',
             'XPM',
             'EPS',

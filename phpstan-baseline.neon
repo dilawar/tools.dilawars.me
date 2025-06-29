@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to an undefined property Feed\:\:\$item\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Commands/LwnAlert.php
+
+		-
+			message: '#^Offset ''id'' does not exist on array\{feed_source\: string, title\: string, link\: string, description\: string, guid\: string, guid_is_permalink\: string, content\: string, author\: string, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Commands/LwnAlert.php
+
+		-
 			message: '#^Call to method run\(\) of internal class CodeIgniter\\HotReloader\\HotReloader from outside its root namespace CodeIgniter\.$#'
 			identifier: method.internalClass
 			count: 1
@@ -15,7 +27,7 @@ parameters:
 		-
 			message: '#^Variable \$routes might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 16
 			path: app/Config/Routes.php
 
 		-
@@ -389,6 +401,12 @@ parameters:
 			identifier: variable.undefined
 			count: 3
 			path: app/Views/tools/image_compressor.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: app/Views/tools/lwn.php
 
 		-
 			message: '#^Function renderBuildMyRouteForm\(\) has parameter \$default with no value type specified in iterable type array\.$#'

@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controllers;
 
 use App\Data\StatsName;
@@ -14,13 +26,14 @@ class ToolImageCompressor extends BaseController
         return $this->loadToolView();
     }
 
-    public function handleAction(string $actionName): string 
+    public function handleAction(string $actionName): string
     {
-        log_message("info", "Handling action $actionName...");
+        log_message('info', "Handling action $actionName...");
         $action = ToolActionName::from($actionName);
 
-        if($action === ToolActionName::CompressImage) {
+        if (ToolActionName::CompressImage === $action) {
             $data = $this->handleCompressImage();
+
             return $this->loadToolView($data);
         }
 
@@ -47,7 +60,7 @@ class ToolImageCompressor extends BaseController
             return [];
         }
 
-        $img = $this->request->getFile('image'); 
+        $img = $this->request->getFile('image');
         assert(! is_null($img));
 
         $uploadFileName = $img->getName();
@@ -90,12 +103,13 @@ class ToolImageCompressor extends BaseController
     /**
      * @param array<string, mixed> $extra
      */
-    private function loadToolView(array $extra = []): string 
+    private function loadToolView(array $extra = []): string
     {
         $data = [
             ...$extra,
-            'page_title' => "Image Compressor",
+            'page_title' => 'Image Compressor',
         ];
-        return view("tools/image_compressor", $data);
+
+        return view('tools/image_compressor', $data);
     }
 }

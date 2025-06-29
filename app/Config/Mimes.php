@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Config;
 
 /**
@@ -486,7 +498,7 @@ class Mimes
     /**
      * Attempts to determine the best mime type for the given file extension.
      *
-     * @return string|null The mime type found, or none if unable to determine.
+     * @return string|null the mime type found, or none if unable to determine
      */
     public static function guessTypeFromExtension(string $extension)
     {
@@ -504,7 +516,7 @@ class Mimes
      *
      * @param string|null $proposedExtension - default extension (in case there is more than one with the same mime type)
      *
-     * @return string|null The extension determined, or null if unable to match.
+     * @return string|null the extension determined, or null if unable to match
      */
     public static function guessExtensionFromType(string $type, ?string $proposedExtension = null)
     {
@@ -513,7 +525,7 @@ class Mimes
         $proposedExtension = trim(strtolower($proposedExtension ?? ''));
 
         if (
-            $proposedExtension !== ''
+            '' !== $proposedExtension
             && array_key_exists($proposedExtension, static::$mimes)
             && in_array($type, (array) static::$mimes[$proposedExtension], true)
         ) {

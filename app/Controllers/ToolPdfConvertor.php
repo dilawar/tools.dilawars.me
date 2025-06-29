@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controllers;
 
 use App\Data\ImageData;
@@ -14,10 +26,10 @@ class ToolPdfConvertor extends BaseController
 {
     public function index(string $what): string
     {
-        if($what === "compress") {
+        if ('compress' === $what) {
             return view('tools/pdf_compress');
         }
-        if($what === "to_jpeg") {
+        if ('to_jpeg' === $what) {
             return view('tools/pdf_to_image');
         }
 
@@ -27,13 +39,13 @@ class ToolPdfConvertor extends BaseController
     /**
      * Handle action.
      */
-    public function handlePdfAction(string $action): string | RedirectResponse
+    public function handlePdfAction(string $action): string|RedirectResponse
     {
         log_message('info', "Handling action `$action`");
         $action = ToolActionName::from($action);
 
         $post = (array) $this->request->getPost();
-        log_message('debug', "post data " . json_encode($post));
+        log_message('debug', 'post data '.json_encode($post));
         $rules = [
             'image' => [
                 'uploaded[image]',
@@ -46,27 +58,27 @@ class ToolPdfConvertor extends BaseController
         }
 
         $uploadedFile = $this->request->getFile('image');
-        if(! $uploadedFile) {
-            return new RuntimeException("Invalid image");
+        if (! $uploadedFile) {
+            return new RuntimeException('Invalid image');
         }
 
-        if($action === ToolActionName::PdfConvertToJpeg) {
+        if (ToolActionName::PdfConvertToJpeg === $action) {
             return $this->convertUsingImagick($uploadedFile);
         }
-        if($action === ToolActionName::PdfCompress) {
+        if (ToolActionName::PdfCompress === $action) {
             return $this->compressUsingImagick($uploadedFile);
         }
 
-        throw new RuntimeException("Invalid PDF action " . $action->value);
+        throw new RuntimeException('Invalid PDF action '.$action->value);
     }
 
     private function compressUsingImagick(UploadedFile $uploadedFile): string
     {
-        log_message("info", "Compressing pdf using imagick");
+        log_message('info', 'Compressing pdf using imagick');
 
         $pdffile = $uploadedFile->getTempName();
         $originalName = $uploadedFile->getClientName();
-        $convertedFilename = $originalName . "_compressed.pdf";
+        $convertedFilename = $originalName.'_compressed.pdf';
 
         $imagick = new \Imagick();
         $imagick->setResolution(100, 100);
@@ -93,7 +105,7 @@ class ToolPdfConvertor extends BaseController
     private function convertUsingImagick(UploadedFile $uploadedFile): string
     {
         $images = $this->convertPdfToJpgs($uploadedFile);
-        foreach($images as &$image) {
+        foreach ($images as &$image) {
             // store and generate download uri.
             $image->getDownloadUri();
             // generate thumbnail.
@@ -107,11 +119,11 @@ class ToolPdfConvertor extends BaseController
     }
 
     /**
-     * Convert PDF to JPGs
+     * Convert PDF to JPGs.
      *
      * @return array<ImageData>
      */
-    private function convertPdfToJpgs(UploadedFile $file): array 
+    private function convertPdfToJpgs(UploadedFile $file): array
     {
         $pdffile = $file->getTempName();
         $pdf = new \Imagick($pdffile);
@@ -124,8 +136,8 @@ class ToolPdfConvertor extends BaseController
         log_message('info', "> Converting PDF file `$originalName`.");
         Assert::that($originalName)->minLength(3);
 
-        for($i = 0; $i < $numPages; $i++) {
-            $uri = $pdffile . '[' . $i . ']';
+        for ($i = 0; $i < $numPages; ++$i) {
+            $uri = $pdffile.'['.$i.']';
             $imagick = new \Imagick();
             $imagick->readImage($uri);
             $imagick->setResolution(400, 400);
@@ -136,11 +148,12 @@ class ToolPdfConvertor extends BaseController
             $result[] = new ImageData(
                 data: $imagick->getImageBlob(),
                 originalFilename: $originalName,
-                convertedFilename: $originalName . "-" . ($i + 1) . ".jpg",
+                convertedFilename: $originalName.'-'.($i + 1).'.jpg',
             );
 
             $imagick->clear();
         }
+
         return $result;
 
     }

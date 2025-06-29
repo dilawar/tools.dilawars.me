@@ -20,7 +20,7 @@ install_dev:
 	php composer.phar install 
 
 fix fmt:
-	./vendor/bin/ecs --fix
+	PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix
 
 lint: 
 	$(PHPSTAN) analyze app

@@ -1,15 +1,17 @@
 <?php
 
 /*
- |--------------------------------------------------------------------------
- | ERROR DISPLAY
- |--------------------------------------------------------------------------
- | In development, we want to show as many errors as possible to help
- | make sure they don't make it to production. And save us hours of
- | painful debugging.
- |
- | If you set 'display_errors' to '1', CI4's detailed error report will show.
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 

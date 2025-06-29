@@ -1,31 +1,37 @@
 <?php echo $this->extend('default'); ?>
 <?php echo $this->section('content'); ?>
 
-<?php 
+<?php
 
-if(! function_exists('renderToolCard')) {
+if (! function_exists('renderToolCard')) {
 
     /**
      * @param array{href: string, text: string} $link
      */
-    function renderToolCard(string $title, string $body, array $link): string 
+    function renderToolCard(string $title, string $body, array $link, string $icon = ''): string
     {
         $html[] = "<div class='border p-2 mt-2 rounded'>";
 
         // mostly for SEO.
         $html[] = "<p style='display: none'>$title</p>";
 
-        $html[] = '<div class="row justify-content-center">';
+        $html[] = '<div class="row justify-content-start">';
 
-        $html[] = "<a class='col-6 col-sm-3 btn btn-link' href='" . $link['href'] . "'>" 
-            . "<span class='h5'>" . $link['text'] . "</span>"
-            . "</a>";
+        // add icon.
+        $html[] = "<div class='col'>";
+        $html[] = iconify($icon ?: 'bi:tools', $title, size: 18);
+        $html[] = '</div>';
+
+        $html[] = "<a class='col-6 col-sm-3' href='".$link['href']."'>"
+            ."<span class='h5'>".$link['text'].'</span>'
+            .'</a>';
 
         $html[] = "<div class='col-6 col-sm-8'>$body</div>";
 
         $html[] = '</div>';
 
-        $html[] = "</div>";
+        $html[] = '</div>';
+
         return implode(' ', $html);
     }
 }
@@ -35,13 +41,13 @@ if(! function_exists('renderToolCard')) {
 <section>
 
     <!-- QR Generator  -->
-    <?= renderToolCard("Generate QR codes",
+    <?php echo renderToolCard('Generate QR codes',
         body: 'Generate multiple QR codes (SVG) and also download them all on a single PDF page for printing.',
         link: [
             'href' => '/tool/qrcodes',
             'text' => 'QR Generator',
-        ]); 
-    ?>
+        ]);
+?>
 
 
     <div style="display: none;">
@@ -61,14 +67,14 @@ if(! function_exists('renderToolCard')) {
 
 
     <!-- Compress image -->
-    <?= renderToolCard("Compress Image",
+    <?php echo renderToolCard('Compress Image',
         body: 'Compress images. Result will be a JPEG. This tool does not change 
         the dimension of the image. The result will be of slightly lower quality.',
         link: [
             'href' => '/tool/compress',
             'text' => 'Image Compressor',
-        ]); 
-    ?>
+        ]);
+?>
 
     <div id="translations" style="display: none;">
       <div data-lang="en">Compress your image file</div>
@@ -85,13 +91,13 @@ if(! function_exists('renderToolCard')) {
 
 
     <!-- Convert one image format to another -->
-    <?= renderToolCard("Convert Image To Any Other Format",
+    <?php echo renderToolCard('Convert Image To Any Other Format',
         body: 'Change your image type to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format. The quality of result may be slightly different.',
         link: [
             'href' => '/tool/convert',
             'text' => 'Image Convertor',
-        ]); 
-    ?>
+        ]);
+?>
     <div style="display: none;">
       <!-- Hindi -->
       छवि को PNG, JPG, BMP, ICON, GIF और 100 अन्य फ़ॉर्मेट्स में कनवर्ट करें।  
@@ -115,7 +121,7 @@ if(! function_exists('renderToolCard')) {
       تصویر کو PNG، JPG، BMP، ICON، GIF اور 100 دیگر فارمیٹس میں تبدیل کریں۔
     </div>
 
-    <?= renderToolCard("Convert PDF To JPGs", body : 'Convert multiple page PDF to JPEG images', link: [
+    <?php echo renderToolCard('Convert PDF To JPGs', body : 'Convert multiple page PDF to JPEG images', link: [
         'href' => '/tool/pdf/to_jpeg',
         'text' => 'PDF to JPG',
     ], ); ?>
@@ -128,7 +134,7 @@ if(! function_exists('renderToolCard')) {
         <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>
     </div>
 
-    <?= renderToolCard("Compress PDF", body : 'Compress a big PDF to reduce its size.', link: [
+    <?php echo renderToolCard('Compress PDF', body : 'Compress a big PDF to reduce its size.', link: [
         'href' => '/tool/pdf/compress',
         'text' => 'Compress PDF',
     ], ); ?>
@@ -149,17 +155,25 @@ if(! function_exists('renderToolCard')) {
     </div>
 
     <!-- OCR -->
-    <?= renderToolCard("OCR: Extract Text From Images/PDF", body : 'Extract text from PDF and images (no file is uploaded to server)', link: [
+    <?php echo renderToolCard('OCR: Extract Text From Images/PDF', body : 'Extract text from PDF and images (no file is uploaded to server)', link: [
         'href' => '/tool/ocr/extract',
         'text' => 'OCR',
     ], ); ?>
 
     <!-- Map My Run -->
-    <?= renderToolCard("Map my run", body : 'Map your run/route and download GPX', link: [
+    <?php echo renderToolCard('Map my run', body : 'Map your run/route and download GPX', link: [
         'href' => '/tool/geo/map_route',
         'text' => 'Map My Route',
-    ], ); ?>
+    ],
+    ); ?>
 
+    <!-- Notify when a LWN article become open  -->
+    <?php echo renderToolCard('Notify when a recent LWN article is public',
+        body : 'Notify when a recent LWN article becomes open', link: [
+            'href' => '/tool/subscription/lwn',
+            'text' => 'Notify when LWN article is open',
+        ], icon: 'streamline-freehand-color:send-email-fly'
+    ); ?>
 
 </section>
 

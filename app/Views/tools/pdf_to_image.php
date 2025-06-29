@@ -18,14 +18,14 @@ $imagesArtifacts = $image_artifacts ?? [];
  */
 $supportedFormats = supportedImageFormats();
 
-if(! function_exists('renderUploadForm')) {
+if (! function_exists('renderUploadForm')) {
     /**
      * @param array<string> $formats
      */
-    function renderUploadFormInner(string $toFormat, array $formats): string 
+    function renderUploadFormInner(string $toFormat, array $formats): string
     {
         $imageFormats = [];
-        foreach($formats as $fmt) {
+        foreach ($formats as $fmt) {
             $fmt = strtolower($fmt);
             $imageFormats[$fmt] = $fmt;
         }
@@ -35,7 +35,7 @@ if(! function_exists('renderUploadForm')) {
 
         // Select file
         $html[] = '<div class="col-sm-5">';
-        $html[] = form_input("image", type: "file", extra: [
+        $html[] = form_input('image', type: 'file', extra: [
             'class' => 'form-control',
             'accept' => '.pdf',
         ]);
@@ -50,7 +50,7 @@ if(! function_exists('renderUploadForm')) {
             options: $imageFormats,
             selected: $toFormat,
             extra: [
-                'id' => SELECTIZE_ID_PREFIX . '_to_format',
+                'id' => SELECTIZE_ID_PREFIX.'_to_format',
                 'class' => 'form-control',
             ],
         );
@@ -58,12 +58,12 @@ if(! function_exists('renderUploadForm')) {
         $html[] = '</div>';
 
         $html[] = '<div class="col-sm-3">';
-        $html[] = form_submit('submit', "Convert", extra: [
+        $html[] = form_submit('submit', 'Convert', extra: [
             'class' => 'form-control btn btn-primary',
         ]);
         $html[] = '</div>';
 
-        $html[] = "</div>"; // ends row
+        $html[] = '</div>'; // ends row
 
         return implode(' ', $html);
     }
@@ -80,16 +80,16 @@ $hidden = [
     'from' => $fromFormat,
     'to' => $toFormat,
 ];
-echo form_open_multipart('/tool/pdf/' . ToolActionName::PdfConvertToJpeg->value, hidden: $hidden);
+echo form_open_multipart('/tool/pdf/'.ToolActionName::PdfConvertToJpeg->value, hidden: $hidden);
 echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
 </section>
 
 <section>
-    <?= view_cell('DownloadFileCell', [
+    <?php echo view_cell('DownloadFileCell', [
         'images' => $imagesArtifacts,
-    ]) ?>
+    ]); ?>
 </section>
 
 <?php echo $this->endSection(); ?>

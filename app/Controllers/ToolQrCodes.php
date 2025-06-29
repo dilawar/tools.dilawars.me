@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * This file is part of the proprietary project.
+ *
+ * This file and its contents are confidential and protected by copyright law.
+ * Unauthorized copying, distribution, or disclosure of this content
+ * is strictly prohibited without prior written consent from the author or
+ * copyright owner.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controllers;
 
 use App\Data\AppQrCode;
@@ -26,10 +38,10 @@ class ToolQrCodes extends BaseController
         Assert::that($text)->minLength(3);
 
         // Directory to keep generated qr codes. It must be unique.
-        $resultDir = Downloader::datadir('qrcodes', hash('sha1', $text), "qrcodes-maxflow");
+        $resultDir = Downloader::datadir('qrcodes', hash('sha1', $text), 'qrcodes-maxflow');
 
         $fs = preg_split('/\R/', trim($text));
-        if(! $fs) {
+        if (! $fs) {
             $lines = [$text];
         } else {
             $lines = $fs;
@@ -46,12 +58,12 @@ class ToolQrCodes extends BaseController
         $html[] = '<div class="row">';
 
         $i = 0;
-        foreach(array_slice($lines, 0, 20) as $line) {
-            $i += 1;
+        foreach (array_slice($lines, 0, 20) as $line) {
+            ++$i;
             try {
                 $qr = new AppQrCode($line);
                 $qrSVG = $qr->svg($params);
-                $svgFilename = $resultDir . "/qr-$i.svg";
+                $svgFilename = $resultDir."/qr-$i.svg";
                 Downloader::writeFile($svgFilename, $qrSVG);
 
                 // log_message('debug', "QR data: " . $qrSVG);
@@ -77,12 +89,13 @@ class ToolQrCodes extends BaseController
         $pdf->loadHtml(implode(' ', $html));
         $pdf->render();
         $data['result'] = $qrcodes;
-        if($pdfStr = $pdf->output()) {
+        if ($pdfStr = $pdf->output()) {
             $data['pdf'] = blobToUri($pdfStr);
         }
 
         $data['zip'] = Downloader::url($resultDir);
         $data['error'] = $error;
+
         return $this->loadMainView($data);
     }
 
@@ -93,6 +106,7 @@ class ToolQrCodes extends BaseController
     {
         $data = (array) $this->request->getPost();
         $data = array_merge($data, $extra);
+
         return view('tools/qrcodes', $data);
     }
 }
