@@ -10,7 +10,9 @@ if (! function_exists('renderToolCard')) {
      */
     function renderToolCard(string $title, string $body, array $link, string $icon = ''): string
     {
-        $html[] = "<div class='border p-2 mt-2 rounded'>";
+        unset($icon);
+
+        $html[] = "<div class='readable border p-2 mt-2 rounded'>";
 
         // mostly for SEO.
         $html[] = "<p style='display: none'>$title</p>";
@@ -18,9 +20,7 @@ if (! function_exists('renderToolCard')) {
         $html[] = '<div class="row justify-content-start">';
 
         // add icon.
-        $html[] = "<div class='col'>";
-        $html[] = iconify($icon ?: 'bi:tools', $title, size: 18);
-        $html[] = '</div>';
+        // $icon = iconify($icon ?: 'bi:tools', $title, size: 18);
 
         $html[] = "<a class='col-6 col-sm-3' href='".$link['href']."'>"
             ."<span class='h5'>".$link['text'].'</span>'
@@ -42,10 +42,10 @@ if (! function_exists('renderToolCard')) {
 
     <!-- QR Generator  -->
     <?php echo renderToolCard('Generate QR codes',
-        body: 'Generate multiple QR codes (SVG) and also download them all on a single PDF page for printing.',
+        body: 'Generate multiple QR codes (SVG). Download them all on a single PDF page for printing.',
         link: [
             'href' => '/tool/qrcodes',
-            'text' => 'QR Generator',
+            'text' => 'QR Code Generator',
         ]);
 ?>
 
@@ -67,9 +67,8 @@ if (! function_exists('renderToolCard')) {
 
 
     <!-- Compress image -->
-    <?php echo renderToolCard('Compress Image',
-        body: 'Compress images. Result will be a JPEG. This tool does not change 
-        the dimension of the image. The result will be of slightly lower quality.',
+    <?php echo renderToolCard('Compress Images',
+        body: 'Compress various types of images to JPEG to reduce size.',
         link: [
             'href' => '/tool/compress',
             'text' => 'Image Compressor',
@@ -92,7 +91,7 @@ if (! function_exists('renderToolCard')) {
 
     <!-- Convert one image format to another -->
     <?php echo renderToolCard('Convert Image To Any Other Format',
-        body: 'Change your image type to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format. The quality of result may be slightly different.',
+        body: 'Change a image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format.',
         link: [
             'href' => '/tool/convert',
             'text' => 'Image Convertor',
@@ -121,7 +120,9 @@ if (! function_exists('renderToolCard')) {
       تصویر کو PNG، JPG، BMP، ICON، GIF اور 100 دیگر فارمیٹس میں تبدیل کریں۔
     </div>
 
-    <?php echo renderToolCard('Convert PDF To JPGs', body : 'Convert multiple page PDF to JPEG images', link: [
+<?php echo renderToolCard('Convert PDF File to JPGs',
+    body : 'Convert PDF file to JPEG images',
+    link: [
         'href' => '/tool/pdf/to_jpeg',
         'text' => 'PDF to JPG',
     ], ); ?>
@@ -155,23 +156,27 @@ if (! function_exists('renderToolCard')) {
     </div>
 
     <!-- OCR -->
-    <?php echo renderToolCard('OCR: Extract Text From Images/PDF', body : 'Extract text from PDF and images (no file is uploaded to server)', link: [
-        'href' => '/tool/ocr/extract',
-        'text' => 'OCR',
-    ], ); ?>
+    <?php echo renderToolCard('OCR: Extract Text From Images/PDF',
+        body : 'Extract text from PDF and images locally. No file is uploaded to server.',
+        link: [
+            'href' => '/tool/ocr/extract',
+            'text' => 'Optical Character Recognition (OCR)',
+        ], ); ?>
 
     <!-- Map My Run -->
-    <?php echo renderToolCard('Map my run', body : 'Map your run/route and download GPX', link: [
-        'href' => '/tool/geo/map_route',
-        'text' => 'Map My Route',
-    ],
+    <?php echo renderToolCard('Map my route/run', body : 'Map your running/biking route and download GPX',
+        link: [
+            'href' => '/tool/geo/map_route',
+            'text' => 'Map My Route',
+        ],
     ); ?>
 
     <!-- Notify when a LWN article become open  -->
     <?php echo renderToolCard('Notify when a recent LWN article is public',
-        body : 'Notify when a recent LWN article becomes open', link: [
+        body : 'Subscribe to a group/email-list and get notified by email',
+        link: [
             'href' => '/tool/subscription/lwn',
-            'text' => 'Notify when LWN article is open',
+            'text' => 'LWN is un-paywalled',
         ], icon: 'streamline-freehand-color:send-email-fly'
     ); ?>
 

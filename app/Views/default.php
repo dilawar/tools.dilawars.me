@@ -105,11 +105,9 @@
         Environment: <?php echo ENVIRONMENT; ?></p>
         <?php  } ?>
 
-        <span style="font-size: small;"> 
-            (version <?php echo APP_VERSION; ?>)
-        </span>
         <div class="copyrights">
-            <p>&copy; <?php echo date('Y'); ?> <a href="https://maxflow.in">MaxFlow </a>
+            Version <?php echo APP_VERSION; ?>
+            <p>&copy; <?php echo date('Y'); ?> <a href="https://dilawars.me">Dilawar Singh</a>
         </div>
     </footer>
 

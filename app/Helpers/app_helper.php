@@ -139,7 +139,7 @@ function dataUri(string $content, string $type): string
  */
 function isProduction(): bool
 {
-    return 'production' === strtolower(trim(getenv('CI_ENVIRONMENT')));
+    return 'production' === strtolower(ENVIRONMENT);
 }
 
 /**
