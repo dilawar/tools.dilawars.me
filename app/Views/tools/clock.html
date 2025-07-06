@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>D3 Clock</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+            crossorigin="anonymous"
+        />
+
+        <style>
+            #clock {
+                stroke: #fff;
+                font-family:
+                    "monospace", "Helvetica Neue", Helvetica, Arial,
+                    "Lucida Grande", sans-serif;
+            }
+
+            #clock #rim {
+                fill: teal;
+                stroke: #fff;
+                stroke-width: 3px;
+            }
+
+            #clock .second-hand {
+                stroke-width: 3;
+            }
+
+            #clock .minute-hand {
+                stroke-width: 8;
+                stroke-linecap: round;
+                stroke-opacity: 0.8;
+            }
+
+            #clock .hour-hand {
+                stroke-width: 12;
+                stroke-linecap: round;
+                stroke-opacity: 0.5;
+            }
+
+            #clock .hands-cover {
+                stroke-width: 3;
+                fill: #fff;
+            }
+
+            #clock .second-tick {
+                stroke-width: 3;
+                fill: #fff;
+            }
+
+            #clock .hour-tick {
+                stroke-width: 8;
+            }
+
+            #clock .second-label {
+                font-size: 16px;
+                fill: #fff;
+            }
+
+            #clock .hour-label {
+                font-size: 48px;
+                fill: #fff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div
+            class="bg-dark flex align-content-center justify-content-center"
+            style="width: 100%; height: 100vh; margin: auto;"
+        >
+            <div class="col-12" id="clock-container"></div>
+            <div class="text-white text-center display-2" id="datetime">
+            </div>
+        </div>
+        <script type="module" src="/assets/js/clock.js"></script>
+    </body>
+</html>
