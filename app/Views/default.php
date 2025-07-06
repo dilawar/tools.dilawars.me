@@ -44,17 +44,23 @@
 <body>
     <!-- Navigation bar -->
     <header>
-        <nav class="navbar navbar-expand">
-            <div class="container-fluid d-flex align-content-center">
-                <div>
-                    <a class="navbar-brand" href="/">
-                        <img src="/icon.png" height="64px" />
-                    </a>
-                    <span class="h3 page-title">
-                        MaxFlow Tools 
-                    </span>
-                </div>
+        <nav class="navbar navbar-expand flex flex-row justify-content-end">
+            <div class="col-1">
+                <a class="navbar-brand" href="/">
+                    <img src="/icon.png" height="64px" />
+                </a>
             </div>
+            <div class='col'></div>
+
+            <?php if(auth()->loggedIn()) { ?>
+            <span class="col col-sm-3 col-md-3 text-underline">
+                <small> Hi <?= auth()->user()?->getEmail(); ?> </small>
+            </span>
+            <a class="btn btn-info btn-sm col-3 col-sm-2 col-md-1 mx-1" href="/logout">Logout</a>
+            <?php } else { ?>
+            <a class="btn btn-link col-3 col-sm-2 col-md-1 mx-1" href="/login">Login</a>
+            <?php } ?>
+
         </nav>
     </header>
 

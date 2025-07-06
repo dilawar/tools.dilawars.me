@@ -12,23 +12,16 @@ if (! function_exists('renderToolCard')) {
     {
         unset($icon);
 
-        $html[] = "<div class='readable border p-2 mt-2 rounded'>";
+        $html[] = "<div class='readable p-2 mt-2'>";
 
         // mostly for SEO.
         $html[] = "<p style='display: none'>$title</p>";
 
-        $html[] = '<div class="row justify-content-start">';
-
-        // add icon.
-        // $icon = iconify($icon ?: 'bi:tools', $title, size: 18);
-
-        $html[] = "<a class='col-6 col-sm-3' href='".$link['href']."'>"
+        $html[] = "<a class='col' href='".$link['href']."'>"
             ."<span class='h5'>".$link['text'].'</span>'
             .'</a>';
 
-        $html[] = "<div class='col-6 col-sm-8'>$body</div>";
-
-        $html[] = '</div>';
+        $html[] = $body;
 
         $html[] = '</div>';
 

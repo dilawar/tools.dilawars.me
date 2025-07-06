@@ -13,6 +13,84 @@ parameters:
 			path: app/Commands/LwnAlert.php
 
 		-
+			message: '#^Cannot access offset ''force_reset'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Cannot access offset ''group_denied'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Cannot access offset ''login'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Cannot access offset ''logout'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Cannot access offset ''permission_denied'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Cannot access offset ''register'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Property Config\\Auth\:\:\$personalFields type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Property Config\\Auth\:\:\$redirects type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Property Config\\Auth\:\:\$validFields type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Property Config\\Auth\:\:\$views type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			message: '#^Property Config\\AuthGroups\:\:\$matrix type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthGroups.php
+
+		-
+			message: '#^Property Config\\AuthGroups\:\:\$permissions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthGroups.php
+
+		-
+			message: '#^Property Config\\AuthToken\:\:\$authenticatorHeader type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthToken.php
+
+		-
 			message: '#^Call to method run\(\) of internal class CodeIgniter\\HotReloader\\HotReloader from outside its root namespace CodeIgniter\.$#'
 			identifier: method.internalClass
 			count: 1
@@ -25,9 +103,21 @@ parameters:
 			path: app/Config/Events.php
 
 		-
+			message: '#^Call to unknown service method ''auth''\.$#'
+			identifier: codeigniter.unknownServiceMethod
+			count: 1
+			path: app/Config/Routes.php
+
+		-
+			message: '#^Cannot call method routes\(\) on null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Routes.php
+
+		-
 			message: '#^Variable \$routes might not be defined\.$#'
 			identifier: variable.undefined
-			count: 17
+			count: 18
 			path: app/Config/Routes.php
 
 		-
@@ -179,6 +269,300 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/Helpers/app_helper.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 3
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 6
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Variable \$code might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Variable \$date might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Variable \$ipAddress might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Variable \$userAgent might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_2fa_email.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 3
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 6
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Variable \$code might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Variable \$date might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Variable \$ipAddress might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Variable \$userAgent might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/email_activate_email.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 3
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 6
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Variable \$date might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Variable \$ipAddress might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Variable \$token might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Variable \$userAgent might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Views/Shield/Email/magic_link_email.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/email_2fa_show.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 5
+			path: app/Views/Shield/email_2fa_show.php
+
+		-
+			message: '#^Parameter \#1 \(non\-empty\-array\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|non\-falsy\-string\|true\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/email_2fa_show.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/email_2fa_show.php
+
+		-
+			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/email_2fa_verify.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 4
+			path: app/Views/Shield/email_2fa_verify.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/email_2fa_verify.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/email_activate_show.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 5
+			path: app/Views/Shield/email_activate_show.php
+
+		-
+			message: '#^Parameter \#1 \(non\-empty\-array\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|non\-falsy\-string\|true\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/email_activate_show.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/email_activate_show.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/layout.php
+
+		-
+			message: '#^Cannot access offset ''allowRemembering'' on array\|bool\|float\|int\|object\|string\|null\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 2
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 12
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/login.php
+
+		-
+			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/magic_link_form.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/magic_link_form.php
+
+		-
+			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/magic_link_form.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 6
+			path: app/Views/Shield/magic_link_form.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/magic_link_form.php
+
+		-
+			message: '#^Binary operation "/" between array\|bool\|float\|int\|object\|string\|null and 60 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Views/Shield/magic_link_message.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 4
+			path: app/Views/Shield/magic_link_message.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/magic_link_message.php
+
+		-
+			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/register.php
+
+		-
+			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 2
+			path: app/Views/Shield/register.php
+
+		-
+			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: app/Views/Shield/register.php
+
+		-
+			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 13
+			path: app/Views/Shield/register.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: app/Views/Shield/register.php
 
 		-
 			message: '#^Variable \$this might not be defined\.$#'
