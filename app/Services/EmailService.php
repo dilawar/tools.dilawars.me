@@ -31,13 +31,13 @@ class EmailService
         $this->client = new PHPMailer($enableException);
         $this->client->isSMTP();
 
-        $this->client->Host = (string) getenv('SMTP_SERVER');
-        $this->client->Port = intval(getenv('SMTP_PORT'));
+        $this->client->Host = (string) getenv('email.SMTPHost');
+        $this->client->Port = intval(getenv('email.SMTPPort'));
         log_message('info', 'Using smtp host='.$this->client->Host
             .' port='.$this->client->Port);
 
-        $this->client->Username = (string) getenv('SMTP_USERNAME');
-        $this->client->Password = (string) getenv('SMTP_PASSWORD');
+        $this->client->Username = (string) getenv('email.SMTPUser');
+        $this->client->Password = (string) getenv('email.SMTPPass');
 
         Assert::that($this->client->Username)->minLength(4);
         Assert::that($this->client->Password)->minLength(16);

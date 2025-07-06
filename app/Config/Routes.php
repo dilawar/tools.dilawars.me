@@ -55,3 +55,5 @@ $routes->get('/tool/subscription/lwn', [Subscription::class, 'lwn']);
 
 // Clock tool
 $routes->view('/tool/clock', 'tools/clock.html');
+
+service('auth')->routes($routes);

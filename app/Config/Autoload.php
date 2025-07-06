@@ -99,11 +99,5 @@ class Autoload extends AutoloadConfig
      *
      * @var list<string>
      */
-    public $helpers = [
-        'app_helper',
-        'view_helper',
-        'image_helper',
-        'form',
-        'html',
-    ];
+    public $helpers = ['app_helper', 'view_helper', 'image_helper', 'form', 'html', 'auth', 'setting'];
 }
