@@ -509,10 +509,7 @@ class Auth extends ShieldAuth
      */
     protected function getUrl(string $url): string
     {
-        // To accommodate all url patterns
-        $final_url = '';
-
-        $final_url = match (true) {
+        return match (true) {
             // URL begins with 'http' or 'https'. E.g. http://example.com
             str_starts_with($url, 'http://') || str_starts_with($url, 'https://') => $url,
             // URL is a named-route
@@ -520,7 +517,5 @@ class Auth extends ShieldAuth
             // URL is a route (URI path)
             default => rtrim(site_url($url), '/ '),
         };
-
-        return $final_url;
     }
 }
