@@ -18,9 +18,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail = 'noreply@maxflow.in';
+    public string $fromEmail = 'noreply@dilawars.me';
 
-    public string $fromName = 'MaxFlow';
+    public string $fromName = 'Bot';
 
     public string $recipients = '';
 
