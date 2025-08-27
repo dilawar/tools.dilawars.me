@@ -20,7 +20,7 @@ $error = $error ?? null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';
-$qrLogoUrl = $qr_logo_url ?? 'https://tools.maxflow.in/icon.png';
+$qrLogoUrl = $qr_logo_url ?? 'https://tools.maxflow.in/icon.jpg';
 $qrVersion = $qr_version ?? '5';
 
 if (! function_exists('renderQrForm')) {

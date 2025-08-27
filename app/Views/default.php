@@ -5,7 +5,7 @@
     <title> <?php echo $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
     <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="/icon.png">
+    <link rel="shortcut icon" type="image/png" href="/icon.jpg">
 
 
     <!-- Google tag (gtag.js) -->
@@ -47,7 +47,7 @@
         <nav class="navbar navbar-expand flex flex-row justify-content-end">
             <div class="col-1">
                 <a class="navbar-brand" href="/">
-                    <img src="/icon.png" height="64px" />
+                    <img src="/icon.jpg" height="64px" />
                 </a>
             </div>
             <div class='col'></div>
