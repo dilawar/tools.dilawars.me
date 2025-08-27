@@ -52,9 +52,9 @@
             </div>
             <div class='col'></div>
 
-            <?php if(auth()->loggedIn()) { ?>
+            <?php if (auth()->loggedIn()) { ?>
             <span class="col col-sm-3 col-md-3 text-underline">
-                <small> Hi <?= auth()->user()?->getEmail(); ?> </small>
+                <small> Hi <?php echo auth()->user()?->getEmail(); ?> </small>
             </span>
             <a class="btn btn-info btn-sm col-3 col-sm-2 col-md-1 mx-1" href="/logout">Logout</a>
             <?php } else { ?>

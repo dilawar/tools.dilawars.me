@@ -134,7 +134,7 @@ class AppQrCode
             'y' => $xPerc.'%',
             'width' => $perc.'%',
             'height' => $perc.'%',
-            'xlink:href' => dataUri((string) $logoImg->getImageBlob(), 'image/png'),
+            'xlink:href' => dataUri($logoImg->getImageBlob(), 'image/png'),
         ];
         foreach ($attrs as $attrName => $attrValue) {
             $attr = $dom->createAttribute($attrName);
