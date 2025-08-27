@@ -70,14 +70,13 @@ class ToolImageCompressor extends BaseController
         StatsName::TotalImageCompressed->increment();
 
         $res = Downloader::saveImage($compressedImageBlob, $outfile);
-        $data = [
+
+        return [
             'download_url' => $res['url'],
             'download_filename' => basename($outfile),
             'filesize_uploaded' => $img->getSize(),
             'filesize_result' => strlen($compressedImageBlob),
         ];
-
-        return $data;
 
     }
 

@@ -500,7 +500,7 @@ class Mimes
      *
      * @return string|null the mime type found, or none if unable to determine
      */
-    public static function guessTypeFromExtension(string $extension)
+    public static function guessTypeFromExtension(string $extension): ?string
     {
         $extension = trim(strtolower($extension), '. ');
 

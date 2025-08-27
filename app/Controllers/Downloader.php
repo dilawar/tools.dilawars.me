@@ -30,11 +30,7 @@ class Downloader extends BaseController
         log_message('info', "Downloading `$dirOrFile` ...");
         $dirOrFile = WRITEPATH.$dirOrFile;
 
-        if (is_dir($dirOrFile)) {
-            $filepath = $this->createZip($dirOrFile);
-        } else {
-            $filepath = $dirOrFile;
-        }
+        $filepath = is_dir($dirOrFile) ? $this->createZip($dirOrFile) : $dirOrFile;
 
         if (is_file($filepath)) {
             return $this->response->download($filepath, null);

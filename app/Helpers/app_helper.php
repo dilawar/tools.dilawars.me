@@ -64,9 +64,8 @@ function goBack(?string $message = null, ?string $href = null): string
         $html .= "<span class='display-6'>{$message}</span>";
     }
     $html .= "<a class='btn btn-link' href='".$href."'>Go Back</a>";
-    $html .= '</div>';
 
-    return $html;
+    return $html.'</div>';
 }
 
 /**

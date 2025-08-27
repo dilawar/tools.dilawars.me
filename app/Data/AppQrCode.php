@@ -80,7 +80,7 @@ class AppQrCode
 
             // add logo.
             $qrLogoUrl = (string) $params['qr_logo_url'];
-            if ($qrLogoUrl) {
+            if ('' !== $qrLogoUrl && '0' !== $qrLogoUrl) {
                 log_message('debug', "Adding qr logo from $qrLogoUrl...");
                 try {
                     $imgContent = file_get_contents($qrLogoUrl);
@@ -104,7 +104,7 @@ class AppQrCode
         $svgText = (new QRCode($options))->render($line);
         log_message('info', "svg:\n ".$svgText);
 
-        if ($logoImg) {
+        if ($logoImg instanceof \Imagick) {
             $svgText = $this->addLogoToSvg($svgText, $logoImg, intval($logoSpace));
         }
 

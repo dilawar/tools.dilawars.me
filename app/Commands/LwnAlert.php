@@ -71,7 +71,7 @@ class LwnAlert extends BaseCommand
      *
      * The sender must ensure that we don't send duplicate emails next day.
      */
-    public function run(array $params)
+    public function run(array $params): void
     {
         log_message('info', 'Running with parameter . '.json_encode($params));
         $this->updateRssEntries();
@@ -140,7 +140,7 @@ class LwnAlert extends BaseCommand
             $existingItem = (array) $feedItemModel
                 ->where('feed_source', $feedSource)->where('guid', $item['guid'])->first();
 
-            if (! $existingItem) {
+            if ([] === $existingItem) {
                 log_message('debug', 'Inserting new item '.json_encode($item));
                 $feedItemModel->insert($item);
             } else {

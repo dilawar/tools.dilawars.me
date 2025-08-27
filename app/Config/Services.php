@@ -64,8 +64,7 @@ class Services extends BaseService
         }
 
         $loader = new \Twig\Loader\FilesystemLoader(APPPATH.'/Views/templates');
-        $twig = new \Twig\Environment($loader);
 
-        return $twig;
+        return new \Twig\Environment($loader);
     }
 }

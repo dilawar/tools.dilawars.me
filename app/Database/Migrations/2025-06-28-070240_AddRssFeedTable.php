@@ -18,7 +18,7 @@ use CodeIgniter\Database\Migration;
 
 class AddRssFeedTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         // add table to aggregate RSS feeds.
         $query = <<<'QUERY'
@@ -48,7 +48,7 @@ QUERY;
         $this->db->query($query);
     }
 
-    public function down()
+    public function down(): void
     {
         $this->db->query('DROP TABLE rss_feed_items');
     }

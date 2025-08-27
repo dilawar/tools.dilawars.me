@@ -35,7 +35,7 @@ if (! function_exists('_renderUploadFormInner')) {
         $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
         $accept = 'image/*';
-        if ($toFormat) {
+        if ('' !== $toFormat && '0' !== $toFormat) {
             $accept = ".$fromFormat";
         }
 
