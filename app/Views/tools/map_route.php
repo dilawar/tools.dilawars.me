@@ -83,7 +83,7 @@ if (! function_exists('renderBuildMyRouteForm')) {
 <?php
 if ($resultGpx) {
     $gpxFileName = $resultGpx['filename'];
-    $gpxFileContent = 'data:application/geo+json;base64,'.base64_encode($resultGpx['xml']);
+    $gpxFileContent = 'data:application/geo+json;base64,'.base64_encode((string) $resultGpx['xml']);
 
     echo "<div class='h4 mx-4 text-info'>
         Your result is ready <a class='btn btn-link h4' href='$gpxFileContent' download='$gpxFileName'>Download GPX</a>

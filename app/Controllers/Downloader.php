@@ -26,15 +26,11 @@ class Downloader extends BaseController
      */
     public function index(string ...$segs): ResponseInterface|DownloadResponse|null
     {
-        $dirOrFile = join('/', $segs);
+        $dirOrFile = implode('/', $segs);
         log_message('info', "Downloading `$dirOrFile` ...");
         $dirOrFile = WRITEPATH.$dirOrFile;
 
-        if (is_dir($dirOrFile)) {
-            $filepath = $this->createZip($dirOrFile);
-        } else {
-            $filepath = $dirOrFile;
-        }
+        $filepath = is_dir($dirOrFile) ? $this->createZip($dirOrFile) : $dirOrFile;
 
         if (is_file($filepath)) {
             return $this->response->download($filepath, null);
@@ -99,7 +95,7 @@ class Downloader extends BaseController
         helper('filesystem');
 
         $subdir = array_filter([$subdir1, $subdir2, $subdir3]);
-        $dir = self::dir(join('/', $subdir));
+        $dir = self::dir(implode('/', $subdir));
         if (is_dir($dir) && $clear) {
             log_message('info', "Removing existing directory $dir.");
             delete_files($dir, delDir: true);

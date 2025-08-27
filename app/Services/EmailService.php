@@ -23,7 +23,7 @@ class EmailService
     /**
      * PHPMailer client.
      */
-    private PHPMailer $client;
+    private readonly PHPMailer $client;
 
     public function __construct(bool $enableException = true, bool $debug = false)
     {

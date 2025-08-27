@@ -18,7 +18,7 @@ use CodeIgniter\Database\Migration;
 
 class AddLwnSubscribers extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $this->db->query('CREATE TABLE subscribers (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +35,7 @@ class AddLwnSubscribers extends Migration
         )');
     }
 
-    public function down()
+    public function down(): void
     {
         $this->db->query('DROP TABLE subscribers');
     }

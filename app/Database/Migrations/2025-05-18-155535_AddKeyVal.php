@@ -18,7 +18,7 @@ use CodeIgniter\Database\Migration;
 
 class AddStat extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $this->db->query("CREATE TABLE kv_store(
             key_name VARCHAR(255) NOT NULL,
@@ -32,7 +32,7 @@ class AddStat extends Migration
         ");
     }
 
-    public function down()
+    public function down(): void
     {
         $this->forge->dropTable('kv_store');
     }

@@ -165,9 +165,7 @@ function htmlDatetimeLocal(string $datetime): string
  */
 function a(string $href, ?string $label = null, string $target = '_self'): string
 {
-    $html = "<a href='$href' _target='$target'>".($label ?? $href).'</a>';
-
-    return $html;
+    return "<a href='$href' _target='$target'>".($label ?? $href).'</a>';
 }
 
 /**

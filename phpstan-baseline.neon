@@ -103,6 +103,12 @@ parameters:
 			path: app/Config/Events.php
 
 		-
+			message: '#^PHPDoc type array\<string, array\<int\<0, max\>\|string, array\<string, string\>\|string\>\> of property Config\\Filters\:\:\$globals is not covariant with PHPDoc type array\{before\: array\<int\<0, max\>\|string, array\{except\: list\<string\>\|string\}\|string\>, after\: array\<int\<0, max\>\|string, array\{except\: list\<string\>\|string\}\|string\>\} of overridden property CodeIgniter\\Config\\Filters\:\:\$globals\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/Filters.php
+
+		-
 			message: '#^Call to unknown service method ''auth''\.$#'
 			identifier: codeigniter.unknownServiceMethod
 			count: 1
@@ -235,6 +241,12 @@ parameters:
 			path: app/Data/AppQrCode.php
 
 		-
+			message: '#^Class constant name for chillerlan\\QRCode\\Common\\EccLevel must be a string, but bool\|int\|string was given\.$#'
+			identifier: classConstant.nameNotString
+			count: 1
+			path: app/Data/AppQrCode.php
+
+		-
 			message: '#^Class constant name in dynamic fetch can only be a string, bool\|int\|string given\.$#'
 			identifier: classConstant.nameType
 			count: 1
@@ -251,18 +263,6 @@ parameters:
 			identifier: method.internal
 			count: 2
 			path: app/Filters/Throttle.php
-
-		-
-			message: '#^Function _getKeyVal\(\) should return array\<string\>\|bool\|int\|string\|null but returns array\|bool\|float\|int\|object\|string\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Helpers/app_helper.php
-
-		-
-			message: '#^Parameter \#1 \$array of function array_unique expects array, array\|bool\|float\|int\|object\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Helpers/app_helper.php
 
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, int\|false given\.$#'
@@ -391,22 +391,10 @@ parameters:
 			path: app/Views/Shield/email_2fa_show.php
 
 		-
-			message: '#^Parameter \#1 \(non\-empty\-array\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|non\-falsy\-string\|true\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/email_2fa_show.php
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 5
 			path: app/Views/Shield/email_2fa_show.php
-
-		-
-			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/email_2fa_verify.php
 
 		-
 			message: '#^Parameter \#1 \(list\<string\>\|string\) of echo cannot be converted to string\.$#'
@@ -433,12 +421,6 @@ parameters:
 			path: app/Views/Shield/email_activate_show.php
 
 		-
-			message: '#^Parameter \#1 \(non\-empty\-array\|float\|int\<min, \-1\>\|int\<1, max\>\|object\|non\-falsy\-string\|true\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/email_activate_show.php
-
-		-
 			message: '#^Variable \$this might not be defined\.$#'
 			identifier: variable.undefined
 			count: 5
@@ -457,19 +439,7 @@ parameters:
 			path: app/Views/Shield/login.php
 
 		-
-			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 2
-			path: app/Views/Shield/login.php
-
-		-
 			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/login.php
-
-		-
-			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
 			identifier: echo.nonString
 			count: 1
 			path: app/Views/Shield/login.php
@@ -487,19 +457,7 @@ parameters:
 			path: app/Views/Shield/login.php
 
 		-
-			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/magic_link_form.php
-
-		-
 			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/magic_link_form.php
-
-		-
-			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
 			identifier: echo.nonString
 			count: 1
 			path: app/Views/Shield/magic_link_form.php
@@ -535,21 +493,9 @@ parameters:
 			path: app/Views/Shield/magic_link_message.php
 
 		-
-			message: '#^Parameter \#1 \(array\|bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/Views/Shield/register.php
-
-		-
 			message: '#^Parameter \#1 \(array\|string\|null\) of echo cannot be converted to string\.$#'
 			identifier: echo.nonString
 			count: 2
-			path: app/Views/Shield/register.php
-
-		-
-			message: '#^Parameter \#1 \(bool\|float\|int\|object\|string\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
 			path: app/Views/Shield/register.php
 
 		-

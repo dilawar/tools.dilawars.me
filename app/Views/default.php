@@ -5,7 +5,7 @@
     <title> <?php echo $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
     <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="/icon.png">
+    <link rel="shortcut icon" type="image/png" href="/icon.jpg">
 
 
     <!-- Google tag (gtag.js) -->
@@ -47,14 +47,14 @@
         <nav class="navbar navbar-expand flex flex-row justify-content-end">
             <div class="col-1">
                 <a class="navbar-brand" href="/">
-                    <img src="/icon.png" height="64px" />
+                    <img src="/icon.jpg" height="64px" />
                 </a>
             </div>
             <div class='col'></div>
 
-            <?php if(auth()->loggedIn()) { ?>
+            <?php if (auth()->loggedIn()) { ?>
             <span class="col col-sm-3 col-md-3 text-underline">
-                <small> Hi <?= auth()->user()?->getEmail(); ?> </small>
+                <small> Hi <?php echo auth()->user()?->getEmail(); ?> </small>
             </span>
             <a class="btn btn-info btn-sm col-3 col-sm-2 col-md-1 mx-1" href="/logout">Logout</a>
             <?php } else { ?>

@@ -37,6 +37,7 @@
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-beberlei-assert": "^2.0",
         "phpunit/phpunit": "^10.5.16",
+        "rector/rector": "^2.1",
         "symfony/panther": "^2.2"
     },
     "autoload": {

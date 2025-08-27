@@ -57,16 +57,15 @@ function nameToLabel(string $name): string
  */
 function goBack(?string $message = null, ?string $href = null): string
 {
-    $href = $href ?? previous_url();
+    $href ??= previous_url();
 
     $html = '<div class="mt-3">';
     if ($message) {
         $html .= "<span class='display-6'>{$message}</span>";
     }
     $html .= "<a class='btn btn-link' href='".$href."'>Go Back</a>";
-    $html .= '</div>';
 
-    return $html;
+    return $html.'</div>';
 }
 
 /**

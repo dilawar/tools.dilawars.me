@@ -98,12 +98,10 @@ enum StatsName: string
 
     private function label(): string
     {
-        $value = match($this) {
+        return match($this) {
             self::TotalImageConvcersions => '#Images Converted',
             self::TotalImageCompressed => '#Images Compressed',
             self::TotalQrGenerated => '#QR generated',
         };
-
-        return $value;
     }
 }

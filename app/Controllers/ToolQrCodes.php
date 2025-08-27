@@ -41,11 +41,7 @@ class ToolQrCodes extends BaseController
         $resultDir = Downloader::datadir('qrcodes', hash('sha1', $text), 'qrcodes-maxflow');
 
         $fs = preg_split('/\R/', trim($text));
-        if (! $fs) {
-            $lines = [$text];
-        } else {
-            $lines = $fs;
-        }
+        $lines = ! $fs ? [$text] : $fs;
 
         // Rest of the parameters from POST request except lines.
         $params = (array) $this->request->getPost();

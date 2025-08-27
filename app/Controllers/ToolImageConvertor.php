@@ -106,7 +106,7 @@ class ToolImageConvertor extends BaseController
         log_message('info', "loadMainView: from=$from to=$to ".json_encode($extra));
 
         $pageTitle = 'Convert Image';
-        if ($to) {
+        if ('' !== $to && '0' !== $to) {
             $pageTitle .= " To $to";
         }
 
