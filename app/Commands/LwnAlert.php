@@ -89,7 +89,7 @@ class LwnAlert extends BaseCommand
         // Notify devs about triggered job.
         service('smtp')->notifyDevs(
             '<code><pre>'.json_encode($items).'</pre></code>',
-            subject: __CLASS__.':'.__FUNCTION__.' ran at '.Time::now()
+            subject: self::class.':'.__FUNCTION__.' ran at '.Time::now()
         );
 
         log_message('info', 'Total '.count($items).' articles are open');

@@ -33,7 +33,7 @@ $errorId = uniqid('error', true);
             <h1><?php echo esc($title), esc($exception->getCode() ? ' #'.$exception->getCode() : ''); ?></h1>
             <p>
                 <?php echo nl2br(esc($exception->getMessage())); ?>
-                <a href="https://www.duckduckgo.com/?q=<?php echo urlencode($title.' '.preg_replace('#\'.*\'|".*"#Us', '', $exception->getMessage())); ?>"
+                <a href="https://www.duckduckgo.com/?q=<?php echo urlencode($title.' '.preg_replace('#\'.*\'|".*"#Us', '', (string) $exception->getMessage())); ?>"
                    rel="noreferrer" target="_blank">search &rarr;</a>
             </p>
         </div>
@@ -63,7 +63,7 @@ while ($prevException = $last->getPrevious()) {
     <?php echo esc($prevException::class), esc($prevException->getCode() ? ' #'.$prevException->getCode() : ''); ?>
 
     <?php echo nl2br(esc($prevException->getMessage())); ?>
-    <a href="https://www.duckduckgo.com/?q=<?php echo urlencode($prevException::class.' '.preg_replace('#\'.*\'|".*"#Us', '', $prevException->getMessage())); ?>"
+    <a href="https://www.duckduckgo.com/?q=<?php echo urlencode($prevException::class.' '.preg_replace('#\'.*\'|".*"#Us', '', (string) $prevException->getMessage())); ?>"
        rel="noreferrer" target="_blank">search &rarr;</a>
     <?php echo esc(clean_path($prevException->getFile()).':'.$prevException->getLine()); ?>
     </pre>
@@ -120,7 +120,7 @@ while ($prevException = $last->getPrevious()) {
                                         <?php
                                         $params = null;
                                     // Reflection by name is not available for closure function
-                                    if (! str_ends_with($row['function'], '}')) {
+                                    if (! str_ends_with((string) $row['function'], '}')) {
                                         $mirror = isset($row['class']) ? new ReflectionMethod($row['class'], $row['function']) : new ReflectionFunction($row['function']);
                                         $params = $mirror->getParameters();
                                     }

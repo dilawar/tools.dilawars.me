@@ -48,7 +48,7 @@ class ToolGeo extends BaseController
             return $this->loadView();
         }
 
-        $content = json_decode($post['geojson'], true);
+        $content = json_decode((string) $post['geojson'], true);
         $coords = $content['geometry']['coordinates'];
 
         $gpx = $this->createGpx($coords, startTime: $post['start_time'], endTime: $post['end_time']);

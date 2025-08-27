@@ -3,7 +3,7 @@
 echo $this->extend('default');
 echo $this->section('content');
 
-$lines = $lines ?? 'https://tools.maxflow.in
+$lines ??= 'https://tools.maxflow.in
 tel:9876543210
 mailto:sherpa@maxflow.in
 ';
@@ -16,7 +16,7 @@ $qrCodesAsZip = $zip ?? '';
 // base64 encoded QR codes.
 $qrCodesBase64 = $result ?? [];
 
-$error = $error ?? null;
+$error ??= null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';

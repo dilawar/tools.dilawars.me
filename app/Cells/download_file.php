@@ -23,7 +23,7 @@ if ($images ?? []) {
 
         echo "<div class='col-6'>";
         echo "<figure class='p-1'>";
-        if (! str_contains($thumbnailUri, 'application/pdf')) {
+        if (! str_contains((string) $thumbnailUri, 'application/pdf')) {
             echo "<img style='width:90%; margin: auto;' src='$thumbnailUri' class='img-fluid conversion-result-image' />";
         }
 

@@ -27,7 +27,7 @@ class EmailTest extends CIUnitTestCase
         $smtp->sendEmail(
             'dilawar.s.rajput@gmail.com',
             'test email',
-            '<p>Testing '.rand().'</p>'
+            '<p>Testing '.random_int(0, mt_getrandmax()).'</p>'
         );
     }
 }

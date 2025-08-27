@@ -512,19 +512,14 @@ class Auth extends ShieldAuth
         // To accommodate all url patterns
         $final_url = '';
 
-        switch (true) {
-            case 0 === strpos($url, 'http://') || 0 === strpos($url, 'https://'): // URL begins with 'http' or 'https'. E.g. http://example.com
-                $final_url = $url;
-                break;
-
-            case false !== route_to($url): // URL is a named-route
-                $final_url = rtrim(url_to($url), '/ ');
-                break;
-
-            default: // URL is a route (URI path)
-                $final_url = rtrim(site_url($url), '/ ');
-                break;
-        }
+        $final_url = match (true) {
+            // URL begins with 'http' or 'https'. E.g. http://example.com
+            str_starts_with($url, 'http://') || str_starts_with($url, 'https://') => $url,
+            // URL is a named-route
+            false !== route_to($url) => rtrim(url_to($url), '/ '),
+            // URL is a route (URI path)
+            default => rtrim(site_url($url), '/ '),
+        };
 
         return $final_url;
     }

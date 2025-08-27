@@ -148,7 +148,7 @@ class Logger extends BaseConfig
          * The ErrorlogHandler writes the logs to PHP's native `error_log()` function.
          * Uncomment this block to use it.
          */
-        'CodeIgniter\Log\Handlers\ErrorlogHandler' => [
+        \CodeIgniter\Log\Handlers\ErrorlogHandler::class => [
             /* The log levels this handler can handle. */
             'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
 

@@ -15,7 +15,7 @@ if (! function_exists('renderLwnSubscriptionForm')) {
         $html[] = form_close();
         $html[] = '</div>';
 
-        return join('', $html);
+        return implode('', $html);
     }
 }
 

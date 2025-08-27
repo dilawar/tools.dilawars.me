@@ -17,7 +17,7 @@ namespace App\Data;
 class PdfFile extends \FPDF
 {
     public function __construct(
-        private \FPDF $pdf = new \FPDF(),
+        private readonly \FPDF $pdf = new \FPDF(),
     ) {
         $this->pdf->AddPage();
     }
