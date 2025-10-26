@@ -1,125 +1,125 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
-    --max-width: 800px;
-    --background-color: Ivory;
+	--max-width: 800px;
+	--background-color: Ivory;
 }
 
 html,
 body {
-    font-family: inter, opensans, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--background-color);
+	font-family: inter, opensans, "Segoe UI", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--background-color);
 }
 
 .page-title {
-    font-size: 24px;
-    font-family: "monospace";
+	font-size: 24px;
+	font-family: "monospace";
 }
 
 header {
-    margin-bottom: 1ex;
-    /* border-bottom: 2px solid Cyan; */
+	margin-bottom: 1ex;
+	/* border-bottom: 2px solid Cyan; */
 }
 
 section {
-    max-width: var(--max-width);
-    margin: auto;
+	max-width: var(--max-width);
+	margin: auto;
 }
 
 section h1 h2 h3 h4 h5 h6 {
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
 footer {
-    margin-top: auto;
-    text-align: center;
-    width: var(--max-width);
+	margin-top: auto;
+	text-align: center;
+	width: var(--max-width);
 }
 
 footer .copyrights {
-    color: rgba(0, 0, 200, 1);
-    padding: 0.25rem 1.75rem;
+	color: rgba(0, 0, 200, 1);
+	padding: 0.25rem 1.75rem;
 }
 
 .sample_code {
-    font-family: monospace;
-    font-size: 120%;
+	font-family: monospace;
+	font-size: 120%;
 }
 
 .btn-form-submit {
-    margin-top: 1ex;
-    margin-left: auto;
-    display: flex;
+	margin-top: 1ex;
+	margin-left: auto;
+	display: flex;
 }
 
 .btn-action {
-    width: 100%;
-    white-space: normal !important;
+	width: 100%;
+	white-space: normal !important;
 }
 
 .section-title {
-    margin: 2ex 0 1ex 0;
-    text-align: center;
-    text-decoration: underline;
+	margin: 2ex 0 1ex 0;
+	text-align: center;
+	text-decoration: underline;
 }
 
 .title {
-    margin: 2ex 0 1ex 0;
-    text-align: center;
+	margin: 2ex 0 1ex 0;
+	text-align: center;
 }
 
 .form-error {
-    color: Red;
-    margin: 5px;
-    padding-top: 5px;
-    border-radius: 20px;
+	color: Red;
+	margin: 5px;
+	padding-top: 5px;
+	border-radius: 20px;
 }
 
 .form-section {
-    margin-top: 5px;
-    margin-left: 10px;
-    padding: 3px;
-    background-color: Ivory;
-    border: 1px dashed lightblue;
-    border-radius: 20px;
+	margin-top: 5px;
+	margin-left: 10px;
+	padding: 3px;
+	background-color: Ivory;
+	border: 1px dashed lightblue;
+	border-radius: 20px;
 }
 
 pre {
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -o-pre-wrap;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
 }
 
 a.glossary {
-    padding: 0 1ex 0 1ex;
-    font-size: 110%;
-    color: #212529;
-    background: #f8f9fa;
-    border-radius: 1ex;
+	padding: 0 1ex 0 1ex;
+	font-size: 110%;
+	color: #212529;
+	background: #f8f9fa;
+	border-radius: 1ex;
 }
 
 .conversion-result-image {
-    min-width: 300px;
-    max-width: 600px;
-    margin: auto;
+	min-width: 300px;
+	max-width: 600px;
+	margin: auto;
 }
 
 .result {
-    padding: 2ex;
-    margin: 5ex 0 0 0;
-    border: 1px solid gray;
-    border-radius: 20px;
+	padding: 2ex;
+	margin: 5ex 0 0 0;
+	border: 1px solid gray;
+	border-radius: 20px;
 }
 
 .readable {
-    max-width: 55ch; /* more than 55ch are not easy on the eye */
-    font-size: normal;
-    margin: auto;
+	max-width: 60ch; /* more than 55ch are not easy on the eye */
+	margin: auto;
+	font-size: normal;
 }
 
 .help {
-    border: 1px dotted gray;
-    border-radius: 5px;
+	border: 1px dotted gray;
+	border-radius: 5px;
 }
