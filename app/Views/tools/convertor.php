@@ -36,7 +36,7 @@ if (! function_exists('_renderUploadFormInner')) {
 
         $accept = 'image/*';
         if ('' !== $toFormat && '0' !== $toFormat) {
-            $accept = ".$fromFormat";
+            $accept = '.'.$fromFormat;
         }
 
         // Select file
@@ -99,11 +99,11 @@ echo '</form>';
 <?php
 if ($thumbnailUri) {
     echo "<div class='mt-3 result'>";
-    echo "<a class='btn btn-primary mt-1 mb-1' target='_blank' href='$downloadUrl'> Click To Download </a>";
+    echo sprintf("<a class='btn btn-primary mt-1 mb-1' target='_blank' href='%s'> Click To Download </a>", $downloadUrl);
 
     echo '<p>Following is a preview of your result. Some result may not have a visible preview.</p>';
     echo '<div>';
-    echo "<img src='$thumbnailUri' class='img-fluid conversion-result-image' />";
+    echo sprintf("<img src='%s' class='img-fluid conversion-result-image' />", $thumbnailUri);
     echo '<br />';
     echo '</div>';
 

@@ -43,7 +43,7 @@ class ImageData
         $pathOnDisk = $res['path'];
         $downloadUrl = $res['url'];
 
-        log_message('info', "Created donwload url $downloadUrl for path $pathOnDisk.");
+        log_message('info', sprintf('Created donwload url %s for path %s.', $downloadUrl, $pathOnDisk));
         $this->pathOnDisk = $pathOnDisk;
         $this->downloadUrl = $downloadUrl;
     }
@@ -68,12 +68,14 @@ class ImageData
         if (! $this->pathOnDisk) {
             return null;
         }
+
         if ($this->thumbnail) {
             return $this->thumbnail;
         }
 
         $imagick = new \Imagick($this->pathOnDisk);
         $imagick->thumbnailImage(256, 256, true, true);
+
         $this->thumbnail = $imagick->getImageBlob();
         $imagick->clear();
 

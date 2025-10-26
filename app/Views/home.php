@@ -15,7 +15,7 @@ if (! function_exists('renderToolCard')) {
         $html[] = "<div class='readable p-2 mt-2'>";
 
         // mostly for SEO.
-        $html[] = "<p style='display: none'>$title</p>";
+        $html[] = sprintf("<p style='display: none'>%s</p>", $title);
 
         $html[] = "<a class='col' href='".$link['href']."'>"
             ."<span class='h5'>".$link['text'].'</span>'

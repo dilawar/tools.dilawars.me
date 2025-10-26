@@ -28,12 +28,12 @@ function glossaryImageJpeg(): string
 function _glossary(string $label, string $url): string
 {
     return "<a class='glossary' 
-        target='_blank' href='$url'>$label</a>";
+        target='_blank' href='{$url}'>{$label}</a>";
 }
 
 function pill(string $text): string
 {
-    return "<span class='badge badge-pill bg-info'>$text</span>";
+    return sprintf("<span class='badge badge-pill bg-info'>%s</span>", $text);
 }
 
 function showFilesize(int $sizeInBytes): string
@@ -100,10 +100,11 @@ function submitButton(
     $html = ['<div class="row form-group mt-1">'];
     $html[] = _labelColumnBootstrap('', '');
     if ($divClass) {
-        $html[] = "<div class='$divClass'>";
+        $html[] = sprintf("<div class='%s'>", $divClass);
     }
+
     $html[] = form_submit('submit', $label, extra: [
-        'class' => "$extraClass btn btn-primary",
+        'class' => $extraClass.' btn btn-primary',
     ]);
 
     if ($divClass) {
@@ -117,7 +118,7 @@ function submitButton(
 
 function _labelColumnBootstrap(string $label, string $id): string
 {
-    return "<label for='$id' class='col-12 col-sm-5 col-form-label'>$label</label>";
+    return sprintf("<label for='%s' class='col-12 col-sm-5 col-form-label'>%s</label>", $id, $label);
 }
 
 function formUploadFile(
@@ -145,8 +146,8 @@ function formUploadFile(
 
 function iconify(string $iconName, string $tooltip, int $size = 32): string
 {
-    return "<span title='$tooltip'>
-        <iconify-icon icon='$iconName' width='$size'></iconify-icon>
+    return "<span title='{$tooltip}'>
+        <iconify-icon icon='{$iconName}' width='{$size}'></iconify-icon>
     </span>";
 
 }
@@ -165,7 +166,7 @@ function htmlDatetimeLocal(string $datetime): string
  */
 function a(string $href, ?string $label = null, string $target = '_self'): string
 {
-    return "<a href='$href' _target='$target'>".($label ?? $href).'</a>';
+    return sprintf("<a href='%s' _target='%s'>", $href, $target).($label ?? $href).'</a>';
 }
 
 /**
@@ -184,6 +185,7 @@ function compressionStats(int $downloadSize, int $uploadSize): string
     } else {
         $html[] = "<p class='text-warning'>We ended up increasing the file size from!</p>";
     }
+
     $html[] = '</p>';
 
     return implode('', $html);

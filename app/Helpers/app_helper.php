@@ -49,7 +49,7 @@ function now_millis(): int
  */
 function nameToLabel(string $name): string
 {
-    return implode(' ', array_map(fn (string $x): string => ucfirst($x), explode('_', $name)));
+    return implode(' ', array_map(ucfirst(...), explode('_', $name)));
 }
 
 /**
@@ -61,8 +61,9 @@ function goBack(?string $message = null, ?string $href = null): string
 
     $html = '<div class="mt-3">';
     if ($message) {
-        $html .= "<span class='display-6'>{$message}</span>";
+        $html .= sprintf("<span class='display-6'>%s</span>", $message);
     }
+
     $html .= "<a class='btn btn-link' href='".$href."'>Go Back</a>";
 
     return $html.'</div>';
@@ -96,7 +97,7 @@ function base64_url_decode(string $input): string
  */
 function _setKeyVal(string $key, string|array|int|bool $value): void
 {
-    log_message('debug', "Saving {$key}=`".json_encode($value).'`.');
+    log_message('debug', sprintf('Saving %s=`', $key).json_encode($value).'`.');
     session()->set($key, $value);
 }
 
@@ -117,7 +118,7 @@ function _deleteKey(string $key): void
 
 function storageForConvertedFile(string $filename = ''): string
 {
-    return Path::canonicalize(WRITEPATH.'converted/'."$filename");
+    return Path::canonicalize(WRITEPATH.'converted/'.$filename);
 }
 
 function getDataURI(string $imagePath): string

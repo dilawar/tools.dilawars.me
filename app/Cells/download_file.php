@@ -24,15 +24,16 @@ if ($images ?? []) {
         echo "<div class='col-6'>";
         echo "<figure class='p-1'>";
         if (! str_contains((string) $thumbnailUri, 'application/pdf')) {
-            echo "<img style='width:90%; margin: auto;' src='$thumbnailUri' class='img-fluid conversion-result-image' />";
+            echo sprintf("<img style='width:90%%; margin: auto;' src='%s' class='img-fluid conversion-result-image' />", $thumbnailUri);
         }
 
         echo '<figcaption class="d-flex justify-content-center">';
-        echo "<a class='btn btn-link' target='_blank' href='$downloadUrl'>Download</a>";
+        echo sprintf("<a class='btn btn-link' target='_blank' href='%s'>Download</a>", $downloadUrl);
         echo '</figcaption>';
         echo '</figure>';
         echo '</div>';
     }
+
     echo '</div>';
 
     echo '</div>';

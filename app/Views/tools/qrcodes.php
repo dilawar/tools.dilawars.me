@@ -169,12 +169,12 @@ if ($qrCodesBase64 && ! $error) {
     echo '<div class="row">';
     if ($qrCodesAsPdf) {
         echo "<div class='col-4'>";
-        echo "<a class='btn btn-link' download='qr_codes.pdf' href='$qrCodesAsPdf'>Download All As PDF</a>";
+        echo sprintf("<a class='btn btn-link' download='qr_codes.pdf' href='%s'>Download All As PDF</a>", $qrCodesAsPdf);
         echo '</div>';
     }
     if ($qrCodesAsZip) {
         echo "<div class='col-4'>";
-        echo "<a class='btn btn-link' download='qr_codes.zip' href='$qrCodesAsZip'>Download All (zip)</a>";
+        echo sprintf("<a class='btn btn-link' download='qr_codes.zip' href='%s'>Download All (zip)</a>", $qrCodesAsZip);
         echo '</div>';
     }
     echo '</div>';
@@ -191,8 +191,8 @@ if ($qrCodesBase64 && ! $error) {
             'width' => '100%',
         ]).'<br />';
 
-        $filename = "qrcode-{$qrSizeInPx}x{$qrSizeInPx}-$i.svg";
-        echo "<a class='btn btn-link text-align-center' download='$filename' href='$b64QrCode'>Download SVG</a>";
+        $filename = sprintf('qrcode-%sx%s-%s.svg', $qrSizeInPx, $qrSizeInPx, $i);
+        echo sprintf("<a class='btn btn-link text-align-center' download='%s' href='%s'>Download SVG</a>", $filename, $b64QrCode);
         echo '</div>';
     }
     echo '</div>';

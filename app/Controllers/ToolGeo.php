@@ -55,7 +55,7 @@ class ToolGeo extends BaseController
         log_message('debug', 'Result is '.$gpx);
 
         $date = date('Y-m-d');
-        $filename = "maxflow-{$date}.gpx";
+        $filename = sprintf('maxflow-%s.gpx', $date);
 
         return $this->response->download($filename, $gpx);
     }
@@ -92,7 +92,7 @@ class ToolGeo extends BaseController
 
         $segmentLength = GeoHelper::getRealDistance($firstPoint, $lastPoint);
         $speed = floatval($segmentLength) / floatval($duration);
-        log_message('info', "Segment length $segmentLength m for duration $duration sec, speed=$speed m/s");
+        log_message('info', sprintf('Segment length %s m for duration %d sec, speed=%s m/s', $segmentLength, $duration, $speed));
 
         // add timestamp.
         foreach ($segment->points as &$point) {

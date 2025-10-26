@@ -82,8 +82,8 @@ class LwnAlert extends BaseCommand
         $sinceHours =  $tillHours - 24; // 1 day window.
 
         $items = model(FeedItem::class)
-            ->where('publication_date <', Time::parse("$tillHours hours"))
-            ->where('publication_date >=', Time::parse("$sinceHours hours"))
+            ->where('publication_date <', Time::parse($tillHours.' hours'))
+            ->where('publication_date >=', Time::parse($sinceHours.' hours'))
             ->findAll();
 
         // Notify devs about triggered job.

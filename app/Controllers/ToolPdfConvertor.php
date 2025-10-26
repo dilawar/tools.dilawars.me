@@ -29,11 +29,12 @@ class ToolPdfConvertor extends BaseController
         if ('compress' === $what) {
             return view('tools/pdf_compress');
         }
+
         if ('to_jpeg' === $what) {
             return view('tools/pdf_to_image');
         }
 
-        return new RuntimeException("Invalid router paramter `$what`.");
+        return new RuntimeException(sprintf('Invalid router paramter `%s`.', $what));
     }
 
     /**
@@ -41,7 +42,7 @@ class ToolPdfConvertor extends BaseController
      */
     public function handlePdfAction(string $action): string|RedirectResponse
     {
-        log_message('info', "Handling action `$action`");
+        log_message('info', sprintf('Handling action `%s`', $action));
         $action = ToolActionName::from($action);
 
         $post = (array) $this->request->getPost();
@@ -65,6 +66,7 @@ class ToolPdfConvertor extends BaseController
         if (ToolActionName::PdfConvertToJpeg === $action) {
             return $this->convertUsingImagick($uploadedFile);
         }
+
         if (ToolActionName::PdfCompress === $action) {
             return $this->compressUsingImagick($uploadedFile);
         }
@@ -133,7 +135,7 @@ class ToolPdfConvertor extends BaseController
         $result = [];
 
         $originalName = $file->getClientName();
-        log_message('info', "> Converting PDF file `$originalName`.");
+        log_message('info', sprintf('> Converting PDF file `%s`.', $originalName));
         Assert::that($originalName)->minLength(3);
 
         for ($i = 0; $i < $numPages; ++$i) {
