@@ -3,9 +3,9 @@
 echo $this->extend('default');
 echo $this->section('content');
 
-$lines ??= 'https://tools.maxflow.in
+$lines ??= 'https://tools.dilawars.me
 tel:9876543210
-mailto:sherpa@maxflow.in
+mailto:sherpa@dilawars.me
 ';
 
 // result as pdf file.
@@ -20,7 +20,7 @@ $error ??= null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';
-$qrLogoUrl = $qr_logo_url ?? 'https://tools.maxflow.in/icon.jpg';
+$qrLogoUrl = $qr_logo_url ?? 'https://tools.dilawars.me/icon.jpg';
 $qrVersion = $qr_version ?? '5';
 
 if (! function_exists('renderQrForm')) {

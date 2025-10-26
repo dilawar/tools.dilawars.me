@@ -56,7 +56,7 @@ class EmailService
     private function _sendEmail(string $to, string $subject, string $body): void
     {
         log_message('info', sprintf('Sending email to %s with %s', $to, $subject));
-        $this->client->setFrom('noreply@maxflow.in', 'MaxFlow Tools');
+        $this->client->setFrom('noreply@dilawars.me', 'MaxFlow Tools');
         $this->client->addAddress($to);
 
         $this->client->Subject = $subject;
