@@ -35,16 +35,16 @@ class ToolImageConvertor extends BaseController
             StatsName::TotalImageConvcersions->increment();
 
             return $this->convertUsingImagick();
-        } catch (\Throwable $th) {
-            setUserFlashMessage($th->getMessage());
+        } catch (\Throwable $throwable) {
+            setUserFlashMessage($throwable->getMessage());
             if (! isProduction()) {
-                throw $th;
+                throw $throwable;
             }
 
             return $this->loadMainView(
                 to: $this->request->getPost('to_format'),
                 extra: [
-                    'error' => $th->getMessage(),
+                    'error' => $throwable->getMessage(),
                 ]
             );
         }
@@ -83,10 +83,11 @@ class ToolImageConvertor extends BaseController
         $downloadUrl = $res['url'];
         $pathOnDisk = $res['path'];
 
-        log_message('debug', "download url=$downloadUrl outfilename=$outFilename ");
+        log_message('debug', sprintf('download url=%s outfilename=%s ', $downloadUrl, $outFilename));
 
         $imagick = new \Imagick($pathOnDisk);
         $imagick->thumbnailImage(256, 256, true, true);
+
         $thumbnail = $imagick->getImageBlob();
 
         StatsName::TotalImageConvcersions->increment(subkey: $to);
@@ -103,11 +104,11 @@ class ToolImageConvertor extends BaseController
      */
     private function loadMainView(string $to, ?string $from = null, array $extra = []): string
     {
-        log_message('info', "loadMainView: from=$from to=$to ".json_encode($extra));
+        log_message('info', sprintf('loadMainView: from=%s to=%s ', $from, $to).json_encode($extra));
 
         $pageTitle = 'Convert Image';
         if ('' !== $to && '0' !== $to) {
-            $pageTitle .= " To $to";
+            $pageTitle .= ' To '.$to;
         }
 
         return view('/tools/convertor', [

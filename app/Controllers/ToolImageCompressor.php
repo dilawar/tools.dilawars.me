@@ -28,7 +28,7 @@ class ToolImageCompressor extends BaseController
 
     public function handleAction(string $actionName): string
     {
-        log_message('info', "Handling action $actionName...");
+        log_message('info', sprintf('Handling action %s...', $actionName));
         $action = ToolActionName::from($actionName);
 
         if (ToolActionName::CompressImage === $action) {
@@ -37,7 +37,7 @@ class ToolImageCompressor extends BaseController
             return $this->loadToolView($data);
         }
 
-        throw new RuntimeException("Action $actionName is not supported.");
+        throw new RuntimeException(sprintf('Action %s is not supported.', $actionName));
     }
 
     /**

@@ -3,9 +3,9 @@
 echo $this->extend('default');
 echo $this->section('content');
 
-$lines ??= 'https://tools.maxflow.in
+$lines ??= 'https://tools.dilawars.me
 tel:9876543210
-mailto:sherpa@maxflow.in
+mailto:sherpa@dilawars.me
 ';
 
 // result as pdf file.
@@ -20,7 +20,7 @@ $error ??= null;
 $eccLevel = $ecc_level ?? 'H';
 $qrSizeInPx = $qr_size_in_px ?? '256';
 $qrLogoSpace = $qr_logo_space ?? '10';
-$qrLogoUrl = $qr_logo_url ?? 'https://tools.maxflow.in/icon.jpg';
+$qrLogoUrl = $qr_logo_url ?? 'https://tools.dilawars.me/icon.jpg';
 $qrVersion = $qr_version ?? '5';
 
 if (! function_exists('renderQrForm')) {
@@ -169,12 +169,12 @@ if ($qrCodesBase64 && ! $error) {
     echo '<div class="row">';
     if ($qrCodesAsPdf) {
         echo "<div class='col-4'>";
-        echo "<a class='btn btn-link' download='qr_codes.pdf' href='$qrCodesAsPdf'>Download All As PDF</a>";
+        echo sprintf("<a class='btn btn-link' download='qr_codes.pdf' href='%s'>Download All As PDF</a>", $qrCodesAsPdf);
         echo '</div>';
     }
     if ($qrCodesAsZip) {
         echo "<div class='col-4'>";
-        echo "<a class='btn btn-link' download='qr_codes.zip' href='$qrCodesAsZip'>Download All (zip)</a>";
+        echo sprintf("<a class='btn btn-link' download='qr_codes.zip' href='%s'>Download All (zip)</a>", $qrCodesAsZip);
         echo '</div>';
     }
     echo '</div>';
@@ -191,8 +191,8 @@ if ($qrCodesBase64 && ! $error) {
             'width' => '100%',
         ]).'<br />';
 
-        $filename = "qrcode-{$qrSizeInPx}x{$qrSizeInPx}-$i.svg";
-        echo "<a class='btn btn-link text-align-center' download='$filename' href='$b64QrCode'>Download SVG</a>";
+        $filename = sprintf('qrcode-%sx%s-%s.svg', $qrSizeInPx, $qrSizeInPx, $i);
+        echo sprintf("<a class='btn btn-link text-align-center' download='%s' href='%s'>Download SVG</a>", $filename, $b64QrCode);
         echo '</div>';
     }
     echo '</div>';

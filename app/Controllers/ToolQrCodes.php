@@ -41,7 +41,7 @@ class ToolQrCodes extends BaseController
         $resultDir = Downloader::datadir('qrcodes', hash('sha1', $text), 'qrcodes-maxflow');
 
         $fs = preg_split('/\R/', trim($text));
-        $lines = ! $fs ? [$text] : $fs;
+        $lines = $fs ?: [$text];
 
         // Rest of the parameters from POST request except lines.
         $params = (array) $this->request->getPost();
@@ -59,7 +59,7 @@ class ToolQrCodes extends BaseController
             try {
                 $qr = new AppQrCode($line);
                 $qrSVG = $qr->svg($params);
-                $svgFilename = $resultDir."/qr-$i.svg";
+                $svgFilename = $resultDir.sprintf('/qr-%d.svg', $i);
                 Downloader::writeFile($svgFilename, $qrSVG);
 
                 // log_message('debug', "QR data: " . $qrSVG);
@@ -77,6 +77,7 @@ class ToolQrCodes extends BaseController
                 $error = $th->getMessage();
             }
         }
+
         $html[] = '</div>';
 
         // Generate PDF with all qr codes.

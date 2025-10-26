@@ -127,7 +127,7 @@ while ($prevException = $last->getPrevious()) {
 
                                     foreach ($row['args'] as $key => $value) { ?>
                                             <tr>
-                                                <td><code><?php echo esc(isset($params[$key]) ? '$'.$params[$key]->name : "#{$key}"); ?></code></td>
+                                                <td><code><?php echo esc(isset($params[$key]) ? '$'.$params[$key]->name : '#'.$key); ?></code></td>
                                                 <td><pre><?php echo esc(print_r($value, true)); ?></pre></td>
                                             </tr>
                                         <?php } ?>
@@ -159,13 +159,20 @@ while ($prevException = $last->getPrevious()) {
 
             <!-- Server -->
             <div class="content" id="server">
-                <?php foreach (['_SERVER', '_SESSION'] as $var) { ?>
+                <?php foreach (['_SERVER', '_SESSION'] as $var) {
+                    ?>
                     <?php
-                    if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
+                    if (empty($GLOBALS[$var])) {
                         continue;
-                    } ?>
+                    }
+                    if (! is_array($GLOBALS[$var])) {
+                        continue;
+                    }
+                    ?>
 
-                    <h3>$<?php echo esc($var); ?></h3>
+                    <h3>$<?php
+                    echo esc($var);
+                    ?></h3>
 
                     <table>
                         <thead>
@@ -175,22 +182,25 @@ while ($prevException = $last->getPrevious()) {
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($GLOBALS[$var] as $key => $value) { ?>
-                            <tr>
-                                <td><?php echo esc($key); ?></td>
-                                <td>
-                                    <?php if (is_string($value)) { ?>
-                                        <?php echo esc($value); ?>
-                                    <?php } else { ?>
-                                        <pre><?php echo esc(print_r($value, true)); ?></pre>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                        <?php
+                    foreach ($GLOBALS[$var] as $key => $value) { ?>
+                                                <tr>
+                                                    <td><?php echo esc($key); ?></td>
+                                                    <td>
+                                                        <?php if (is_string($value)) { ?>
+                                                            <?php echo esc($value); ?>
+                                                        <?php } else { ?>
+                                                            <pre><?php echo esc(print_r($value, true)); ?></pre>
+                                                        <?php } ?>
+                                                    </td>
+                                                </tr>
+                                            <?php }
+                    ?>
                         </tbody>
                     </table>
 
-                <?php } ?>
+                <?php
+                } ?>
 
                 <!-- Constants -->
                 <?php $constants = get_defined_constants(true); ?>
@@ -262,15 +272,24 @@ while ($prevException = $last->getPrevious()) {
 
 
                 <?php $empty = true; ?>
-                <?php foreach (['_GET', '_POST', '_COOKIE'] as $var) { ?>
+                <?php foreach (['_GET', '_POST', '_COOKIE'] as $var) {
+                    ?>
                     <?php
-                    if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) {
+                    if (empty($GLOBALS[$var])) {
                         continue;
-                    } ?>
+                    }
+                    if (! is_array($GLOBALS[$var])) {
+                        continue;
+                    }
+                    ?>
 
-                    <?php $empty = false; ?>
+                    <?php
+                    $empty = false;
+                    ?>
 
-                    <h3>$<?php echo esc($var); ?></h3>
+                    <h3>$<?php
+                    echo esc($var);
+                    ?></h3>
 
                     <table style="width: 100%">
                         <thead>
@@ -280,22 +299,25 @@ while ($prevException = $last->getPrevious()) {
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($GLOBALS[$var] as $key => $value) { ?>
-                            <tr>
-                                <td><?php echo esc($key); ?></td>
-                                <td>
-                                    <?php if (is_string($value)) { ?>
-                                        <?php echo esc($value); ?>
-                                    <?php } else { ?>
-                                        <pre><?php echo esc(print_r($value, true)); ?></pre>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                        <?php
+                    foreach ($GLOBALS[$var] as $key => $value) { ?>
+                                <tr>
+                                    <td><?php echo esc($key); ?></td>
+                                    <td>
+                                        <?php if (is_string($value)) { ?>
+                                            <?php echo esc($value); ?>
+                                        <?php } else { ?>
+                                            <pre><?php echo esc(print_r($value, true)); ?></pre>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php }
+                    ?>
                         </tbody>
                     </table>
 
-                <?php } ?>
+                <?php
+                } ?>
 
                 <?php if ($empty) { ?>
 
@@ -323,13 +345,13 @@ while ($prevException = $last->getPrevious()) {
                                 <td><?php echo esc($name, 'html'); ?></td>
                                 <td>
                                 <?php
-                                if ($value instanceof Header) {
-                                    echo esc($value->getValueLine(), 'html');
-                                } else {
-                                    foreach ($value as $i => $header) {
-                                        echo ' ('.$i + 1 .') '.esc($header->getValueLine(), 'html');
-                                    }
+                            if ($value instanceof Header) {
+                                echo esc($value->getValueLine(), 'html');
+                            } else {
+                                foreach ($value as $i => $header) {
+                                    echo ' ('.$i + 1 .') '.esc($header->getValueLine(), 'html');
                                 }
+                            }
                             ?>
                                 </td>
                             </tr>

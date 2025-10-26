@@ -27,7 +27,7 @@ class Downloader extends BaseController
     public function index(string ...$segs): ResponseInterface|DownloadResponse|null
     {
         $dirOrFile = implode('/', $segs);
-        log_message('info', "Downloading `$dirOrFile` ...");
+        log_message('info', sprintf('Downloading `%s` ...', $dirOrFile));
         $dirOrFile = WRITEPATH.$dirOrFile;
 
         $filepath = is_dir($dirOrFile) ? $this->createZip($dirOrFile) : $dirOrFile;
@@ -49,7 +49,7 @@ class Downloader extends BaseController
     {
         $sha1 = hash('sha1', $blob);
 
-        $path = self::filepath("$sha1/$filename", 'images');
+        $path = self::filepath(sprintf('%s/%s', $sha1, $filename), 'images');
         self::writeFile($path, data: $blob);
 
         return [
@@ -61,11 +61,12 @@ class Downloader extends BaseController
     public static function writeFile(string $filepath, string $data): void
     {
         Assert::that($filepath)->minLength(3);
-        log_message('info', "Writing data to $filepath...");
+        log_message('info', sprintf('Writing data to %s...', $filepath));
         $dirname = dirname($filepath);
         if (! is_dir($dirname)) {
             mkdir($dirname, recursive: true);
         }
+
         file_put_contents($filepath, $data);
     }
 
@@ -78,7 +79,7 @@ class Downloader extends BaseController
         $path = Path::canonicalize($subpath);
         $path = Path::makeRelative($path, WRITEPATH);
 
-        return site_url("download/$path");
+        return site_url('download/'.$path);
     }
 
     /**
@@ -97,7 +98,7 @@ class Downloader extends BaseController
         $subdir = array_filter([$subdir1, $subdir2, $subdir3]);
         $dir = self::dir(implode('/', $subdir));
         if (is_dir($dir) && $clear) {
-            log_message('info', "Removing existing directory $dir.");
+            log_message('info', sprintf('Removing existing directory %s.', $dir));
             delete_files($dir, delDir: true);
             rmdir($dir);
         }
@@ -112,16 +113,17 @@ class Downloader extends BaseController
     {
         $now = date('Y-m-d');
         $zipFilename = Downloader::filepath($now.'-'.basename($dirpath).'.zip', 'zips');
-        log_message('info', "Creating zip `$zipFilename` from directory `$dirpath`.");
+        log_message('info', sprintf('Creating zip `%s` from directory `%s`.', $zipFilename, $dirpath));
 
         $zip = new \ZipArchive();
         $zip->open($zipFilename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $files = glob("$dirpath/*.*") ?: [];
+        $files = glob($dirpath.'/*.*') ?: [];
         foreach ($files as $file) {
-            log_message('debug', ">> Adding `$file` to $zipFilename");
+            log_message('debug', sprintf('>> Adding `%s` to %s', $file, $zipFilename));
             $zip->addFile($file, entryname: basename($file));
         }
+
         $zip->close();
 
         return $zipFilename;
@@ -129,9 +131,9 @@ class Downloader extends BaseController
 
     private static function dir(string $subdir): string
     {
-        $dir = WRITEPATH."$subdir";
+        $dir = WRITEPATH.$subdir;
         if (! is_dir($dir)) {
-            log_message('info', __FUNCTION__.": creating directory $dir.");
+            log_message('info', __FUNCTION__.sprintf(': creating directory %s.', $dir));
             mkdir($dir, recursive: true);
         }
 
@@ -140,6 +142,6 @@ class Downloader extends BaseController
 
     private static function filepath(string $filename, string $subdir = 'generated'): string
     {
-        return self::dir($subdir)."/$filename";
+        return self::dir($subdir).('/'.$filename);
     }
 }

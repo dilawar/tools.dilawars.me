@@ -28,11 +28,11 @@ function convertToUsingImagickSingle(string $to, UploadedFile $uploadedFile): Im
     $imagick->readImageBlob(image: $content);
 
     $uploadFilename = $uploadedFile->getClientName();
-    $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
+    $outFilename = basename(Path::changeExtension($uploadFilename, '.'.$to));
 
     $uploadFilename = $uploadedFile->getName();
-    $outFilename = basename(Path::changeExtension($uploadFilename, ".$to"));
-    log_message('debug', "Uploaded filename=$uploadFilename, result filename $outFilename");
+    $outFilename = basename(Path::changeExtension($uploadFilename, '.'.$to));
+    log_message('debug', sprintf('Uploaded filename=%s, result filename %s', $uploadFilename, $outFilename));
 
     $res = $imagick->setImageFormat($to);
     Assert::that($res)->true();
@@ -68,7 +68,7 @@ function svgToPng(string $svg, int $sizeInPx, int $resolution = 1024): string
     $img->setResolution($resolution, $resolution);
     $img->readImageBlob($svg);
     $img->setImageFormat('png24');
-    log_message('info', "Resizing PNG to $sizeInPx x $sizeInPx.");
+    log_message('info', sprintf('Resizing PNG to %d x %d.', $sizeInPx, $sizeInPx));
     $img->resizeImage($sizeInPx, $sizeInPx, Imagick::FILTER_LANCZOS, 2);
     $data = $img->getImageBlob();
     $img->clear();

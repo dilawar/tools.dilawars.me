@@ -51,13 +51,14 @@ class AppQrCode
     private function generateSVG(string $line, array $params): string
     {
         Assert::that($line)->minLength(2);
-        log_message('info', "Genetraing qr codes for `$line` with params: ".var_export($params, true));
+        log_message('info', sprintf('Genetraing qr codes for `%s` with params: ', $line).var_export($params, true));
         $options = new QROptions();
 
         $qrVersion = $params['qr_version'] ?? '5';
         if ($qrVersion) {
             $options->version = intval($qrVersion);
         }
+
         $options->outputInterface = QRImagick::class;
         $options->imageTransparent = true;
         $options->outputBase64 = false;
@@ -81,7 +82,7 @@ class AppQrCode
             // add logo.
             $qrLogoUrl = (string) $params['qr_logo_url'];
             if ('' !== $qrLogoUrl && '0' !== $qrLogoUrl) {
-                log_message('debug', "Adding qr logo from $qrLogoUrl...");
+                log_message('debug', sprintf('Adding qr logo from %s...', $qrLogoUrl));
                 try {
                     $imgContent = file_get_contents($qrLogoUrl);
                     assert(is_string($imgContent));
@@ -105,7 +106,7 @@ class AppQrCode
         log_message('info', "svg:\n ".$svgText);
 
         if ($logoImg instanceof \Imagick) {
-            $svgText = $this->addLogoToSvg($svgText, $logoImg, intval($logoSpace));
+            return $this->addLogoToSvg($svgText, $logoImg, intval($logoSpace));
         }
 
         return $svgText;
@@ -123,6 +124,7 @@ class AppQrCode
         // Add a attribute with xlink as namespace.
         $namespaceAttr = $dom->createAttribute('xmlns:xlink');
         $namespaceAttr->value = 'http://www.w3.org/1999/xlink';
+
         $svg->appendChild($namespaceAttr);
 
         $logoElem = $dom->createElement('image');
@@ -141,6 +143,7 @@ class AppQrCode
             $attr->value = $attrValue;
             $logoElem->appendChild($attr);
         }
+
         // Append logo
         $svg->appendChild($logoElem);
 

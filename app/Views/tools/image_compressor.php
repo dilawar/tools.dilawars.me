@@ -59,7 +59,7 @@ echo '</form>';
 if ($downloadUrl) {
     echo "<div class='result'>";
     echo '<h4>Your compressed image is ready. ';
-    echo "<a href='$downloadUrl' class='btn btn-success'>Click Here To Download</a>";
+    echo sprintf("<a href='%s' class='btn btn-success'>Click Here To Download</a>", $downloadUrl);
     echo '</h4>';
     echo compressionStats($downloadSize ?? -1, uploadSize: $uploadSize ?? -1);
     echo '</div>';

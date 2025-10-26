@@ -55,8 +55,8 @@ class EmailService
      */
     private function _sendEmail(string $to, string $subject, string $body): void
     {
-        log_message('info', "Sending email to $to with $subject");
-        $this->client->setFrom('noreply@maxflow.in', 'MaxFlow Tools');
+        log_message('info', sprintf('Sending email to %s with %s', $to, $subject));
+        $this->client->setFrom('noreply@dilawars.me', 'MaxFlow Tools');
         $this->client->addAddress($to);
 
         $this->client->Subject = $subject;
@@ -70,16 +70,17 @@ class EmailService
      */
     public function sendEmail(string $to, string $subject, string $body, bool $sendOnce = true): void
     {
-        $content = "$to\n\n$subject\n\n$body";
+        $content = "{$to}\n\n{$subject}\n\n{$body}";
         $contentHash = hash('sha256', $content);
 
-        log_message('info', "Sending email to $to with $subject, content hash $contentHash.");
+        log_message('info', sprintf('Sending email to %s with %s, content hash %s.', $to, $subject, $contentHash));
         $hashFile = $this->checksumpath($contentHash);
         if (is_file($hashFile) && $sendOnce) {
             log_message('info', 'This email is already sent. Doing nothing...');
 
             return;
         }
+
         $this->_sendEmail($to, $subject, $body);
 
         // if successful, generate the hashfile.
@@ -93,8 +94,9 @@ class EmailService
         if (! is_dir($dir)) {
             mkdir($dir, recursive: true);
         }
+
         if ($filename) {
-            return $dir."/$filename";
+            return $dir.('/'.$filename);
         }
 
         return $dir;
@@ -108,10 +110,10 @@ class EmailService
     public function sendLwnEmailArticleNotBehindPaywall(string $email, array $article, bool $sendOnce = true): void
     {
         $title = $article['title'];
-        log_message('info', "LWN aritcle '$title' is no longer behind paywall ".json_encode($article));
+        log_message('info', sprintf("LWN aritcle '%s' is no longer behind paywall ", $title).json_encode($article));
         $twig = service('twig');
         $body = $twig->render('lwn_open.html.twig', $article);
-        $this->sendEmail($email, subject: "LWN article is no longer behind paywall: '$title'", body: $body, sendOnce: $sendOnce);
+        $this->sendEmail($email, subject: sprintf("LWN article is no longer behind paywall: '%s'", $title), body: $body, sendOnce: $sendOnce);
     }
 
     public function notifyDevs(string $body, ?string $subject = null): void

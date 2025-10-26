@@ -39,7 +39,7 @@ enum StatsName: string
     public function increment(string $subkey = '', int $by = 1): void
     {
         $keyName = $this->value;
-        log_message('info', "Increasing kv_store $keyName.$subkey by $by.");
+        log_message('info', sprintf('Increasing kv_store %s.%s by %d.', $keyName, $subkey, $by));
 
         $oldValue = $this->get($subkey);
 
@@ -91,6 +91,7 @@ enum StatsName: string
                 .'</strong></div>';
             $html[] = '</div>';
         }
+
         $html[] = '</div>';
 
         return implode(' ', $html);
