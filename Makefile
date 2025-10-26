@@ -19,7 +19,7 @@ db_migrate:
 install_dev:
 	php composer.phar install 
 
-fix fmt:
+fix:
 	./vendor/bin/rector 
 	PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix
 
@@ -42,7 +42,7 @@ doc doc_docker:
 	$(PHPDOC) run -d app -t docs
 
 ci: install_dev
-	$(MAKE) fmt
+	$(MAKE) fix
 	$(MAKE) lint
 
 sync_github:

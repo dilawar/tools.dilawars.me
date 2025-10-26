@@ -40,8 +40,10 @@ class Auth extends ShieldAuth
 
     // Constants for Record Login Attempts. Do not change.
     public const RECORD_LOGIN_ATTEMPT_NONE    = 0;
+
     // Do not record at all
     public const RECORD_LOGIN_ATTEMPT_FAILURE = 1;
+
     // Record only failures
     public const RECORD_LOGIN_ATTEMPT_ALL     = 2; // Record all login attempts
 
@@ -361,6 +363,7 @@ class Auth extends ShieldAuth
     public int $hashMemoryCost = 65536; // PASSWORD_ARGON2_DEFAULT_MEMORY_COST;
 
     public int $hashTimeCost = 4;
+
     // PASSWORD_ARGON2_DEFAULT_TIME_COST;
     public int $hashThreads  = 1;   // PASSWORD_ARGON2_DEFAULT_THREADS;
 
