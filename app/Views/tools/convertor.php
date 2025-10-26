@@ -31,8 +31,6 @@ if (! function_exists('_renderUploadFormInner')) {
             $imageFormats[$fmt] = $fmt;
         }
 
-        $html = [];
-        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
         $accept = 'image/*';
         if ('' !== $toFormat && '0' !== $toFormat) {
@@ -40,7 +38,9 @@ if (! function_exists('_renderUploadFormInner')) {
         }
 
         // Select file
-        $html[] = '<div class="col-sm-5">';
+        $html = [];
+        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
+        $html[] = '<div class="col-12 col-sm-5">';
         $html[] = form_input('image', type: 'file', extra: [
             'class' => 'form-control',
             'accept' => $accept,
@@ -48,20 +48,20 @@ if (! function_exists('_renderUploadFormInner')) {
         $html[] = '</div>';
 
         // Convert to column.
-        $html[] = '<div class="col-sm-4">';
-        $html[] = '<span> Convert To </span>';
+        $html[] = '<div class="col-6 col-sm-2"> Convert To </div>';
+        $html[] = '<div class="col-6 col-sm-2">';
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
             selected: $toFormat,
             extra: [
                 'id' => SELECTIZE_ID_PREFIX.'_to_format',
-                'class' => 'form-control col',
+                'class' => 'form-control',
             ],
         );
         $html[] = '</div>';
 
-        $html[] = '<div class="col-sm-3">';
+        $html[] = '<div class="col-12 col-sm-3">';
         $html[] = form_submit('submit', 'Convert', extra: [
             'class' => 'form-control btn btn-primary',
         ]);
@@ -76,9 +76,7 @@ if (! function_exists('_renderUploadFormInner')) {
 ?>
 
 <section>
-<div class='h3 section-title'>
-    Image conversion Tool
-</div>
+<div class='h3 section-title'> Image conversion Tool </div>
 
 <details style="margin:10px;">
     <summary> Total <?php echo count($supportedFormats); ?> formats are supported. </summary>
