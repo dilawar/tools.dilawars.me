@@ -15,7 +15,7 @@
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
 // Define ENVIRONMENT
-defined('ENVIRONMENT') || define('ENVRIONMENT', env('CI_ENVIRONMENT', 'production'));
+defined('ENVIRONMENT') || define('ENVRIONMENT', getenv('CI_ENVIRONMENT', 'production'));
 
 $baseUrl = isset($_SERVER['HTTPS']) && 'off' != $_SERVER['HTTPS'] ? 'https://'.$_SERVER['HTTP_HOST'].dirname((string) $_SERVER['SCRIPT_NAME']) : 'http://localhost:8080';
 defined('BASEURL') || define('BASEURL', $baseUrl);
