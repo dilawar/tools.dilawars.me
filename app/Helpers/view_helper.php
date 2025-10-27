@@ -112,6 +112,7 @@ function submitButton(
     if ($divClass) {
         $html[] = '</div>';
     }
+
     $html[] = '</div>';
 
     return implode(' ', $html);
@@ -181,6 +182,7 @@ function compressionStats(int $downloadSize, int $uploadSize): string
     } else {
         $html[] = "<p class='text-warning'>We ended up increasing the file size from!</p>";
     }
+
     $html[] = '</p>';
 
     return implode('', $html);
