@@ -56,6 +56,7 @@ function showFilesize(int $sizeInBytes): string
 
 function formInputBootstrap(string $id, string $label, string $value, string $type = 'text'): string
 {
+    $html = [];
     $html[] = "<div class='form-group row'>";
     $html[] = _labelColumnBootstrap($label, $id);
 
@@ -75,6 +76,7 @@ function formInputBootstrap(string $id, string $label, string $value, string $ty
  */
 function formSelectBootstrap(string $id, string $label, string $value, array $options): string
 {
+    $html = [];
     $html[] = "<div class='row form-group'>";
     $html[] = _labelColumnBootstrap($label, $id);
 
@@ -110,7 +112,6 @@ function submitButton(
     if ($divClass) {
         $html[] = '</div>';
     }
-
     $html[] = '</div>';
 
     return implode(' ', $html);
@@ -127,10 +128,9 @@ function formUploadFile(
     string $accept = '*',
     string $extra = '',
 ): string {
+    $html = [];
     $html[] = "<div class='d-flex row'>";
-
     $html[] = _labelColumnBootstrap($label, $name);
-
     $html[] = "<div class='col-12 col-sm-6'>";
     $html[] = form_upload($name, extra: [
         'class' => 'form-control',
@@ -141,7 +141,6 @@ function formUploadFile(
     $html[] = '</div>'; // row
 
     return implode(' ', $html);
-
 }
 
 function iconify(string $iconName, string $tooltip, int $size = 32): string
@@ -149,7 +148,6 @@ function iconify(string $iconName, string $tooltip, int $size = 32): string
     return "<span title='{$tooltip}'>
         <iconify-icon icon='{$iconName}' width='{$size}'></iconify-icon>
     </span>";
-
 }
 
 /**
@@ -174,20 +172,25 @@ function a(string $href, ?string $label = null, string $target = '_self'): strin
  */
 function compressionStats(int $downloadSize, int $uploadSize): string
 {
-    $html[] = '';
-
+    $html = [];
     $perc = floatval($downloadSize) / floatval($uploadSize) * 100.0;
     // $xTimes = number_format(100.0 / $perc, 1);
-
     if ($downloadSize < $uploadSize) {
         $html[] = 'Uploaded file of size '.showFilesize($uploadSize).' is compressed to <strong>'.showFilesize($downloadSize).'</strong>.';
         $html[] = ' Compression ratio <strong>'.number_format(100.0 / $perc, 1).'</strong>.';
     } else {
         $html[] = "<p class='text-warning'>We ended up increasing the file size from!</p>";
     }
-
     $html[] = '</p>';
 
     return implode('', $html);
+}
 
+function toString(mixed $data): string
+{
+    if (is_string($data)) {
+        return $data;
+    }
+
+    return json_encode($data) ?: '';
 }

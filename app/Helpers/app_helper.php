@@ -79,7 +79,9 @@ function dbDateTime(string $datetime, bool $local = false): string
         date_default_timezone_set('Asia/Kolkata');
     }
 
-    return date('Y-m-d h:i:s', strtotime($datetime));
+    $ts = intval(strtotime($datetime));
+
+    return date('Y-m-d h:i:s', $ts);
 }
 
 function base64_url_encode(string $input): string
