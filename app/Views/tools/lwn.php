@@ -6,6 +6,7 @@ echo $this->section('content');
 if (! function_exists('renderLwnSubscriptionForm')) {
     function renderLwnSubscriptionForm(): string
     {
+        $html = [];
         $html[] = "<div class='mt-4'>";
         $html[] = form_open('/tools/subscription/handleLwn');
         $html[] = form_input('email', type: 'email', extra: [

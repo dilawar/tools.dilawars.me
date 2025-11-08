@@ -108,7 +108,7 @@ class LwnAlert extends BaseCommand
 
         // TODO: Get list of activce subscriber. Currently, send email to dev
         // only.
-        $subscribers = [$groupEmail, 'dilawar.s.rajput@gmail.com'];
+        $subscribers = [$groupEmail];
         foreach ($subscribers as $email) {
             service('smtp')->sendLwnEmailArticleNotBehindPaywall($email, article: $item);
         }
