@@ -11,6 +11,9 @@ $default = [
 ];
 
 if (! function_exists('renderBuildMyRouteForm')) {
+    /**
+     * @param array<string, string|Stringable> $default
+     */
     function renderBuildMyRouteForm(array $default = []): string
     {
         $html[] = form_open('/tool/geo/map_route');

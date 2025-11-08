@@ -2,10 +2,16 @@ includes:
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
     - ./phpstan-baseline.neon
 parameters:
-  level: 8
-  paths:
-    - app
-    - tests
-  scanDirectories:
-    - ./vendor/codeigniter4/
-    - ./vendor/codeigniter/
+    level: 8
+    ignoreErrors:
+        - '#Variable \$this might not be defined.#'
+        - '#Constant ENVIRONMENT not found.#'
+    paths:
+        - app
+        - tests
+    excludePaths:
+        - ./app/Views/errors/*
+        - ./app/Views/Shield/*
+    scanDirectories:
+        - ./vendor/codeigniter4/
+        - ./vendor/codeigniter/

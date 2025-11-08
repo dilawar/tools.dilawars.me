@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?php echo $page_title ?? 'MaxFlow Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
-    <meta name="description" content="Image convertor, image compressor and other tools by MaxFlow Ops">
+    <title> <?php echo $page_title ?? 'PHP Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
+    <meta name="description" content="Image convertor, image compressor and other tools">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.jpg">
 
@@ -44,7 +44,7 @@
 <body>
     <!-- Navigation bar -->
     <header>
-        <nav class="navbar navbar-expand flex flex-row justify-content-end">
+        <nav class="navbar flex flex-row justify-content-end">
             <div class="col-1">
                 <a class="navbar-brand" href="/">
                     <img src="/icon.jpg" height="64px" />
@@ -60,7 +60,6 @@
             <?php } else { ?>
             <a class="btn btn-link col-3 col-sm-2 col-md-1 mx-1" href="/login">Login</a>
             <?php } ?>
-
         </nav>
     </header>
 
@@ -70,8 +69,9 @@
             <?php foreach ($msgs as $msg) { ?>
             <div class="toast show" data-bs-autohide=true data-bs-delay="10000">
                 <div class="toast-header">
-                    <strong class="me-auto">Image Tools by MaxFlow</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <strong class="me-auto">Image Tools</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">
+                    </button>
                 </div>
                 <div class="toast-body">
                     <?php echo $msg; ?>

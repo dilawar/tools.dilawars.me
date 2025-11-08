@@ -13,9 +13,7 @@ if (! function_exists('renderImageCompressorForm')) {
     function renderImageCompressorForm(): string
     {
         $html = [];
-
         $html[] = "<div class='row'>";
-
         $html[] = '<div class="col-6">';
         $html[] = form_upload('image', extra: [
             'class' => 'form-control',
@@ -39,9 +37,10 @@ if (! function_exists('renderImageCompressorForm')) {
 
 <section>
     <div class='h3 section-title'>Image Compressor</div>
-    <div class='readable'>
-        This tool reduces the size of image by compressing it. The final image will be in JPEG
-        format. This tool does not change the dimentions (width and height) of the file.
+    <div class=''>
+        Reduces the size of image by compressing it to JPEG format. The dimensions
+        of the image (height and width) will not be changed. This tool is useful
+        when you need to reduce the upload size of the image.
     </div>
 
     <section class='mt-3'>

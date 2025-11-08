@@ -5,7 +5,7 @@ echo $this->section('content');
 
 $lines ??= 'https://tools.dilawars.me
 tel:9876543210
-mailto:sherpa@dilawars.me
+mailto:hi@dilawars.me
 ';
 
 // result as pdf file.
@@ -23,8 +23,32 @@ $qrLogoSpace = $qr_logo_space ?? '10';
 $qrLogoUrl = $qr_logo_url ?? 'https://tools.dilawars.me/icon.jpg';
 $qrVersion = $qr_version ?? '5';
 
-if (! function_exists('renderQrForm')) {
+const HELP_TEXT = "
+<details>
+    <summary class='text-info'>Help</summary>
+    <ul class='readable text-info'>
+        <li>
+            <strong>QR Version</strong>
+            The more content you include, the larger the QR version you should select.
+        </li>
+        <li>
+            <strong>ECC (Error Correction Level)</strong> 
+            ECC helps make your QR code resistant to damage. A higher
+            ECC level improves durability. If you're adding a logo, it's
+            recommended to choose ECC level ‘H’ for better reliability.
+        </li>
+        <li>
+            <strong>Adding a logo</strong>
+            To include a logo in your QR code, provide a URL to the logo
+            image. We currently do not support uploading logo files
+            directly. If we're unable to fetch the logo from the
+            provided link, the logo area will be left blank.
+        </li>
+    </ul>
+</details>
+";
 
+if (! function_exists('renderQrForm')) {
     /**
      * @param array<string, string> $params
      */
@@ -35,33 +59,12 @@ if (! function_exists('renderQrForm')) {
         $qrLogoSpace = $params['qr_logo_space'] ?? '10';
         $qrLogoUrl = $params['qr_logo_url'] ?? '10';
 
-        $html[] = '<div>';
-        $html[] = "<details class='mt-1 readable'>
-            <summary style='float:right'>Help</summary>
-            <ul class='help'>
-                <li>
-                    <strong>QR Version</strong>
-                    The more content you include, the larger the QR version you should select.
-                </li>
-                <li>
-                    <strong>ECC (Error Correction Level)</strong> 
-                    ECC helps make your QR code resistant to damage. A higher
-                    ECC level improves durability. If you're adding a logo, it's
-                    recommended to choose ECC level ‘H’ for better reliability.
-                </li>
-                <li>
-                    <strong>Adding a logo</strong>
-                    To include a logo in your QR code, provide a URL to the logo
-                    image. We currently do not support uploading logo files
-                    directly. If we're unable to fetch the logo from the
-                    provided link, the logo area will be left blank.
-                </li>
-            </ul>
-        </details>";
+        $html = [];
+        $html[] = '<div class="">'.HELP_TEXT.'</div>';
 
         // Row for textarea
-        $html[] = "<div class='form-label text-info'>
-            <small> Each line in the form below will be converted to a separate QR code. </small>
+        $html[] = "<div class='mt-2'>
+            Each line in the form below will be converted to a separate QR code.
         </div>";
 
         $html[] = "<div class='row'>";
@@ -144,7 +147,7 @@ if (! function_exists('renderQrForm')) {
 <div class="h3 section-title">QR Code Generator</div>
 
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p class="readable">
+echo '<p>
     This tool can generate upto 20 QR codes in one go. To insert your logo, add
     its image URL.  Download them as ZIP or PDF file.
 

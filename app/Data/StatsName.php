@@ -57,9 +57,8 @@ enum StatsName: string
         model(KvStore::class)
             ->where('key_name', $keyName)
             ->where('key_subname', $subkey)
-            ->set('value_int', $oldValue + $by)
+            ->set('value_int', intval($oldValue) + $by)
             ->update();
-
     }
 
     public static function initialize(): void
