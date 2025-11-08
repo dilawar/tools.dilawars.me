@@ -110,10 +110,10 @@ class EmailService
     public function sendLwnEmailArticleNotBehindPaywall(string $email, array $article, bool $sendOnce = true): void
     {
         $title = $article['title'];
-        log_message('info', sprintf("LWN aritcle '%s' is no longer behind paywall ", $title).json_encode($article));
+        log_message('info', sprintf("'%s' is no longer behind paywall ", $title).json_encode($article));
         $twig = service('twig');
         $body = $twig->render('lwn_open.html.twig', $article);
-        $this->sendEmail($email, subject: sprintf("LWN article is no longer behind paywall: '%s'", $title), body: $body, sendOnce: $sendOnce);
+        $this->sendEmail($email, subject: sprintf("'%s' is no longer behind LWN paywall", $title), body: $body, sendOnce: $sendOnce);
     }
 
     public function notifyDevs(string $body, ?string $subject = null): void
