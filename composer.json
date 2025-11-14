@@ -10,7 +10,7 @@
 		"slack": "https://codeigniterchat.slack.com"
 	},
 	"require": {
-		"php": "^8.4",
+		"php": "^8.3",
 		"beberlei/assert": "^3.3",
 		"chillerlan/php-qrcode": "^5.0",
 		"codeigniter4/framework": "^4.0",
