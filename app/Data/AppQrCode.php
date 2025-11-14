@@ -14,6 +14,7 @@
 
 namespace App\Data;
 
+use App\Helpers\Logger;
 use Assert\Assert;
 use chillerlan\QRCode\Common\EccLevel;
 use chillerlan\QRCode\Data\QRMatrix;
@@ -37,7 +38,7 @@ class AppQrCode
      */
     public function svg(array $params): string
     {
-        log_message('info', 'Generate SVG code');
+        Logger::debug('Generate SVG code');
 
         return $this->generateSVG($this->data, $params);
     }
@@ -50,13 +51,11 @@ class AppQrCode
     private function generateSVG(string $line, array $params): string
     {
         Assert::that($line)->minLength(2);
-        log_message('info', sprintf('Genetraing qr codes for `%s` with params: ', $line).var_export($params, true));
+        Logger::info('Genetraing qr codes for with params:', $line, $params);
         $qrOptions = new QROptions();
 
-        $qrVersion = $params['qr_version'] ?? '5';
-        if ($qrVersion) {
-            $qrOptions->version = intval($qrVersion);
-        }
+        $qrVersion = ($params['qr_version'] ?? '5') ?: '5';
+        $qrOptions->version = intval($qrVersion);
 
         $qrOptions->outputInterface = QRImagick::class;
         $qrOptions->imageTransparent = true;
@@ -91,18 +90,18 @@ class AppQrCode
                     // Not sure yet how this will correlate.
                     $logoSize = $logoSpace * $logoSpace;
                     $logoImg->resizeImage($logoSize, $logoSize, \Imagick::FILTER_LANCZOS, 0.85, true);
-
                 } catch (\Throwable $th) {
-                    log_message('error', 'failed to add logo '.$th->getMessage());
+                    Logger::error('failed to add logo ', $th);
                 }
             }
         }
 
-        $eccLevel = $params['ecc_level'] ?? 'H';
-        $qrOptions->eccLevel = EccLevel::{$eccLevel};
+        $eccLevel = ($params['ecc_level'] ?? 'H') ?: 'H';
+        assert(is_string($eccLevel));
+        $qrOptions->eccLevel = EccLevel::{$eccLevel}; // @phpstan-ignore-line
 
-        $svgText = (new QRCode($qrOptions))->render($line);
-        log_message('info', "svg:\n ".$svgText);
+        $svgText = new QRCode($qrOptions)->render($line);
+        Logger::info('svg:', $svgText);
 
         if ($logoImg instanceof \Imagick) {
             return $this->addLogoToSvg($svgText, $logoImg, intval($logoSpace));

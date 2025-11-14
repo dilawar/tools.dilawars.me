@@ -1,0 +1,151 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: Access to an undefined property Feed::$item.
+			identifier: property.notFound
+			count: 1
+			path: app/Commands/LwnAlert.php
+
+		-
+			rawMessage: 'Offset ''id'' does not exist on array{feed_source: string, title: string, link: string, description: string, guid: string, guid_is_permalink: string, content: string, author: string, ...}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: app/Commands/LwnAlert.php
+
+		-
+			rawMessage: Cannot access offset 'force_reset' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Cannot access offset 'group_denied' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Cannot access offset 'login' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Cannot access offset 'logout' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Cannot access offset 'permission_denied' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Cannot access offset 'register' on array|bool|float|int|object|string|null.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Property Config\Auth::$personalFields type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Property Config\Auth::$redirects type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Property Config\Auth::$validFields type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Property Config\Auth::$views type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/Auth.php
+
+		-
+			rawMessage: Property Config\AuthGroups::$matrix type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthGroups.php
+
+		-
+			rawMessage: Property Config\AuthGroups::$permissions type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthGroups.php
+
+		-
+			rawMessage: Property Config\AuthToken::$authenticatorHeader type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Config/AuthToken.php
+
+		-
+			rawMessage: 'Parameter #2 $local_only of function getenv expects bool, string given.'
+			identifier: argument.type
+			count: 1
+			path: app/Config/Constants.php
+
+		-
+			rawMessage: 'Call to method run() of internal class CodeIgniter\HotReloader\HotReloader from outside its root namespace CodeIgniter.'
+			identifier: method.internalClass
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			rawMessage: Instantiation of internal class CodeIgniter\HotReloader\HotReloader.
+			identifier: new.internalClass
+			count: 1
+			path: app/Config/Events.php
+
+		-
+			rawMessage: 'PHPDoc type array<string, array<int<0, max>|string, array<string, string>|string>> of property Config\Filters::$globals is not covariant with PHPDoc type array{before: array<int<0, max>|string, array{except: list<string>|string}|string>, after: array<int<0, max>|string, array{except: list<string>|string}|string>} of overridden property CodeIgniter\Config\Filters::$globals.'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/Filters.php
+
+		-
+			rawMessage: Call to unknown service method 'auth'.
+			identifier: codeigniter.unknownServiceMethod
+			count: 1
+			path: app/Config/Routes.php
+
+		-
+			rawMessage: 'Cannot call method routes() on null.'
+			identifier: method.nonObject
+			count: 1
+			path: app/Config/Routes.php
+
+		-
+			rawMessage: 'Call to method PHPUnit\Framework\Assert::assertNull() with list<stdClass> will always evaluate to false.'
+			identifier: method.impossibleType
+			count: 1
+			path: tests/database/ExampleDatabaseTest.php
+
+		-
+			rawMessage: 'Cannot call method getResult() on CodeIgniter\Database\ResultInterface|false.'
+			identifier: method.nonObject
+			count: 1
+			path: tests/database/ExampleDatabaseTest.php
+
+		-
+			rawMessage: 'Call to method PHPUnit\Framework\Assert::assertTrue() with bool will always evaluate to true.'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/unit/HealthTest.php
+
+		-
+			rawMessage: 'Parameter #2 $array of function preg_grep expects array, list<string>|false given.'
+			identifier: argument.type
+			count: 1
+			path: tests/unit/HealthTest.php

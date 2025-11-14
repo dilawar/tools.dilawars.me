@@ -443,6 +443,7 @@ class Auth extends ShieldAuth
      * Returns the URL that a user should be redirected
      * to after a successful login.
      */
+    #[\Override]
     public function loginRedirect(): string
     {
         $session = session();
@@ -455,6 +456,7 @@ class Auth extends ShieldAuth
      * Returns the URL that a user should be redirected
      * to after they are logged out.
      */
+    #[\Override]
     public function logoutRedirect(): string
     {
         $url = setting('Auth.redirects')['logout'];
@@ -466,6 +468,7 @@ class Auth extends ShieldAuth
      * Returns the URL the user should be redirected to
      * after a successful registration.
      */
+    #[\Override]
     public function registerRedirect(): string
     {
         $url = setting('Auth.redirects')['register'];
@@ -477,6 +480,7 @@ class Auth extends ShieldAuth
      * Returns the URL the user should be redirected to
      * if force_reset identity is set to true.
      */
+    #[\Override]
     public function forcePasswordResetRedirect(): string
     {
         $url = setting('Auth.redirects')['force_reset'];
@@ -488,6 +492,7 @@ class Auth extends ShieldAuth
      * Returns the URL the user should be redirected to
      * if permission denied.
      */
+    #[\Override]
     public function permissionDeniedRedirect(): string
     {
         $url = setting('Auth.redirects')['permission_denied'];
@@ -499,6 +504,7 @@ class Auth extends ShieldAuth
      * Returns the URL the user should be redirected to
      * if group denied.
      */
+    #[\Override]
     public function groupDeniedRedirect(): string
     {
         $url = setting('Auth.redirects')['group_denied'];
@@ -513,6 +519,7 @@ class Auth extends ShieldAuth
      *
      * @param string $url an absolute URL or a named route or just URI path
      */
+    #[\Override]
     protected function getUrl(string $url): string
     {
         return match (true) {

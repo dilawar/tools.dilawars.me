@@ -1,22 +1,11 @@
 <?php
 
-/*
- * This file is part of the proprietary project.
- *
- * This file and its contents are confidential and protected by copyright law.
- * Unauthorized copying, distribution, or disclosure of this content
- * is strictly prohibited without prior written consent from the author or
- * copyright owner.
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
-
 namespace App\Controllers;
 
 use App\Data\ImageData;
 use App\Data\StatsName;
 use App\Data\ToolActionName;
+use App\Helpers\Logger;
 use Assert\Assert;
 use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\HTTP\Files\UploadedFile;
@@ -42,11 +31,11 @@ class ToolPdfConvertor extends BaseController
      */
     public function handlePdfAction(string $action): string|RedirectResponse
     {
-        log_message('info', sprintf('Handling action `%s`', $action));
+        Logger::info('Handling action `%s`', $action);
         $action = ToolActionName::from($action);
 
         $post = (array) $this->request->getPost();
-        log_message('debug', 'post data '.json_encode($post));
+        Logger::debug('post data ', $post);
         $rules = [
             'image' => [
                 'uploaded[image]',
@@ -58,6 +47,7 @@ class ToolPdfConvertor extends BaseController
             return redirect()->back();
         }
 
+        assert($this->request instanceof \CodeIgniter\HTTP\IncomingRequest);
         $uploadedFile = $this->request->getFile('image');
         if (! $uploadedFile) {
             return new RuntimeException('Invalid image');
@@ -135,7 +125,7 @@ class ToolPdfConvertor extends BaseController
         $result = [];
 
         $originalName = $uploadedFile->getClientName();
-        log_message('info', sprintf('> Converting PDF file `%s`.', $originalName));
+        Logger::info('> Converting PDF file: ', $originalName);
         Assert::that($originalName)->minLength(3);
 
         for ($i = 0; $i < $numPages; ++$i) {
@@ -157,6 +147,5 @@ class ToolPdfConvertor extends BaseController
         }
 
         return $result;
-
     }
 }

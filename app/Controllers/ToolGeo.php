@@ -1,19 +1,8 @@
 <?php
 
-/*
- * This file is part of the proprietary project.
- *
- * This file and its contents are confidential and protected by copyright law.
- * Unauthorized copying, distribution, or disclosure of this content
- * is strictly prohibited without prior written consent from the author or
- * copyright owner.
- *
- * For the full copyright and license information, please view the LICENSE.md
- * file that was distributed with this source code.
- */
-
 namespace App\Controllers;
 
+use App\Helpers\Logger;
 use CodeIgniter\HTTP\DownloadResponse;
 use phpGPX\Helpers\GeoHelper;
 use phpGPX\Models\GpxFile;
@@ -31,12 +20,10 @@ class ToolGeo extends BaseController
     /**
      * Handle request from map route.
      */
-    public function handleMapRoute(): string|DownloadResponse
+    public function handleMapRoute(): string|DownloadResponse|null
     {
-        log_message('info', 'Handling map route...');
-
         $post = (array) $this->request->getPost();
-        log_message('debug', 'post data '.json_encode($post));
+        Logger::debug('post data ', $post);
 
         $rules = [
             'geojson' => 'required',
@@ -52,7 +39,7 @@ class ToolGeo extends BaseController
         $coords = $content['geometry']['coordinates'];
 
         $gpx = $this->createGpx($coords, startTime: $post['start_time'], endTime: $post['end_time']);
-        log_message('debug', 'Result is '.$gpx);
+        Logger::debug('Result is ', $gpx);
 
         $date = \Carbon\Carbon::now()->format('Y-m-d');
         $filename = sprintf('maxflow-%s.gpx', $date);
@@ -81,7 +68,6 @@ class ToolGeo extends BaseController
             $point->latitude = $p[0];
             $point->longitude = $p[1];
             $point->elevation = $p[2] ?? 0;
-
             $segment->points[] = $point;
         }
 
@@ -92,7 +78,7 @@ class ToolGeo extends BaseController
 
         $segmentLength = GeoHelper::getRealDistance($firstPoint, $lastPoint);
         $speed = floatval($segmentLength) / floatval($duration);
-        log_message('info', sprintf('Segment length %s m for duration %d sec, speed=%s m/s', $segmentLength, $duration, $speed));
+        Logger::info('Segment length %s m for duration %d sec, speed=%s m/s', $segmentLength, $duration, $speed);
 
         // add timestamp.
         foreach ($segment->points as &$point) {

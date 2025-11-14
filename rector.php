@@ -34,5 +34,4 @@ return RectorConfig::configure()
         naming: true,
         symfonyCodeQuality: true,
         carbon: true,
-        phpunitCodeQuality: true
     );

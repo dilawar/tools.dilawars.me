@@ -20,8 +20,5 @@ return (new PhpCsFixer\Config())
         ],
         'no_useless_else' => true,
         'phpdoc_order' => true,
-        'header_comment' => [
-            'separate' => 'both',
-        ],
     ])
     ->setFinder($finder);

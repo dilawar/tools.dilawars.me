@@ -9,19 +9,20 @@ use Psr\Log\LoggerInterface;
 
 final class Logger
 {
+    /**
+     * @var array<string, mixed>
+     */
     private static array $instances = [];
-    private $logger;
 
     private static function getInstance(string $loggerName = 'dilawars.me'): LoggerInterface
     {
         if (!isset(self::$instances[$loggerName])) {
-            $inst = new static();
+            $inst = new self();
             $logger = new MonologLogger($loggerName);
             // skip a frame so that helper functions like info, warning, error etc report
             // the caller filename and line no.
             $logger->pushProcessor(new IntrospectionProcessor(skipStackFramesCount: 1));
             $logger->pushHandler(new StreamHandler('php://stdout', \Monolog\Level::Debug));
-            $inst->logger = $logger;
             self::$instances[$loggerName] = $inst;
         }
 
@@ -30,17 +31,13 @@ final class Logger
         return $inst->logger;
     }
 
-    protected function __construct()
-    {
-    }
-
     public function __wakeup(): void
     {
         throw new \Exception('cannot unserialize a singleton.');
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|\Stringable $message
      */
     public static function error(mixed $message, mixed ...$context): void
     {
@@ -48,7 +45,7 @@ final class Logger
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|\Stringable $message
      */
     public static function warning(mixed $message, mixed ...$context): void
     {
@@ -56,7 +53,7 @@ final class Logger
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|\Stringable $message
      */
     public static function info(mixed $message, mixed ...$context): void
     {
@@ -64,7 +61,7 @@ final class Logger
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|\Stringable $message
      */
     public static function notice(mixed $message, mixed ...$context): void
     {
@@ -72,7 +69,7 @@ final class Logger
     }
 
     /**
-     * @param string|Stringable $message
+     * @param string|\Stringable $message
      */
     public static function debug(mixed $message, mixed ...$context): void
     {
