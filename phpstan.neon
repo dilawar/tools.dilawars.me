@@ -3,9 +3,13 @@ includes:
     - ./phpstan-baseline.neon
 parameters:
     level: 8
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Variable \$this might not be defined.#'
+        - '#Variable \$routes might not be defined.#'
         - '#Constant ENVIRONMENT not found.#'
+        - '#Access to protected property chillerlan.*?#'
     paths:
         - app
         - tests

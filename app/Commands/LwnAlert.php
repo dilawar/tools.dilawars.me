@@ -109,8 +109,8 @@ class LwnAlert extends BaseCommand
         // TODO: Get list of activce subscriber. Currently, send email to dev
         // only.
         $subscribers = [$groupEmail];
-        foreach ($subscribers as $email) {
-            service('smtp')->sendLwnEmailArticleNotBehindPaywall($email, article: $item);
+        foreach ($subscribers as $subscriber) {
+            service('smtp')->sendLwnEmailArticleNotBehindPaywall($subscriber, article: $item);
         }
     }
 
@@ -123,9 +123,9 @@ class LwnAlert extends BaseCommand
         \Feed::$cacheExpire = '12 hours';
 
         $feedSource = 'https://lwn.net/headlines/rss';
-        $rss = \Feed::loadRss($feedSource);
+        $feed = \Feed::loadRss($feedSource);
 
-        foreach ($rss->item as $item) {
+        foreach ($feed->item as $item) {
             $item = (array) $item;
 
             $item['feed_source'] = $feedSource;

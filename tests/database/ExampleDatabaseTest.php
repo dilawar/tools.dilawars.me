@@ -28,10 +28,10 @@ final class ExampleDatabaseTest extends CIUnitTestCase
 
     public function testModelFindAll(): void
     {
-        $model = new ExampleModel();
+        $exampleModel = new ExampleModel();
 
         // Get every row created by ExampleSeeder
-        $objects = $model->findAll();
+        $objects = $exampleModel->findAll();
 
         // Make sure the count is as expected
         $this->assertCount(3, $objects);
@@ -39,19 +39,19 @@ final class ExampleDatabaseTest extends CIUnitTestCase
 
     public function testSoftDeleteLeavesRow(): void
     {
-        $model = new ExampleModel();
-        $this->setPrivateProperty($model, 'useSoftDeletes', true);
-        $this->setPrivateProperty($model, 'tempUseSoftDeletes', true);
+        $exampleModel = new ExampleModel();
+        $this->setPrivateProperty($exampleModel, 'useSoftDeletes', true);
+        $this->setPrivateProperty($exampleModel, 'tempUseSoftDeletes', true);
 
         /** @var stdClass $object */
-        $object = $model->first();
-        $model->delete($object->id);
+        $object = $exampleModel->first();
+        $exampleModel->delete($object->id);
 
         // The model should no longer find it
-        $this->assertNull($model->find($object->id));
+        $this->assertNull($exampleModel->find($object->id));
 
         // ... but it should still be in the database
-        $result = $model->builder()->where('id', $object->id)->get()->getResult();
+        $result = $exampleModel->builder()->where('id', $object->id)->get()->getResult();
 
         $this->assertCount(1, $result);
     }

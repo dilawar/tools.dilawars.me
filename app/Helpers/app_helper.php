@@ -79,9 +79,9 @@ function dbDateTime(string $datetime, bool $local = false): string
         date_default_timezone_set('Asia/Kolkata');
     }
 
-    $ts = intval(strtotime($datetime));
+    $ts = intval(Carbon\Carbon::parse($datetime)->getTimestamp());
 
-    return date('Y-m-d h:i:s', $ts);
+    return Carbon\Carbon::createFromTimestamp($ts)->format('Y-m-d h:i:s');
 }
 
 function base64_url_encode(string $input): string

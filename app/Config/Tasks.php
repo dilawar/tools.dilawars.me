@@ -46,6 +46,7 @@ class Tasks extends BaseTasks
      * Register any tasks within this method for the application.
      * Called by the TaskRunner.
      */
+    #[\Override]
     public function init(Scheduler $schedule): void
     {
         $schedule->command('cron:lwn')->daily();

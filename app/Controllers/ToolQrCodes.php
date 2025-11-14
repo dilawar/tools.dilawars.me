@@ -81,12 +81,12 @@ class ToolQrCodes extends BaseController
         $html[] = '</div>';
 
         // Generate PDF with all qr codes.
-        $pdf = new Dompdf();
-        $pdf->setPaper('A4');
-        $pdf->loadHtml(implode(' ', $html));
-        $pdf->render();
+        $dompdf = new Dompdf();
+        $dompdf->setPaper('A4');
+        $dompdf->loadHtml(implode(' ', $html));
+        $dompdf->render();
         $data['result'] = $qrcodes;
-        if ($pdfStr = $pdf->output()) {
+        if ($pdfStr = $dompdf->output()) {
             $data['pdf'] = blobToUri($pdfStr);
         }
 

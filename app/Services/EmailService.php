@@ -23,30 +23,30 @@ class EmailService
     /**
      * PHPMailer client.
      */
-    private readonly PHPMailer $client;
+    private readonly PHPMailer $phpMailer;
 
     public function __construct(bool $enableException = true, bool $debug = false)
     {
         log_message('info', 'Creating a new Email client...');
-        $this->client = new PHPMailer($enableException);
-        $this->client->isSMTP();
+        $this->phpMailer = new PHPMailer($enableException);
+        $this->phpMailer->isSMTP();
 
-        $this->client->Host = (string) getenv('email.SMTPHost');
-        $this->client->Port = intval(getenv('email.SMTPPort'));
-        log_message('info', 'Using smtp host='.$this->client->Host
-            .' port='.$this->client->Port);
+        $this->phpMailer->Host = (string) getenv('email.SMTPHost');
+        $this->phpMailer->Port = intval(getenv('email.SMTPPort'));
+        log_message('info', 'Using smtp host='.$this->phpMailer->Host
+            .' port='.$this->phpMailer->Port);
 
-        $this->client->Username = (string) getenv('email.SMTPUser');
-        $this->client->Password = (string) getenv('email.SMTPPass');
+        $this->phpMailer->Username = (string) getenv('email.SMTPUser');
+        $this->phpMailer->Password = (string) getenv('email.SMTPPass');
 
-        Assert::that($this->client->Username)->minLength(4);
-        Assert::that($this->client->Password)->minLength(16);
+        Assert::that($this->phpMailer->Username)->minLength(4);
+        Assert::that($this->phpMailer->Password)->minLength(16);
 
-        $this->client->SMTPAuth = true;
+        $this->phpMailer->SMTPAuth = true;
 
-        $this->client->isHTML(true);
+        $this->phpMailer->isHTML(true);
         if ($debug) {
-            $this->client->SMTPDebug = SMTP::DEBUG_SERVER;
+            $this->phpMailer->SMTPDebug = SMTP::DEBUG_SERVER;
         }
     }
 
@@ -56,12 +56,12 @@ class EmailService
     private function _sendEmail(string $to, string $subject, string $body): void
     {
         log_message('info', sprintf('Sending email to %s with %s', $to, $subject));
-        $this->client->setFrom('noreply@dilawars.me', 'MaxFlow Tools');
-        $this->client->addAddress($to);
+        $this->phpMailer->setFrom('noreply@dilawars.me', 'MaxFlow Tools');
+        $this->phpMailer->addAddress($to);
 
-        $this->client->Subject = $subject;
-        $this->client->Body = $body;
-        $this->client->send();
+        $this->phpMailer->Subject = $subject;
+        $this->phpMailer->Body = $body;
+        $this->phpMailer->send();
         log_message('info', 'Email has been sent.');
     }
 

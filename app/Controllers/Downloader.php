@@ -111,20 +111,20 @@ class Downloader extends BaseController
      */
     private function createZip(string $dirpath): string
     {
-        $now = date('Y-m-d');
+        $now = \Carbon\Carbon::now()->format('Y-m-d');
         $zipFilename = Downloader::filepath($now.'-'.basename($dirpath).'.zip', 'zips');
         log_message('info', sprintf('Creating zip `%s` from directory `%s`.', $zipFilename, $dirpath));
 
-        $zip = new \ZipArchive();
-        $zip->open($zipFilename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $zipArchive = new \ZipArchive();
+        $zipArchive->open($zipFilename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
         $files = glob($dirpath.'/*.*') ?: [];
         foreach ($files as $file) {
             log_message('debug', sprintf('>> Adding `%s` to %s', $file, $zipFilename));
-            $zip->addFile($file, entryname: basename($file));
+            $zipArchive->addFile($file, entryname: basename($file));
         }
 
-        $zip->close();
+        $zipArchive->close();
 
         return $zipFilename;
     }

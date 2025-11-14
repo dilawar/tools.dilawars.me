@@ -44,10 +44,10 @@ class ExampleSeeder extends Seeder
             ],
         ];
 
-        $builder = $this->db->table('factories');
+        $baseBuilder = $this->db->table('factories');
 
         foreach ($factories as $factory) {
-            $builder->insert($factory);
+            $baseBuilder->insert($factory);
         }
     }
 }

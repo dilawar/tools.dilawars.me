@@ -53,6 +53,7 @@ abstract class BaseController extends Controller
      */
     // protected $session;
 
+    #[\Override]
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger): void
     {
         // Do Not Edit This Line

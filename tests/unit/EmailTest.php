@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the proprietary project.
  *
@@ -16,7 +18,7 @@ namespace Tests;
 
 use CodeIgniter\Test\CIUnitTestCase;
 
-class EmailTest extends CIUnitTestCase
+final class EmailTest extends CIUnitTestCase
 {
     /**
      * @group: Email

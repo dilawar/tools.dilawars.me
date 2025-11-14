@@ -26,9 +26,9 @@ if (! function_exists('_renderUploadFormInner')) {
     function _renderUploadFormInner(string $toFormat, string $fromFormat, array $formats): string
     {
         $imageFormats = [];
-        foreach ($formats as $fmt) {
-            $fmt = strtolower($fmt);
-            $imageFormats[$fmt] = $fmt;
+        foreach ($formats as $format) {
+            $format = strtolower($format);
+            $imageFormats[$format] = $format;
         }
 
 

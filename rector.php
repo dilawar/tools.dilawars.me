@@ -30,4 +30,8 @@ return RectorConfig::configure()
         deadCode: true,
         codeQuality: true,
         codingStyle: true,
+        privatization: true,
+        naming: true,
+        symfonyCodeQuality: true,
+        carbon: true,
     );
