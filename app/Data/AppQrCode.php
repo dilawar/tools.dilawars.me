@@ -26,9 +26,8 @@ class AppQrCode
     /**
      * Generate AppQrCode.
      */
-    public function __construct(
-        public string $data,
-    ) {
+    public function __construct(public string $data)
+    {
     }
 
     /**
@@ -52,21 +51,21 @@ class AppQrCode
     {
         Assert::that($line)->minLength(2);
         log_message('info', sprintf('Genetraing qr codes for `%s` with params: ', $line).var_export($params, true));
-        $options = new QROptions();
+        $qrOptions = new QROptions();
 
         $qrVersion = $params['qr_version'] ?? '5';
         if ($qrVersion) {
-            $options->version = intval($qrVersion);
+            $qrOptions->version = intval($qrVersion);
         }
 
-        $options->outputInterface = QRImagick::class;
-        $options->imageTransparent = true;
-        $options->outputBase64 = false;
+        $qrOptions->outputInterface = QRImagick::class;
+        $qrOptions->imageTransparent = true;
+        $qrOptions->outputBase64 = false;
 
         if ($params['circle'] ?? true) {
-            $options->circleRadius = 0.45;
-            $options->drawCircularModules = true;
-            $options->keepAsSquare = [
+            $qrOptions->circleRadius = 0.45;
+            $qrOptions->drawCircularModules = true;
+            $qrOptions->keepAsSquare = [
                 QRMatrix::M_FINDER_DARK, QRMatrix::M_FINDER_DOT, QRMatrix::M_ALIGNMENT_DARK,
             ];
         }
@@ -75,9 +74,9 @@ class AppQrCode
 
         $logoSpace = intval($params['qr_logo_space'] ?? '0');
         if ($logoSpace > 0) {
-            $options->addLogoSpace = true;
-            $options->logoSpaceWidth = $logoSpace;
-            $options->logoSpaceHeight = $logoSpace;
+            $qrOptions->addLogoSpace = true;
+            $qrOptions->logoSpaceWidth = $logoSpace;
+            $qrOptions->logoSpaceHeight = $logoSpace;
 
             // add logo.
             $qrLogoUrl = (string) $params['qr_logo_url'];
@@ -100,9 +99,9 @@ class AppQrCode
         }
 
         $eccLevel = $params['ecc_level'] ?? 'H';
-        $options->eccLevel = EccLevel::{$eccLevel};
+        $qrOptions->eccLevel = EccLevel::{$eccLevel};
 
-        $svgText = (new QRCode($options))->render($line);
+        $svgText = (new QRCode($qrOptions))->render($line);
         log_message('info', "svg:\n ".$svgText);
 
         if ($logoImg instanceof \Imagick) {
@@ -112,22 +111,22 @@ class AppQrCode
         return $svgText;
     }
 
-    private function addLogoToSvg(string $svgText, \Imagick $logoImg, int $logoSpace): string
+    private function addLogoToSvg(string $svgText, \Imagick $imagick, int $logoSpace): string
     {
         // We insert logo as data URI inside SVG. We first parse the SVG and
         // then add the logo.
-        $dom = new \DOMDocument();
-        $dom->loadXML($svgText);
+        $domDocument = new \DOMDocument();
+        $domDocument->loadXML($svgText);
 
-        $svg = $dom->getElementsByTagName('svg')[0];
+        $svg = $domDocument->getElementsByTagName('svg')[0];
 
         // Add a attribute with xlink as namespace.
-        $namespaceAttr = $dom->createAttribute('xmlns:xlink');
+        $namespaceAttr = $domDocument->createAttribute('xmlns:xlink');
         $namespaceAttr->value = 'http://www.w3.org/1999/xlink';
 
         $svg->appendChild($namespaceAttr);
 
-        $logoElem = $dom->createElement('image');
+        $logoElem = $domDocument->createElement('image');
         // attributes.
         $perc = intval(2 * $logoSpace);
         $xPerc = 50 - $perc / 2;
@@ -136,10 +135,10 @@ class AppQrCode
             'y' => $xPerc.'%',
             'width' => $perc.'%',
             'height' => $perc.'%',
-            'xlink:href' => dataUri($logoImg->getImageBlob(), 'image/png'),
+            'xlink:href' => dataUri($imagick->getImageBlob(), 'image/png'),
         ];
         foreach ($attrs as $attrName => $attrValue) {
-            $attr = $dom->createAttribute($attrName);
+            $attr = $domDocument->createAttribute($attrName);
             $attr->value = $attrValue;
             $logoElem->appendChild($attr);
         }
@@ -147,6 +146,6 @@ class AppQrCode
         // Append logo
         $svg->appendChild($logoElem);
 
-        return (string) $dom->saveXML();
+        return (string) $domDocument->saveXML();
     }
 }

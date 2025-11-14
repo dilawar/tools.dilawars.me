@@ -113,7 +113,7 @@
 
         <div class="copyrights">
             Version <?php echo APP_VERSION; ?>
-            <p>&copy; <?php echo date('Y'); ?> <a href="https://dilawars.me">Dilawar Singh</a>
+            <p>&copy; <?php echo Carbon\Carbon::now()->format('Y'); ?> <a href="https://dilawars.me">Dilawar Singh</a>
         </div>
     </footer>
 

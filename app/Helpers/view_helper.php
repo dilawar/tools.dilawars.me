@@ -157,7 +157,7 @@ function iconify(string $iconName, string $tooltip, int $size = 32): string
  */
 function htmlDatetimeLocal(string $datetime): string
 {
-    return date('Y-m-d\TH:i', intval(strtotime($datetime)));
+    return Carbon\Carbon::createFromTimestamp(intval(Carbon\Carbon::parse($datetime)->getTimestamp()))->format('Y-m-d\TH:i');
 }
 
 /**

@@ -29,9 +29,9 @@ class ToolImageCompressor extends BaseController
     public function handleAction(string $actionName): string
     {
         log_message('info', sprintf('Handling action %s...', $actionName));
-        $action = ToolActionName::from($actionName);
+        $toolActionName = ToolActionName::from($actionName);
 
-        if (ToolActionName::CompressImage === $action) {
+        if (ToolActionName::CompressImage === $toolActionName) {
             $data = $this->handleCompressImage();
 
             return $this->loadToolView($data);

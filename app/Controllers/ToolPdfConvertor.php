@@ -91,7 +91,7 @@ class ToolPdfConvertor extends BaseController
         $imagick->setImageCompression(\Imagick::COMPRESSION_JPEG);
         $imagick->setImageCompressionQuality(80); // Range: 0 (worst) to 100 (best)
 
-        $result = new ImageData(
+        $imageData = new ImageData(
             data: $imagick->getImageBlob(),
             originalFilename: $originalName,
             convertedFilename: $convertedFilename,
@@ -100,7 +100,7 @@ class ToolPdfConvertor extends BaseController
         $imagick->clear();
 
         return view('tools/pdf_compress', [
-            'image_artifacts' => [$result],
+            'image_artifacts' => [$imageData],
         ]);
     }
 
@@ -125,16 +125,16 @@ class ToolPdfConvertor extends BaseController
      *
      * @return array<ImageData>
      */
-    private function convertPdfToJpgs(UploadedFile $file): array
+    private function convertPdfToJpgs(UploadedFile $uploadedFile): array
     {
-        $pdffile = $file->getTempName();
+        $pdffile = $uploadedFile->getTempName();
         $pdf = new \Imagick($pdffile);
         $numPages = $pdf->getNumberImages();
         $pdf->clear();
 
         $result = [];
 
-        $originalName = $file->getClientName();
+        $originalName = $uploadedFile->getClientName();
         log_message('info', sprintf('> Converting PDF file `%s`.', $originalName));
         Assert::that($originalName)->minLength(3);
 

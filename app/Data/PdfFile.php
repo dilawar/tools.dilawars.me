@@ -17,9 +17,9 @@ namespace App\Data;
 class PdfFile extends \FPDF
 {
     public function __construct(
-        private readonly \FPDF $pdf = new \FPDF(),
+        private readonly \FPDF $fpdf = new \FPDF(),
     ) {
-        $this->pdf->AddPage();
+        $this->fpdf->AddPage();
     }
 
     public function addQrPng(string $png): void
@@ -27,13 +27,13 @@ class PdfFile extends \FPDF
         $tempfname = tempnam(sys_get_temp_dir(), 'qr_');
         file_put_contents($tempfname, $png);
 
-        $this->pdf->Image($tempfname, type: 'PNG');
+        $this->fpdf->Image($tempfname, type: 'PNG');
 
         unlink($tempfname);
     }
 
     public function uri(): string
     {
-        return blobToUri($this->pdf->Output('S'));
+        return blobToUri($this->fpdf->Output('S'));
     }
 }
