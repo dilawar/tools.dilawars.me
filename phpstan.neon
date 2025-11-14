@@ -3,6 +3,8 @@ includes:
     - ./phpstan-baseline.neon
 parameters:
     level: 8
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#Variable \$this might not be defined.#'
         - '#Variable \$routes might not be defined.#'
