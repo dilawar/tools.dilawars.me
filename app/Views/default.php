@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?php echo $page_title ?? 'PHP Tools: QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
-    <meta name="description" content="Image convertor, image compressor and other tools">
+    <title> <?php echo $page_title ?? 'QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
+    <meta name="description" content="Image convertor, compression, PDF converter, and other tools">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.jpg">
 
@@ -44,21 +44,20 @@
 <body>
     <!-- Navigation bar -->
     <header>
-        <nav class="navbar flex flex-row justify-content-end">
-            <div class="col-1">
+        <nav class="navbar flex flex-row row-cols-5 justify-content-between align-items-end">
+            <div class="col">
                 <a class="navbar-brand" href="/">
-                    <img src="/icon.jpg" height="64px" />
+                    <img src="/icon.jpg" height="48px" />
                 </a>
             </div>
-            <div class='col'></div>
 
             <?php if (auth()->loggedIn()) { ?>
-            <span class="col col-sm-3 col-md-3 text-underline">
+            <span class="text-underline">
                 <small> Hi <?php echo auth()->user()?->getEmail(); ?> </small>
             </span>
-            <a class="btn btn-info btn-sm col-3 col-sm-2 col-md-1 mx-1" href="/logout">Logout</a>
+            <a class="btn btn-info btn-sm mx-1" href="/logout">Logout</a>
             <?php } else { ?>
-            <a class="btn btn-link col-3 col-sm-2 col-md-1 mx-1" href="/login">Login</a>
+            <a class="btn btn-link mx-1" href="/login">Login</a>
             <?php } ?>
         </nav>
     </header>
@@ -113,7 +112,8 @@
 
         <div class="copyrights">
             Version <?php echo APP_VERSION; ?>
-            <p>&copy; <?php echo Carbon\Carbon::now()->format('Y'); ?> <a href="https://dilawars.me">Dilawar Singh</a>
+            <p>&copy; <?php echo Carbon\Carbon::now()->format('Y'); ?> 
+            <a href="https://dilawars.me">Dilawar Singh</a>
         </div>
     </footer>
 

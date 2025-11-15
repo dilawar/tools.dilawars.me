@@ -23,7 +23,11 @@ $routes->get('/', 'Home::index');
 // Download files.
 $routes->get('/download/(:any)', 'Downloader::index/$1');
 
+// bar code
+$routes->get('/barcode/v1', 'ToolQrCodes::generateBarcodeImageV1');
+
 // qr tool.
+$routes->get('/qr/v1', 'ToolQrCodes::generateQrImageV1');
 $routes->get('tool/qrcodes', 'ToolQrCodes::index');
 $routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
 

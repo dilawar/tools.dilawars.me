@@ -4,25 +4,20 @@
 <?php
 
 if (! function_exists('renderToolCard')) {
-
     /**
      * @param array{href: string, text: string} $link
      */
     function renderToolCard(string $title, string $body, array $link, string $icon = ''): string
     {
-        unset($icon);
-
+        assert(is_string($link['href']));
+        $html = [];
         $html[] = "<div class='readable p-2 mt-2'>";
-
         // mostly for SEO.
         $html[] = sprintf("<p style='display: none'>%s</p>", $title);
-
         $html[] = "<a class='col' href='".$link['href']."'>"
             ."<span class='h5'>".$link['text'].'</span>'
             .'</a>';
-
         $html[] = $body;
-
         $html[] = '</div>';
 
         return implode(' ', $html);
@@ -32,14 +27,16 @@ if (! function_exists('renderToolCard')) {
 ?>
 
 <section>
-
-    <!-- QR Generator  -->
-    <?php echo renderToolCard('Generate QR codes',
+<!-- QR Generator  -->
+    <?php
+    echo renderToolCard(
+        'Generate QR Codes',
         body: 'Generate multiple QR codes (SVG). Download them all on a single PDF page for printing.',
         link: [
             'href' => '/tool/qrcodes',
             'text' => 'QR Code Generator',
-        ]);
+        ]
+    );
 ?>
 
 
@@ -59,13 +56,15 @@ if (! function_exists('renderToolCard')) {
     </div>
 
 
-    <!-- Compress image -->
-    <?php echo renderToolCard('Compress Images',
+    <?php
+    echo renderToolCard(
+        'Compress Images',
         body: 'Compress various types of images to JPEG to reduce size.',
         link: [
             'href' => '/tool/compress',
             'text' => 'Image Compressor',
-        ]);
+        ]
+    );
 ?>
 
     <div id="translations" style="display: none;">
@@ -83,12 +82,15 @@ if (! function_exists('renderToolCard')) {
 
 
     <!-- Convert one image format to another -->
-    <?php echo renderToolCard('Convert Image To Any Other Format',
+    <?php
+    echo renderToolCard(
+        'Convert Image To Any Other Format',
         body: 'Change a image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format.',
         link: [
             'href' => '/tool/convert',
             'text' => 'Image Convertor',
-        ]);
+        ]
+    );
 ?>
     <div style="display: none;">
       <!-- Hindi -->
@@ -113,12 +115,15 @@ if (! function_exists('renderToolCard')) {
       تصویر کو PNG، JPG، BMP، ICON، GIF اور 100 دیگر فارمیٹس میں تبدیل کریں۔
     </div>
 
-<?php echo renderToolCard('Convert PDF File to JPGs',
-    body : 'Convert PDF file to JPEG images',
-    link: [
-        'href' => '/tool/pdf/to_jpeg',
-        'text' => 'PDF to JPG',
-    ], ); ?>
+    <?php
+    echo renderToolCard(
+        'Convert PDF File to JPGs',
+        body : 'Convert PDF file to JPEG images',
+        link: [
+            'href' => '/tool/pdf/to_jpeg',
+            'text' => 'PDF to JPG',
+        ],
+    ); ?>
 
     <div hidden>
         <p><strong>Hindi (हिन्दी):</strong> PDF को JPG/PNG में बदलें</p>
@@ -128,10 +133,12 @@ if (! function_exists('renderToolCard')) {
         <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>
     </div>
 
-    <?php echo renderToolCard('Compress PDF', body : 'Compress a big PDF to reduce its size.', link: [
+    <?php
+    echo renderToolCard('Compress PDF', body : 'Compress a big PDF to reduce its size.', link: [
         'href' => '/tool/pdf/compress',
         'text' => 'Compress PDF',
-    ], ); ?>
+    ]);
+?>
 
     <div style="display: none;">
         <p>Hindi: पीडीएफ संपीड़ित करें</p>
@@ -149,15 +156,21 @@ if (! function_exists('renderToolCard')) {
     </div>
 
     <!-- OCR -->
-    <?php echo renderToolCard('OCR: Extract Text From Images/PDF',
+    <?php
+    echo renderToolCard(
+        'OCR: Extract Text From Images/PDF',
         body : 'Extract text from PDF and images locally. No file is uploaded to server.',
         link: [
             'href' => '/tool/ocr/extract',
             'text' => 'Optical Character Recognition (OCR)',
-        ], ); ?>
+        ],
+    ); ?>
 
     <!-- Map My Run -->
-    <?php echo renderToolCard('Map my route/run', body : 'Map your running/biking route and download GPX',
+    <?php
+    echo renderToolCard(
+        'Map my route/run',
+        body : 'Map your running/biking route and download GPX',
         link: [
             'href' => '/tool/geo/map_route',
             'text' => 'Map My Route',
@@ -165,12 +178,15 @@ if (! function_exists('renderToolCard')) {
     ); ?>
 
     <!-- Notify when a LWN article become open  -->
-    <?php echo renderToolCard('Notify when a recent LWN article is public',
+    <?php
+    echo renderToolCard(
+        'Notify when a recent LWN article is public',
         body : 'Subscribe to a group/email-list and get notified by email',
         link: [
             'href' => '/tool/subscription/lwn',
             'text' => 'LWN is un-paywalled',
-        ], icon: 'streamline-freehand-color:send-email-fly'
+        ],
+        icon: 'streamline-freehand-color:send-email-fly'
     ); ?>
 
 </section>

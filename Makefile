@@ -22,6 +22,7 @@ install_dev:
 fix:
 	./vendor/bin/rector 
 	PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix
+	$(MAKE) lint
 
 lint: 
 	$(PHPSTAN) analyze app

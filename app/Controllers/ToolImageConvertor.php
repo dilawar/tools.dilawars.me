@@ -77,6 +77,7 @@ class ToolImageConvertor extends BaseController
 
         $imagick = new \Imagick($pathOnDisk);
         $imagick->thumbnailImage(256, 256, true, true);
+
         $thumbnail = $imagick->getImageBlob();
         StatsName::TotalImageConvcersions->increment(subkey: $to);
 
