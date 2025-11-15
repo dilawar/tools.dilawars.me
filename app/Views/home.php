@@ -9,10 +9,7 @@ if (! function_exists('renderToolCard')) {
      */
     function renderToolCard(string $title, string $body, array $link, string $icon = ''): string
     {
-        assert(is_string($title));
-        assert(is_string($body));
         assert(is_string($link['href']));
-
         $html = [];
         $html[] = "<div class='readable p-2 mt-2'>";
         // mostly for SEO.

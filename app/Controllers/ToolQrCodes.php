@@ -18,8 +18,49 @@ use App\Data\AppQrCode;
 use App\Data\StatsName;
 use App\Helpers\Logger;
 use Assert\Assert;
-use CodeIgniter\HTTP\Response;
+use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
+use Picqer\Barcode\BarcodeGeneratorSVG;
+
+/**
+ * @var list<string>
+ */
+const VALID_BARCODE_TYPES = [
+    'c32',
+    'c39',
+    'c39+',
+    'c39e', // code 39 extended
+    'c39e+', // code 39 extended + checksum
+    'c93',
+    's25',
+    's25+',
+    'i25',
+    'i25+',
+    'itf14',
+    'c128',
+    'c128a',
+    'c128b',
+    'c128c',
+    'ean2', // 2-digits upc-based extention
+    'ean5', // 5-digits upc-based extention
+    'ean8',
+    'ean13',
+    'upca',
+    'upce',
+    'msi', // msi (variation of plessey code)
+    'msi+', // msi + checksum (modulo 11)
+    'postnet',
+    'planet',
+    'telepenalpha',
+    'telepennumeric',
+    'rms4cc', // rms4cc (royal mail 4-state customer code) - cbc (customer bar code)
+    'kix', // kix (klant index - customer index)
+    'imb', // imb - intelligent mail barcode - onecode - usps-b-3200
+    'codabar',
+    'code11',
+    'pharma',
+    'pharma2t',
+];
 
 class ToolQrCodes extends BaseController
 {
@@ -31,25 +72,64 @@ class ToolQrCodes extends BaseController
     /**
      * Generate QR code and return as SVG.
      */
-    public function generateQrImage(): Response
+    public function generateQrImage(): ResponseInterface
     {
-        $params = $this->request->getGet();
+        $params = (array) $this->request->getGet();
         Logger::info('qr params: ', $params);
 
-        $data = $this->request->getGet('data');
+        $data = $params['data'];
         if (! $data) {
             $this->response->setStatusCode(400);
 
             return $this->response->setBody('Missing "data" query parameter.');
         }
+
         unset($params['data']);
 
-        $qr = new AppQrCode($data);
-        $qrSVG = $qr->svg($params);
+        $appQrCode = new AppQrCode($data);
+        $qrSVG = $appQrCode->svg($params);
 
         return $this->response
             ->setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
             ->setBody($qrSVG);
+    }
+
+    public function generateBarcodeImage(): ResponseInterface
+    {
+        $params = (array) $this->request->getGet();
+        Logger::info('barcode params: ', $params);
+
+        $data = $params['data'];
+        if (! $data) {
+            $this->response->setStatusCode(400);
+
+            return $this->response->setBody('Missing "data" query parameter.');
+        }
+
+        unset($params['data']);
+
+
+        $barcodeGeneratorSVG = new BarcodeGeneratorSVG();
+        $barcodeType = $params['type'] ?? 'c128';
+        if (! in_array($barcodeType, VALID_BARCODE_TYPES)) {
+            $this->response->setStatusCode(400);
+
+            return $this->response->setBody(sprintf("Invalid 'type' query parameter `%s'. Valid codes are ", $barcodeType).implode(', ', VALID_BARCODE_TYPES));
+        }
+
+        $svg = '';
+        try {
+            $svg = $barcodeGeneratorSVG->getBarcode($data, $barcodeType);
+        } catch (\Throwable $throwable) {
+            $this->response->setStatusCode(400);
+
+            return $this->response->setBody('Failed to generate barcode. Error: '.$throwable->getMessage());
+        }
+
+
+        return $this->response
+            ->setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+            ->setBody($svg);
     }
 
     /**
@@ -66,7 +146,10 @@ class ToolQrCodes extends BaseController
         return $this->loadMainView($data);
     }
 
-    private function generateInner(string $text): string
+    /**
+     * @return array<string, mixed>
+     */
+    private function generateInner(string $text): array
     {
         Assert::that($text)->minLength(3);
 
