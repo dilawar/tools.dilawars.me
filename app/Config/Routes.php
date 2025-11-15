@@ -24,10 +24,10 @@ $routes->get('/', 'Home::index');
 $routes->get('/download/(:any)', 'Downloader::index/$1');
 
 // bar code
-$routes->get('/barcode', 'ToolQrCodes::generateBarcodeImage');
+$routes->get('/barcode/v1', 'ToolQrCodes::generateBarcodeImageV1');
 
 // qr tool.
-$routes->get('/qr', 'ToolQrCodes::generateQrImage');
+$routes->get('/qr/v1', 'ToolQrCodes::generateQrImageV1');
 $routes->get('tool/qrcodes', 'ToolQrCodes::index');
 $routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
 

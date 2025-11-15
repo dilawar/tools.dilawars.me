@@ -72,7 +72,7 @@ class ToolQrCodes extends BaseController
     /**
      * Generate QR code and return as SVG.
      */
-    public function generateQrImage(): ResponseInterface
+    public function generateQrImageV1(): ResponseInterface
     {
         $params = (array) $this->request->getGet();
         Logger::info('qr params: ', $params);
@@ -94,7 +94,7 @@ class ToolQrCodes extends BaseController
             ->setBody($qrSVG);
     }
 
-    public function generateBarcodeImage(): ResponseInterface
+    public function generateBarcodeImageV1(): ResponseInterface
     {
         $params = (array) $this->request->getGet();
         Logger::info('barcode params: ', $params);
