@@ -16,7 +16,9 @@ namespace App\Controllers;
 
 use App\Data\AppQrCode;
 use App\Data\StatsName;
+use App\Helpers\Logger;
 use Assert\Assert;
+use CodeIgniter\HTTP\Response;
 use Dompdf\Dompdf;
 
 class ToolQrCodes extends BaseController
@@ -24,6 +26,30 @@ class ToolQrCodes extends BaseController
     public function index(): string
     {
         return $this->loadMainView();
+    }
+
+    /**
+     * Generate QR code and return as SVG.
+     */
+    public function generateQrImage(): Response
+    {
+        $params = $this->request->getGet();
+        Logger::info('qr params: ', $params);
+
+        $data = $this->request->getGet('data');
+        if (! $data) {
+            $this->response->setStatusCode(400);
+
+            return $this->response->setBody('Missing "data" query parameter.');
+        }
+        unset($params['data']);
+
+        $qr = new AppQrCode($data);
+        $qrSVG = $qr->svg($params);
+
+        return $this->response
+            ->setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+            ->setBody($qrSVG);
     }
 
     /**
@@ -35,6 +61,13 @@ class ToolQrCodes extends BaseController
          * @var string
          */
         $text = $this->request->getPost('lines') ?? '';
+        $data = $this->generateInner($text);
+
+        return $this->loadMainView($data);
+    }
+
+    private function generateInner(string $text): string
+    {
         Assert::that($text)->minLength(3);
 
         // Directory to keep generated qr codes. It must be unique.
@@ -51,7 +84,7 @@ class ToolQrCodes extends BaseController
         $error = '';
 
         // Start generating HTML for generating PDF.
-        $html[] = '<div class="row">';
+        $html = ['<div class="row">'];
 
         $i = 0;
         foreach (array_slice($lines, 0, 20) as $line) {
@@ -72,7 +105,6 @@ class ToolQrCodes extends BaseController
                 ]);
 
                 StatsName::TotalQrGenerated->increment();
-
             } catch (\Throwable $th) {
                 $error = $th->getMessage();
             }
@@ -85,7 +117,8 @@ class ToolQrCodes extends BaseController
         $dompdf->setPaper('A4');
         $dompdf->loadHtml(implode(' ', $html));
         $dompdf->render();
-        $data['result'] = $qrcodes;
+
+        $data = ['result' => $qrcodes];
         if ($pdfStr = $dompdf->output()) {
             $data['pdf'] = blobToUri($pdfStr);
         }
@@ -93,7 +126,7 @@ class ToolQrCodes extends BaseController
         $data['zip'] = Downloader::url($resultDir);
         $data['error'] = $error;
 
-        return $this->loadMainView($data);
+        return $data;
     }
 
     /**

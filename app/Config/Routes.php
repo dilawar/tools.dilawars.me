@@ -24,6 +24,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/download/(:any)', 'Downloader::index/$1');
 
 // qr tool.
+$routes->get('/qr', 'ToolQrCodes::generateQrImage');
 $routes->get('tool/qrcodes', 'ToolQrCodes::index');
 $routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
 
