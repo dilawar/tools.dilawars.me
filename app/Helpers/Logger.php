@@ -13,6 +13,7 @@ final class Logger
      * @var array<string, mixed>
      */
     private static array $instances = [];
+    private object $logger;
 
     private static function getInstance(string $loggerName = 'dilawars.me'): LoggerInterface
     {
@@ -23,6 +24,8 @@ final class Logger
             // the caller filename and line no.
             $logger->pushProcessor(new IntrospectionProcessor(skipStackFramesCount: 1));
             $logger->pushHandler(new StreamHandler('php://stdout', \Monolog\Level::Debug));
+            $inst->logger = $logger;
+
             self::$instances[$loggerName] = $inst;
         }
 
