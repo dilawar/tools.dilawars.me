@@ -14,6 +14,7 @@
 
 namespace App\Filters;
 
+use App\Helpers\Logger;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -33,7 +34,7 @@ class Throttle implements FilterInterface
         // Rate limit tool usage 5 times a minutes (max).
         $uriPath = $request->getUri()->getPath();
         if (str_starts_with($uriPath, '/tools')) {
-            log_message('debug', 'uri is '.$uriPath);
+            Logger::debug('uri is ', $uriPath);
             // Ensure that one does not use more than 5 times a minutes.
             if (false === $throttler->check(md5($request->getIPAddress()), 5, MINUTE)) { // @phpstan-ignore-line
                 $body = "<h3 class='text-warning'>Too many requests. This service allows maximum 5 usage of any tools per minutes. Try again in some time.</h3>";

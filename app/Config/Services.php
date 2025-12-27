@@ -16,11 +16,6 @@ namespace Config;
 
 use App\Services\EmailService;
 use CodeIgniter\Config\BaseService;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Handler\BrowserConsoleHandler;
-use Monolog\Handler\RotatingFileHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 
 /**
  * Services Configuration file.
@@ -71,41 +66,5 @@ class Services extends BaseService
         $filesystemLoader = new \Twig\Loader\FilesystemLoader(APPPATH.'/Views/templates');
 
         return new \Twig\Environment($filesystemLoader);
-    }
-
-    /**
-     * Use monolog logger.
-     *
-     * - Logs to syslogs
-     * - Logs to console (colored)
-     * - Logs to browser console (development only).
-     */
-    public static function logger(bool $getShared = true): Logger
-    {
-        if ($getShared) {
-            return static::getSharedInstance('logger');
-        }
-
-        $logger = new Logger('dilawars.me');
-
-        /*
-         * Important: Following doesn't work with frankenphp.
-         */
-        if (ENVIRONMENT !== 'production') {
-            $streamHandler = new StreamHandler('php://stdout', \Monolog\Level::Debug);
-            $logger->pushHandler($streamHandler);
-        }
-
-        // also write JSON logs to file.
-        $rotatingFileHandler = new RotatingFileHandler(WRITEPATH.'logs/applog.json', maxFiles: 30);
-        $jsonFormatter = new JsonFormatter();
-        $rotatingFileHandler->setFormatter($jsonFormatter);
-        $logger->pushHandler($rotatingFileHandler);
-
-        if (ENVIRONMENT !== 'development') {
-            $logger->pushHandler(new BrowserConsoleHandler(level: \Monolog\Level::Info));
-        }
-
-        return $logger;
     }
 }
