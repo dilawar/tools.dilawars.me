@@ -31,6 +31,10 @@ $routes->get('/qr/v1', 'ToolQrCodes::generateQrImageV1');
 $routes->get('tool/qrcodes', 'ToolQrCodes::index');
 $routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
 
+// extractor tool.
+$routes->view('/tool/bin_extract', 'tools/bin_extract');
+
+
 // Compress tools.
 $routes->get('tool/compress', 'ToolImageCompressor::index');
 $routes->post('tool/action/compress/(:segment)', [[ToolImageCompressor::class, 'handleAction'], '$1']);

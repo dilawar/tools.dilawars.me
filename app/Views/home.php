@@ -27,8 +27,20 @@ if (! function_exists('renderToolCard')) {
 ?>
 
 <section>
-<!-- QR Generator  -->
-    <?php
+
+<?php
+    echo renderToolCard(
+        'Extract Binary File',
+        body: 'Extract a binary file using binwalk and friends.',
+        link: [
+            'href' => '/tool/bin_extract',
+            'text' => 'Extract Binrary File',
+        ]
+    );
+?>
+
+
+<?php
     echo renderToolCard(
         'Generate QR Codes',
         body: 'Generate multiple QR codes (SVG). Download them all on a single PDF page for printing.',
@@ -56,7 +68,7 @@ if (! function_exists('renderToolCard')) {
     </div>
 
 
-    <?php
+<?php
     echo renderToolCard(
         'Compress Images',
         body: 'Compress various types of images to JPEG to reduce size.',
