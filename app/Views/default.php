@@ -47,7 +47,7 @@
         <nav class="navbar flex flex-row row-cols-5 justify-content-between align-items-end">
             <div class="col">
                 <a class="navbar-brand" href="/">
-                    <img src="/icon.jpg" height="48px" />
+                    <img src="/icon.jpg" width="64px" />
                 </a>
             </div>
 
