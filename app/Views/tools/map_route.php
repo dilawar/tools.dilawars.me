@@ -71,6 +71,10 @@ function downloadGpx() {
     const startTime = new Date(document.getElementById('start_time').value);
     const endTime   = new Date(document.getElementById('end_time').value);
     const duration  = (endTime - startTime) / 1000;
+    if (Number.isNaN(startTime.getTime()) || Number.isNaN(endTime.getTime()) || duration <= 0) {
+        alert('Please choose a valid start and end time.');
+        return;
+    }
     const first     = route[0];
     const last      = route[route.length - 1];
     const totalDist = haversineDistance(first[0], first[1], last[0], last[1]);
