@@ -65,6 +65,12 @@ L.easyButton(icon, function (btn, map) {
     document.body.removeChild(element);
 }).addTo(map);
 
+icon = iconify("mdi:file-download", "Download GPX");
+L.easyButton(icon, function (btn, map) {
+    console.info("Downloading GPX...");
+    downloadGpx();
+}).addTo(map);
+
 /**
  * Get route data as geojson string.
  */
