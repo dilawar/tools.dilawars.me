@@ -125,7 +125,7 @@ class AppQrCode
 
         $svg->appendChild($namespaceAttr);
 
-        $logoElem = $domDocument->createElement('image');
+        $domElement = $domDocument->createElement('image');
         // attributes.
         $perc = intval(2 * $logoSpace);
         $xPerc = 50 - $perc / 2;
@@ -139,11 +139,11 @@ class AppQrCode
         foreach ($attrs as $attrName => $attrValue) {
             $attr = $domDocument->createAttribute($attrName);
             $attr->value = $attrValue;
-            $logoElem->appendChild($attr);
+            $domElement->appendChild($attr);
         }
 
         // Append logo
-        $svg->appendChild($logoElem);
+        $svg->appendChild($domElement);
 
         return (string) $domDocument->saveXML();
     }

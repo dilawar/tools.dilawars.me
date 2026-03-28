@@ -29,7 +29,7 @@ final class ToolGeoTest extends CIUnitTestCase
 
     private function routesConfig(): string
     {
-        return (string) file_get_contents(APPPATH . 'Config/Routes.php');
+        return (string) file_get_contents(APPPATH.'Config/Routes.php');
     }
 
     public function testGetRouteRegistered(): void
@@ -52,7 +52,7 @@ final class ToolGeoTest extends CIUnitTestCase
 
     private function viewContents(): string
     {
-        return (string) file_get_contents(APPPATH . 'Views/tools/map_route.php');
+        return (string) file_get_contents(APPPATH.'Views/tools/map_route.php');
     }
 
     public function testViewHasMapDiv(): void
