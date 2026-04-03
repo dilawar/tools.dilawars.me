@@ -144,14 +144,13 @@ if (! function_exists('renderQrForm')) {
 ?>
 
 <section>
-<div class="h3 section-title">QR Code Generator</div>
+<h1 class="section-title">Bulk QR Code Generator</h1>
+<p class="page-lead">
+    Generate up to 20 QR codes at once. Download them all as a single PDF or a ZIP of SVG files.
+    Want a live preview and embeddable URL? <a href="/tool/qrcodes">Use the single QR builder.</a>
+</p>
 
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p>
-    This tool can generate upto 20 QR codes in one go. To insert your logo, add
-    its image URL.  Download them as ZIP or PDF file.
-    <a href="/tool/qrcodes">Generate a single QR code</a> with a live preview and embeddable URL.
-</p>';
 
 echo renderQrForm($lines, helpText: $helpText, params: [
     'qr_size_in_px' => $qrSizeInPx,

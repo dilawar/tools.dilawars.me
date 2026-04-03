@@ -76,11 +76,19 @@ if (! function_exists('_renderUploadFormInner')) {
 ?>
 
 <section>
-<div class='h3 section-title'> Image conversion Tool </div>
+<h1 class="section-title">Image Converter</h1>
+<p class="page-lead">
+    Convert any image to JPG, PNG, HEIC, BMP, GIF, WebP, or
+    <?php echo count($supportedFormats); ?> other formats instantly.
+</p>
 
-<details style="margin:10px;">
-    <summary> Total <?php echo count($supportedFormats); ?> formats are supported. </summary>
-    <?php echo implode(', ', $supportedFormats); ?>.
+<details class="help mb-3" style="padding: 8px 14px;">
+    <summary style="cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+        View all <?php echo count($supportedFormats); ?> supported formats
+    </summary>
+    <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">
+        <?php echo implode(', ', $supportedFormats); ?>
+    </p>
 </details>
 
 <?php

@@ -61,13 +61,11 @@ if (! function_exists('renderBuildMyRouteForm')) {
 
 <!-- Form -->
 <section>
-    <div class='h3'>Map my running route</div>
-    <p>
-        Map your route, add start time and end time of the run and download GPX file to 
-        upload it on Strava or other services.
-        <small> For more advanced needs, try
-            <?php echo a('https://gotoes.org/strava/Add_Timestamps_To_GPX.php', 'this amazing tool'); ?>.
-        </small>
+    <h1 class="section-title">Map My Route</h1>
+    <p class="page-lead">
+        Draw your running, cycling, or hiking route on the map, set a start and end time,
+        then download a GPX file to upload to Strava or any fitness app.
+        For advanced needs, try <?php echo a('https://gotoes.org/strava/Add_Timestamps_To_GPX.php', 'this tool'); ?>.
     </p>
 </section>
 <div id="map" style="height: 500px"></div>

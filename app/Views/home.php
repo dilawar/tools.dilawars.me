@@ -25,8 +25,8 @@ if (! function_exists('renderToolCard')) {
 ?>
 
 <section>
-    <h1 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem;">Free Online Tools</h1>
-    <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 520px;">
+    <h1 class="section-title">Free Online Tools</h1>
+    <p class="page-lead">
         Simple, fast, and private. Everything runs in your browser or on this server —
         no account required, no files stored longer than needed.
     </p>

@@ -73,7 +73,8 @@ if (! function_exists('renderUploadFormInner')) {
 
 <section>
 
-<div class='h5 section-title'> Convert PDF to JPEG </div>
+<h1 class="section-title">PDF to JPG</h1>
+<p class="page-lead">Extract every page of a PDF as a high-quality JPEG image.</p>
 
 <?php
 $hidden = [

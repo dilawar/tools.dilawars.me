@@ -10,25 +10,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"></script>
 
 <style>
-.dropzone {
-  box-sizing: border-box;
-  width: 100%;
-  height: 10em;
-  border: 2px dashed #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 1em;
-  margin-bottom: 1em;
-}
-.dropzone.disabled {
-  cursor: not-allowed;
-}
-.dropzone.drag-over {
-  background-color: pink;
-}
 .image-container img {
   margin-bottom: 10px;
   max-width: 100%;
@@ -46,16 +27,25 @@ textarea {
 </style>
 
 <section>
-    <h3 class="section-title">OCR For Image & PDF</h3>
-    <p> No file is uploaded to our server. The OCR happens in your browser (locally and offline).
-        This tool is based on 
-        <?php echo a('https://tools.simonwillison.net/ocr', 'Simon Willson OCR Tool'); ?>.
+    <h1 class="section-title">OCR — Extract Text</h1>
+    <p class="page-lead">
+        Extract text from scanned PDFs and images using optical character recognition.
+        Everything runs locally in your browser — no files are uploaded to the server.
+        Based on <?php echo a('https://tools.simonwillison.net/ocr', 'Simon Willison\'s OCR tool'); ?>.
     </p>
 
-    <p><label>Language: <select id="id_language"><option>ENG</option></select></label></p>
+    <div class="form-section mb-3">
+        <label class="form-label" style="font-size: 0.875rem;">
+            Language:
+            <select id="id_language" class="form-select form-select-sm d-inline-block w-auto ms-1">
+                <option>ENG</option>
+            </select>
+        </label>
+    </div>
+
     <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.gif" style="display: none;" />
     <div class="dropzone" id="dropzone">
-        Drag and drop a PDF, JPG, PNG, or GIF file here or click to select a file
+        <span class="dropzone-hint">Drop a PDF, JPG, PNG, or GIF here — or click to select</span>
     </div>
     <div class="full-document-section" id="fullDocumentSection">
         <h2>Full document</h2>

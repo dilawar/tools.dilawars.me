@@ -48,7 +48,8 @@ if (! function_exists('renderPdfCompressForm')) {
 
 <section>
 
-<div class='h5 section-title'> Compress PDF </div>
+<h1 class="section-title">Compress PDF</h1>
+<p class="page-lead">Shrink large PDF files to a fraction of their original size.</p>
 
 <?php
 echo form_open_multipart('/tool/pdf/'.ToolActionName::PdfCompress->value);

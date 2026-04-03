@@ -22,17 +22,21 @@ if (! function_exists('renderLwnSubscriptionForm')) {
 
 ?>
 
-<div class="h3 section-title">LWS Subscriber</div>
+<section>
+<h1 class="section-title">LWN Article Alerts</h1>
+<p class="page-lead">
+    Get notified when a recent LWN.net article becomes publicly available.
+</p>
 
 <div class='readable'>
-
-    <div class='mt-1'>
-        When a LWN article becomes open, we post notification to
+    <p>
+        When a paywalled LWN article becomes open, we post a notification to
         <?php echo a(
             'https://groups.google.com/g/maxflow-lwn-notification',
-            'this google group',
+            'this Google Group',
         ); ?>.
-    </div>
+        Join the group to receive email alerts.
+    </p>
 
     <!--
     you get an email notification.
@@ -41,5 +45,6 @@ if (! function_exists('renderLwnSubscriptionForm')) {
 
     
 </div>
+</section>
 
 <?php echo $this->endSection(); ?>
