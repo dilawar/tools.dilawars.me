@@ -63,4 +63,20 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = service('session');
     }
+
+    /**
+     * Standard validation rules for an uploaded image field named 'image'.
+     *
+     * @return array<string, list<string>>
+     */
+    protected function imageUploadRules(int $maxSizeKb = 20480): array
+    {
+        return [
+            'image' => [
+                'uploaded[image]',
+                'is_image[image]',
+                "max_size[image,$maxSizeKb]",
+            ],
+        ];
+    }
 }

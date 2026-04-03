@@ -38,15 +38,7 @@ class ToolImageCompressor extends BaseController
     private function handleCompressImage(): array
     {
         $post = (array) $this->request->getPost();
-        $rules = [
-            'image' => [
-                'uploaded[image]',
-                'max_size[image,20480]',
-                'is_image[image]',
-            ],
-        ];
-
-        if (! $this->validateData($post, $rules)) {
+        if (! $this->validateData($post, $this->imageUploadRules())) {
             return [];
         }
 

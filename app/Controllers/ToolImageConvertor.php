@@ -45,14 +45,7 @@ class ToolImageConvertor extends BaseController
     {
         $post = (array) $this->request->getPost();
         Logger::info('post data', $post);
-        $rules = [
-            'to_format' => 'required',
-            'image' => [
-                'uploaded[image]',
-                'is_image[image]',
-                'max_size[image,20480]',
-            ],
-        ];
+        $rules = array_merge(['to_format' => 'required'], $this->imageUploadRules());
         if (! $this->validateData($post, $rules)) {
             return $this->loadMainView(to: $post['to_format']);
         }
@@ -67,24 +60,14 @@ class ToolImageConvertor extends BaseController
         }
 
         $imageData = convertToUsingImagickSingle($to, $uploadedFile);
-        $outFilename = $imageData->convertedFilename;
-
-        $res = Downloader::saveImage(blob: $imageData->data, filename: $outFilename);
-        $downloadUrl = $res['url'];
-        $pathOnDisk = $res['path'];
-
-        Logger::debug('download url outfilename ', $downloadUrl, $outFilename);
-
-        $imagick = new \Imagick($pathOnDisk);
-        $imagick->thumbnailImage(256, 256, true, true);
-
-        $thumbnail = $imagick->getImageBlob();
+        $downloadUrl = $imageData->downloadUrl();
+        Logger::debug('download url outfilename ', $downloadUrl, $imageData->convertedFilename);
         StatsName::TotalImageConvcersions->increment(subkey: $to);
 
         return $this->loadMainView($to, extra: [
             'download_url' => $downloadUrl,
-            'converted_file_filename' => $outFilename,
-            'thumbnail' => blobToUri($thumbnail),
+            'converted_file_filename' => $imageData->convertedFilename,
+            'thumbnail' => $imageData->thumbnailUri(),
         ]);
     }
 
