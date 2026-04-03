@@ -23,25 +23,25 @@ $qrLogoSpace = $qr_logo_space ?? '10';
 $qrLogoUrl = $qr_logo_url ?? 'https://tools.dilawars.me/icon.jpg';
 $qrVersion = $qr_version ?? '5';
 
-const HELP_TEXT = "
+$helpText = "
 <details>
-    <summary class='text-info'>Help</summary>
-    <ul class='readable text-info'>
+    <summary class=’text-info’>Help</summary>
+    <ul class=’readable text-info’>
         <li>
             <strong>QR Version</strong>
             The more content you include, the larger the QR version you should select.
         </li>
         <li>
-            <strong>ECC (Error Correction Level)</strong> 
+            <strong>ECC (Error Correction Level)</strong>
             ECC helps make your QR code resistant to damage. A higher
-            ECC level improves durability. If you're adding a logo, it's
+            ECC level improves durability. If you’re adding a logo, it’s
             recommended to choose ECC level ‘H’ for better reliability.
         </li>
         <li>
             <strong>Adding a logo</strong>
             To include a logo in your QR code, provide a URL to the logo
             image. We currently do not support uploading logo files
-            directly. If we're unable to fetch the logo from the
+            directly. If we’re unable to fetch the logo from the
             provided link, the logo area will be left blank.
         </li>
     </ul>
@@ -52,7 +52,7 @@ if (! function_exists('renderQrForm')) {
     /**
      * @param array<string, string> $params
      */
-    function renderQrForm(string $lines, array $params = []): string
+    function renderQrForm(string $lines, string $helpText = '', array $params = []): string
     {
         $qrSizeInPx = $params['qr_size_in_px'] ?? '256';
         $qrVersion = $params['qr_version'] ?? '5';
@@ -60,7 +60,7 @@ if (! function_exists('renderQrForm')) {
         $qrLogoUrl = $params['qr_logo_url'] ?? '10';
 
         $html = [];
-        $html[] = '<div class="">'.HELP_TEXT.'</div>';
+        $html[] = '<div class="">'.$helpText.'</div>';
 
         // Row for textarea
         $html[] = "<div class='mt-2'>
@@ -153,7 +153,7 @@ echo '<p>
 
 </p>';
 
-echo renderQrForm($lines, params: [
+echo renderQrForm($lines, helpText: $helpText, params: [
     'qr_size_in_px' => $qrSizeInPx,
     'ecc_level' => $eccLevel,
     'qr_version' => $qrVersion,

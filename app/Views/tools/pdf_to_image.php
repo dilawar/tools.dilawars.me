@@ -18,7 +18,7 @@ $imagesArtifacts = $image_artifacts ?? [];
  */
 $supportedFormats = supportedImageFormats();
 
-if (! function_exists('renderUploadForm')) {
+if (! function_exists('renderUploadFormInner')) {
     /**
      * @param array<string> $formats
      */
