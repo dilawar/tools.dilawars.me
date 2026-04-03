@@ -28,7 +28,9 @@ $routes->get('/barcode/v1', 'ToolQrCodes::generateBarcodeImageV1');
 
 // qr tool.
 $routes->get('/qr/v1', 'ToolQrCodes::generateQrImageV1');
-$routes->get('tool/qrcodes', 'ToolQrCodes::index');
+$routes->get('/qrcode', 'ToolQrCodes::generateQrImageV2');
+$routes->get('tool/qrcodes', 'ToolQrCodes::singleQr');
+$routes->get('tool/qrcodes/bulk', 'ToolQrCodes::index');
 $routes->post('tool/qrcodes/generate', 'ToolQrCodes::generate');
 
 // Compress tools.

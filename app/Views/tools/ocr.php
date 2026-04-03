@@ -10,25 +10,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dis
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@6/dist/tesseract.min.js"></script>
 
 <style>
-.dropzone {
-  box-sizing: border-box;
-  width: 100%;
-  height: 10em;
-  border: 2px dashed #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 1em;
-  margin-bottom: 1em;
-}
-.dropzone.disabled {
-  cursor: not-allowed;
-}
-.dropzone.drag-over {
-  background-color: pink;
-}
 .image-container img {
   margin-bottom: 10px;
   max-width: 100%;
@@ -46,21 +27,33 @@ textarea {
 </style>
 
 <section>
-    <h3 class="section-title">OCR For Image & PDF</h3>
-    <p> No file is uploaded to our server. The OCR happens in your browser (locally and offline).
-        This tool is based on 
-        <?php echo a('https://tools.simonwillison.net/ocr', 'Simon Willson OCR Tool'); ?>.
+    <h1 class="section-title">OCR — Extract Text</h1>
+    <p class="page-lead">
+        Extract text from scanned PDFs and images using optical character recognition.
+        Everything runs locally in your browser — no files are uploaded to the server.
+        Based on <?php echo a('https://tools.simonwillison.net/ocr', 'Simon Willison\'s OCR tool'); ?>.
     </p>
 
-    <p><label>Language: <select id="id_language"><option>ENG</option></select></label></p>
+    <div class="form-section mb-3">
+        <label class="form-label" style="font-size: 0.875rem;">
+            Language:
+            <select id="id_language" class="form-select form-select-sm d-inline-block w-auto ms-1">
+                <option>ENG</option>
+            </select>
+        </label>
+    </div>
+
     <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.gif" style="display: none;" />
     <div class="dropzone" id="dropzone">
-        Drag and drop a PDF, JPG, PNG, or GIF file here or click to select a file
+        <span class="dropzone-hint">Drop a PDF, JPG, PNG, or GIF here — or click to select</span>
     </div>
     <div class="full-document-section" id="fullDocumentSection">
-        <h2>Full document</h2>
+        <div class="d-flex align-items-center justify-content-between mb-1">
+            <span class="fw-semibold">All pages</span>
+            <button class="btn btn-sm btn-outline-secondary" onclick="downloadAllText()">Download all as .txt</button>
+        </div>
         <textarea class="full-document" id="fullDocument"></textarea>
-        <h2>Pages</h2>
+        <p class="fw-semibold mt-3 mb-2">Pages</p>
     </div>
     <div class="image-container"></div>
 </section>
@@ -75,6 +68,22 @@ const fullDocumentSection = document.getElementById('fullDocumentSection');
 const languageSelect = document.getElementById('id_language');
 
 let fileSelectionAllowed = true;
+let currentFilename = 'document';
+
+function downloadText(text, filename) {
+  if (!text.trim()) return;
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadAllText() {
+  downloadText(fullDocumentTextarea.value, currentFilename + '-full.txt');
+}
 
 const LANGUAGES = {
   "afr": "Afrikaans",
@@ -198,14 +207,22 @@ for (const code of Object.values(Tesseract.languages)) {
 }
 
 function showFullDocument() {
-  // Only shows if there are multiple populated textareas
   const populatedTextareas = Array.from(
     document.querySelectorAll('.image-container textarea')
   ).filter(ta => ta.value.trim().length);
+
   if (populatedTextareas.length > 1) {
     fullDocumentTextarea.value = populatedTextareas.map(ta => ta.value.trim()).join("\n\n");
     fullDocumentSection.style.display = 'block';
+  } else if (populatedTextareas.length === 1) {
+    // Single page: mirror text into full-doc textarea and show only the download-all button
+    fullDocumentTextarea.value = populatedTextareas[0].value.trim();
+    fullDocumentTextarea.style.display = 'none';
+    fullDocumentSection.querySelector('p').style.display = 'none';
+    fullDocumentSection.style.display = 'block';
   } else {
+    fullDocumentTextarea.style.display = '';
+    fullDocumentSection.querySelector('p').style.display = '';
     fullDocumentTextarea.value = '';
     fullDocumentSection.style.display = 'none';
   }
@@ -259,8 +276,12 @@ fileInput.addEventListener('change', (event) => {
 });
 
 async function processFile(file) {
+  currentFilename = file.name.replace(/\.[^.]+$/, '') || 'document';
+
   const worker = await Tesseract.createWorker(languageSelect.value);
   fullDocumentTextarea.value = '';
+  fullDocumentTextarea.style.display = '';
+  fullDocumentSection.querySelector('p').style.display = '';
   fullDocumentSection.style.display = 'none';
   imageContainer.innerHTML = '';
   const originalText = dropzone.innerText;
@@ -273,16 +294,16 @@ async function processFile(file) {
     let done = 0;
     dropzone.innerText = `Processing ${numPages} page${numPages > 1 ? 's' : ''}`;
     for await (const { imageURL } of imageIterator) {
-      const ta = await displayImage(imageURL);
+      done += 1;
+      const ta = await displayImage(imageURL, done);
       const { text } = await ocrImage(worker, imageURL);
       setTextarea(ta, text);
       showFullDocument();
-      done += 1;
       dropzone.innerText = `Done ${done} of ${numPages}`;
     }
   } else {
     const imageURL = URL.createObjectURL(file);
-    const ta = await displayImage(imageURL);
+    const ta = await displayImage(imageURL, 1);
     const { text } = await ocrImage(worker, imageURL);
     setTextarea(ta, text);
     showFullDocument();
@@ -294,7 +315,7 @@ async function processFile(file) {
   fileSelectionAllowed = true;
 }
 
-async function displayImage(imageURL) {
+async function displayImage(imageURL, pageNum) {
   const imgElement = document.createElement('img');
   imgElement.src = imageURL;
   imageContainer.appendChild(imgElement);
@@ -303,6 +324,12 @@ async function displayImage(imageURL) {
   altTextarea.classList.add('textarea-alt');
   altTextarea.placeholder = 'OCRing image...';
   imageContainer.appendChild(altTextarea);
+
+  const dlBtn = document.createElement('button');
+  dlBtn.className = 'btn btn-sm btn-outline-secondary mb-4';
+  dlBtn.textContent = `Download page ${pageNum} as .txt`;
+  dlBtn.onclick = () => downloadText(altTextarea.value, `${currentFilename}-page-${pageNum}.txt`);
+  imageContainer.appendChild(dlBtn);
 
   return altTextarea;
 }

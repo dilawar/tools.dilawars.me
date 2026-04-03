@@ -60,23 +60,21 @@ if (! function_exists('renderQrForm')) {
         $qrLogoUrl = $params['qr_logo_url'] ?? '10';
 
         $html = [];
-        $html[] = '<div class="">'.$helpText.'</div>';
 
-        // Row for textarea
-        $html[] = "<div class='mt-2'>
-            Each line in the form below will be converted to a separate QR code.
-        </div>";
+        if ($helpText) {
+            $html[] = '<div class="mb-3">'.$helpText.'</div>';
+        }
 
-        $html[] = "<div class='row'>";
-        $html[] = "<div class='col-10'>";
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='qr-lines'>Content <small class='fw-normal' style='color:var(--text-secondary)'>— one QR code per line</small></label>";
         $html[] = form_textarea('lines', $lines, extra: [
+            'id'    => 'qr-lines',
             'class' => 'form-control',
-            'rows' => '4',
+            'rows'  => '4',
         ]);
         $html[] = '</div>';
-        $html[] = '</div>';
 
-        $html[] = "<div class='h5 mt-5 title'>QR Options</div>";
+        $html[] = "<p class='fw-semibold mb-2' style='border-top:1px solid var(--border-light); padding-top:1rem;'>QR Options</p>";
 
         // Row for size.
         $html[] = formInputBootstrap(
@@ -124,17 +122,10 @@ if (! function_exists('renderQrForm')) {
             type: 'text',
         );
 
-        // Row for the submit button.
-        $html[] = "<div class='row d-flex justify-content-end mt-3'>";
-        $html[] = "<div class='col-6'>";
+        $html[] = "<div class='mt-3'>";
         $html[] = form_submit('submit', 'Generate', extra: [
-            'class' => 'btn btn-primary col-6',
+            'class' => 'btn btn-primary',
         ]);
-        $html[] = '</div>';
-        $html[] = '</div>';
-
-        $html[] = '</div>';
-
         $html[] = '</div>';
 
         return implode(' ', $html);
@@ -144,14 +135,14 @@ if (! function_exists('renderQrForm')) {
 ?>
 
 <section>
-<div class="h3 section-title">QR Code Generator</div>
+<h1 class="section-title">Bulk QR Code Generator</h1>
+<p class="page-lead">
+    Generate up to 20 QR codes at once. Download them all as a single PDF or a ZIP of SVG files.
+    Want a live preview and embeddable URL? <a href="/tool/qrcodes">Use the single QR builder.</a>
+</p>
 
+<div class="form-section">
 <?php echo form_open('/tool/qrcodes/generate');
-echo '<p>
-    This tool can generate upto 20 QR codes in one go. To insert your logo, add
-    its image URL.  Download them as ZIP or PDF file.
-
-</p>';
 
 echo renderQrForm($lines, helpText: $helpText, params: [
     'qr_size_in_px' => $qrSizeInPx,
@@ -162,56 +153,52 @@ echo renderQrForm($lines, helpText: $helpText, params: [
 ]);
 echo form_close();
 ?>
+</div>
 </section>
 
+<?php if ($qrCodesBase64 && ! $error): ?>
 <section>
-    <div class='result'>
-<?php
-if ($qrCodesBase64 && ! $error) {
+<div class="result">
+    <div class="row mb-2">
+        <?php if ($qrCodesAsPdf): ?>
+        <div class="col-auto">
+            <?php echo sprintf("<a class='btn btn-primary btn-sm' download='qr_codes.pdf' href='%s'>Download all as PDF</a>", $qrCodesAsPdf); ?>
+        </div>
+        <?php endif; ?>
+        <?php if ($qrCodesAsZip): ?>
+        <div class="col-auto">
+            <?php echo sprintf("<a class='btn btn-outline-secondary btn-sm' download='qr_codes.zip' href='%s'>Download all as ZIP</a>", $qrCodesAsZip); ?>
+        </div>
+        <?php endif; ?>
+    </div>
 
-    echo '<div class="row">';
-    if ($qrCodesAsPdf) {
-        echo "<div class='col-4'>";
-        echo sprintf("<a class='btn btn-link' download='qr_codes.pdf' href='%s'>Download All As PDF</a>", $qrCodesAsPdf);
-        echo '</div>';
-    }
-    if ($qrCodesAsZip) {
-        echo "<div class='col-4'>";
-        echo sprintf("<a class='btn btn-link' download='qr_codes.zip' href='%s'>Download All (zip)</a>", $qrCodesAsZip);
-        echo '</div>';
-    }
-    echo '</div>';
+    <p class="page-lead mb-2">SVG files — editable in <?php echo a('https://inkscape.org', 'Inkscape'); ?> or any vector editor.</p>
 
-    echo '<section>';
-    echo '<p>You can also download individual QR code. These are in SVG format that 
-        you can edit in image editors such as '
-        .a('https://inkscape.org', 'Inkscape').'.</p>';
+    <div class="row g-3">
+        <?php foreach ($qrCodesBase64 as $i => $b64QrCode): ?>
+        <div class="col-4 col-sm-3 text-center">
+            <?php echo img($b64QrCode, attributes: ['width' => '100%']); ?>
+            <?php $filename = sprintf('qrcode-%sx%s-%s.svg', $qrSizeInPx, $qrSizeInPx, $i); ?>
+            <a class="btn btn-link btn-sm" download="<?php echo $filename; ?>" href="<?php echo $b64QrCode; ?>">SVG</a>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+</section>
+<?php endif; ?>
 
-    echo "<div class='row d-flex justify-content-between'>";
-    foreach ($qrCodesBase64 as $i => $b64QrCode) {
-        echo "<div class='col-4'>";
-        echo img($b64QrCode, attributes: [
-            'width' => '100%',
-        ]).'<br />';
-
-        $filename = sprintf('qrcode-%sx%s-%s.svg', $qrSizeInPx, $qrSizeInPx, $i);
-        echo sprintf("<a class='btn btn-link text-align-center' download='%s' href='%s'>Download SVG</a>", $filename, $b64QrCode);
-        echo '</div>';
-    }
-    echo '</div>';
-    echo '</section>';
-}
-
-if ($error) {
-    echo "<div class='row text-warning'>".$error.'</div>';
-}
-?>
+<?php if ($error): ?>
+<section>
+    <div class="result">
+        <p class="text-warning mb-0"><?php echo $error; ?></p>
     </div>
 </section>
+<?php endif; ?>
 
-<section class="mt-5 px-5">
-    <span class='h6'>Credits:</span> This tool uses excellent 
-    <a href="https://github.com/chillerlan/php-qrcode">chillerlan/php-qrcode</a> library.
+<section class="mt-4">
+    <small style="color:var(--text-secondary);">
+        Uses the <a href="https://github.com/chillerlan/php-qrcode">chillerlan/php-qrcode</a> library.
+    </small>
 </section>
 
 <?php echo $this->endSection(); ?>

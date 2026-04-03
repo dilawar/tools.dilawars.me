@@ -34,7 +34,7 @@ final class ToolPageTest extends CIUnitTestCase
         $result->assertStatus(200);
         $result->assertSee('QR Code Generator');
         $result->assertSee('Image Compressor');
-        $result->assertSee('Image Convertor');
+        $result->assertSee('Image Converter');
         $result->assertSee('PDF to JPG');
         $result->assertSee('OCR');
     }
@@ -43,6 +43,14 @@ final class ToolPageTest extends CIUnitTestCase
     {
         $result = $this->get('/tool/qrcodes');
         $result->assertStatus(200);
+        $result->assertSee('QR Code Generator');
+    }
+
+    public function testQrCodeBulkPageLoads(): void
+    {
+        $result = $this->get('/tool/qrcodes/bulk');
+        $result->assertStatus(200);
+        $result->assertSee('QR Code Generator');
     }
 
     public function testImageConvertorPageLoads(): void

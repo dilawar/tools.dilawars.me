@@ -31,43 +31,43 @@ if (! function_exists('_renderUploadFormInner')) {
             $imageFormats[$format] = $format;
         }
 
+        $accept = '' !== $fromFormat && '*' !== $fromFormat ? '.'.$fromFormat : 'image/*';
 
-        $accept = 'image/*';
-        if ('' !== $toFormat && '0' !== $toFormat) {
-            $accept = '.'.$fromFormat;
-        }
-
-        // Select file
         $html = [];
-        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
-        $html[] = '<div class="col-12 col-sm-5">';
+
+        // File picker — full width
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='img-upload'>Image file</label>";
         $html[] = form_input('image', type: 'file', extra: [
-            'class' => 'form-control',
+            'id'     => 'img-upload',
+            'class'  => 'form-control',
             'accept' => $accept,
         ]);
         $html[] = '</div>';
 
-        // Convert to column.
-        $html[] = '<div class="col-6 col-sm-2"> Convert To </div>';
-        $html[] = '<div class="col-6 col-sm-2">';
+        // Format selector + submit — same row, aligned to bottom
+        $html[] = "<div class='row g-3 align-items-end'>";
+
+        $html[] = "<div class='col-sm-4'>";
+        $html[] = "<label class='form-label fw-semibold' for='".SELECTIZE_ID_PREFIX."_to_format'>Output format</label>";
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
             selected: $toFormat,
             extra: [
-                'id' => SELECTIZE_ID_PREFIX.'_to_format',
-                'class' => 'form-control',
+                'id'    => SELECTIZE_ID_PREFIX.'_to_format',
+                'class' => 'form-select',
             ],
         );
         $html[] = '</div>';
 
-        $html[] = '<div class="col-12 col-sm-3">';
+        $html[] = "<div class='col-auto'>";
         $html[] = form_submit('submit', 'Convert', extra: [
-            'class' => 'form-control btn btn-primary',
+            'class' => 'btn btn-primary',
         ]);
         $html[] = '</div>';
 
-        $html[] = '</div>'; // ends row
+        $html[] = '</div>'; // row
 
         return implode(' ', $html);
     }
@@ -76,13 +76,22 @@ if (! function_exists('_renderUploadFormInner')) {
 ?>
 
 <section>
-<div class='h3 section-title'> Image conversion Tool </div>
+<h1 class="section-title">Image Converter</h1>
+<p class="page-lead">
+    Convert any image to JPG, PNG, HEIC, BMP, GIF, WebP, or
+    <?php echo count($supportedFormats); ?> other formats instantly.
+</p>
 
-<details style="margin:10px;">
-    <summary> Total <?php echo count($supportedFormats); ?> formats are supported. </summary>
-    <?php echo implode(', ', $supportedFormats); ?>.
+<details class="help mb-3" style="padding: 8px 14px;">
+    <summary style="cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+        View all <?php echo count($supportedFormats); ?> supported formats
+    </summary>
+    <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-secondary);">
+        <?php echo implode(', ', $supportedFormats); ?>
+    </p>
 </details>
 
+<div class="form-section">
 <?php
 $hidden = [
     'from' => $fromFormat,
@@ -92,22 +101,18 @@ echo form_open_multipart('/tools/convertor/convert', hidden: $hidden);
 echo _renderUploadFormInner($toFormat, fromFormat: $fromFormat, formats: $supportedFormats);
 echo '</form>';
 ?>
+</div>
 
-<!-- result -->
-<?php
-if ($thumbnailUri) {
-    echo "<div class='mt-3 result'>";
-    echo sprintf("<a class='btn btn-primary mt-1 mb-1' target='_blank' href='%s'> Click To Download </a>", $downloadUrl);
-
-    echo '<p>Following is a preview of your result. Some result may not have a visible preview.</p>';
-    echo '<div>';
-    echo sprintf("<img src='%s' class='img-fluid conversion-result-image' />", $thumbnailUri);
-    echo '<br />';
-    echo '</div>';
-
-    echo '</div>';
-}
-?>
+<?php if ($thumbnailUri) { ?>
+<div class="result">
+    <p class="mb-2 fw-semibold">Conversion complete.</p>
+    <?php echo sprintf("<a class='btn btn-primary btn-sm mb-3' href='%s'>Download %s</a>",
+        $downloadUrl, strtoupper(pathinfo((string) $convertedFileFilename, PATHINFO_EXTENSION))); ?>
+    <div>
+        <?php echo sprintf("<img src='%s' class='img-fluid conversion-result-image' alt='Converted image preview' />", $thumbnailUri); ?>
+    </div>
+</div>
+<?php } ?>
 </section>
 
 <?php echo $this->endSection(); ?>

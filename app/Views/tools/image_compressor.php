@@ -9,25 +9,22 @@ $uploadSize = $filesize_uploaded ?? null;
 $downloadSize = $filesize_result ?? null;
 
 if (! function_exists('renderImageCompressorForm')) {
-    // render image compressor form.
     function renderImageCompressorForm(): string
     {
         $html = [];
-        $html[] = "<div class='row'>";
-        $html[] = '<div class="col-6">';
+
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='img-upload'>Image file</label>";
         $html[] = form_upload('image', extra: [
-            'class' => 'form-control',
+            'id'     => 'img-upload',
+            'class'  => 'form-control',
             'accept' => 'image/*',
         ]);
         $html[] = '</div>';
 
-        $html[] = '<div class="col-2">';
         $html[] = form_submit('submit', 'Compress', extra: [
-            'class' => 'btn btn-primary form-control',
+            'class' => 'btn btn-primary',
         ]);
-        $html[] = '</div>';
-
-        $html[] = '</div>';
 
         return implode(' ', $html);
     }
@@ -36,20 +33,19 @@ if (! function_exists('renderImageCompressorForm')) {
 ?>
 
 <section>
-    <div class='h3 section-title'>Image Compressor</div>
-    <div class=''>
-        Reduces the size of image by compressing it to JPEG format. The dimensions
-        of the image (height and width) will not be changed. This tool is useful
-        when you need to reduce the upload size of the image.
-    </div>
+    <h1 class="section-title">Image Compressor</h1>
+    <p class="page-lead">
+        Compress any image to a smaller JPEG without changing its dimensions.
+        Useful for reducing file sizes before uploading or sharing.
+    </p>
 
-    <section class='mt-3'>
+    <div class="form-section">
 <?php
 echo form_open_multipart('tool/action/compress/'.ToolActionName::CompressImage->value);
 echo renderImageCompressorForm();
 echo '</form>';
 ?>
-    </section>
+    </div>
 
 </section>
 
@@ -57,10 +53,11 @@ echo '</form>';
 <?php
 if ($downloadUrl) {
     echo "<div class='result'>";
-    echo '<h4>Your compressed image is ready. ';
-    echo sprintf("<a href='%s' class='btn btn-success'>Click Here To Download</a>", $downloadUrl);
-    echo '</h4>';
+    echo "<p class='mb-2 fw-semibold'>Your compressed image is ready.</p>";
+    echo sprintf("<a href='%s' class='btn btn-primary btn-sm'>Download</a>", $downloadUrl);
+    echo '<div class="mt-2">';
     echo compressionStats($downloadSize ?? -1, uploadSize: $uploadSize ?? -1);
+    echo '</div>';
     echo '</div>';
 }
 ?>

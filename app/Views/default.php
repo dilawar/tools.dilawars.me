@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?php echo $page_title ?? 'QR, Image Converter, Image Compression, PDF Converter, OCR'; ?> </title>
-    <meta name="description" content="Image convertor, compression, PDF converter, and other tools">
+    <title><?php echo $page_title ?? 'Free Online Tools — QR Code, Image Converter, PDF & OCR'; ?></title>
+    <meta name="description" content="<?php echo $page_description ?? 'Free browser-based tools: generate QR codes, convert and compress images, convert PDF to JPG, extract text with OCR, and plan running routes.'; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/icon.jpg">
 

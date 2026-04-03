@@ -94,6 +94,47 @@ class ToolQrCodes extends BaseController
             ->setBody($qrSVG);
     }
 
+    /**
+     * Generate QR code as SVG with 24-hour server-side and browser caching.
+     *
+     * Query parameters:
+     *   - data (required)  : content to encode
+     *   - ecc_level        : L | M | Q | H  (default H)
+     *   - qr_version       : 1-40           (default 5)
+     *   - qr_logo_space    : logo area %    (default 0)
+     *   - qr_logo_url      : logo image URL (default '')
+     */
+    public function generateQrImageV2(): ResponseInterface
+    {
+        $params = (array) $this->request->getGet();
+        Logger::info('qr v2 params: ', $params);
+
+        $data = $params['data'] ?? '';
+        if ('' === $data) {
+            return $this->response
+                ->setStatusCode(400)
+                ->setBody('Missing required "data" query parameter.');
+        }
+
+        unset($params['data']);
+
+        $cacheKey = 'qrcode_v2_'.hash('sha256', $data.serialize($params));
+        $cache    = service('cache');
+
+        $svg = $cache->get($cacheKey);
+        $cacheHit = null !== $svg;
+        if (! $cacheHit) {
+            $svg = (new AppQrCode($data))->svg($params);
+            $cache->save($cacheKey, $svg, 86400); // 24 h
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
+            ->setHeader('Cache-Control', 'public, max-age=86400')
+            ->setHeader('X-Cache', $cacheHit ? 'HIT' : 'MISS')
+            ->setBody($svg);
+    }
+
     public function generateBarcodeImageV1(): ResponseInterface
     {
         $params = (array) $this->request->getGet();
@@ -130,6 +171,16 @@ class ToolQrCodes extends BaseController
         return $this->response
             ->setHeader('Content-Type', 'image/svg+xml;charset=utf-8')
             ->setBody($svg);
+    }
+
+    /**
+     * Single QR code builder page with live preview and embeddable URL.
+     */
+    public function singleQr(): string
+    {
+        return view('tools/qrcodes_single', [
+            'qr_api_url' => base_url('/qrcode'),
+        ]);
     }
 
     /**
