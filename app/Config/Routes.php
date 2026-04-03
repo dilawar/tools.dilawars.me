@@ -54,7 +54,6 @@ $routes->view('/tool/ocr/extract', 'tools/ocr');
 
 // geo tools.
 $routes->get('/tool/geo/map_route', [ToolGeo::class, 'viewMapRoute']);
-$routes->post('/tool/geo/map_route', [ToolGeo::class, 'handleMapRoute']);
 
 // subscription.
 $routes->get('/tool/subscription/lwn', [Subscription::class, 'lwn']);

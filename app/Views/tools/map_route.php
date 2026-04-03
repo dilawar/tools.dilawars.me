@@ -1,54 +1,42 @@
 <?php
-helper('xml');
 echo $this->extend('default');
 echo $this->section('content');
 
-$resultGpx = $result ?? [];
-
 $default = [
-    'start_time' => htmlDatetimeLocal($start_time ?? 'now'),
-    'end_time' => htmlDatetimeLocal($end_time ?? '+1 hour'),
+    'start_time' => htmlDatetimeLocal('now'),
+    'end_time'   => htmlDatetimeLocal('+1 hour'),
 ];
-
-if (! function_exists('renderBuildMyRouteForm')) {
-    /**
-     * @param array<string, string|Stringable> $default
-     */
-    function renderBuildMyRouteForm(array $default = []): string
-    {
-        $html[] = form_open('/tool/geo/map_route');
-        $html[] = form_input('geojson', value: '', extra: [
-            'hidden' => true,
-            'id' => 'map_route_geojson_data',
-        ]);
-
-        $html[] = formInputBootstrap('start_time', 'Start Time', value: $default['start_time'] ?? '', type: 'datetime-local');
-        $html[] = formInputBootstrap('end_time', 'End Time', value: $default['end_time'] ?? '', type: 'datetime-local');
-
-        $html[] = "<div class='row justify-content-center'>";
-        $html[] = "<div class='btn btn-primary mt-1' onclick='downloadGpx()'>Download GPX</div>";
-        $html[] = '</div>';
-
-        $html[] = form_submit('submit', extra: [
-            'hidden' => true,
-            'id' => 'map_route_submit',
-        ]);
-        $html[] = form_close();
-        $html[] = '</div>'; // row
-
-        return implode(' ', $html);
-    }
-}
 ?>
 
-<link rel="stylesheet" 
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+<style>
+html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+header, footer { display: none; }
+#map { position: fixed; inset: 0; z-index: 0; }
+#map-time-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    width: 280px;
+}
+#map-time-panel .col-sm-4 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+</style>
+
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
-        crossorigin="">
-</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 
 <!-- locate control plugin -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.84.2/dist/L.Control.Locate.min.css" />
@@ -58,58 +46,66 @@ if (! function_exists('renderBuildMyRouteForm')) {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
-
-<!-- Form -->
-<section>
-    <h1 class="section-title">Map My Route</h1>
-    <p class="page-lead">
-        Draw your running, cycling, or hiking route on the map, set a start and end time,
-        then download a GPX file to upload to Strava or any fitness app.
-        For advanced needs, try <?php echo a('https://gotoes.org/strava/Add_Timestamps_To_GPX.php', 'this tool'); ?>.
-    </p>
-</section>
-<div id="map" style="height: 500px"></div>
+<div id="map"></div>
 
 <script src="/assets/js/map_route.js"></script>
-<!-- Input form -->
-<section>
-    <section class='mb-2'>
-        <?php echo  renderBuildMyRouteForm($default); ?>
-    </section>
-</section>
 
+<div id="map-time-panel">
+    <?php echo formInputBootstrap('start_time', 'Start Time', value: $default['start_time'], type: 'datetime-local'); ?>
+    <?php echo formInputBootstrap('end_time', 'End Time', value: $default['end_time'], type: 'datetime-local'); ?>
+</div>
 
-
-<section>
-<?php
-if ($resultGpx && isset($resultGpx['filename'], $resultGpx['xml'])) {
-    $gpxFileName = $resultGpx['filename'];
-    $gpxFileContent = 'data:application/geo+json;base64,'.base64_encode((string) $resultGpx['xml']);
-
-    echo "<div class='h4 mx-4 text-info'>
-        Your result is ready <a class='btn btn-link h4' href='{$gpxFileContent}' download='{$gpxFileName}'>Download GPX</a>
-    </h4>";
+<script>
+function haversineDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371000;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
-?>
-</section>
 
-<script lang="js">
-/*
-    * When user click on button 'Download GPX' this method is called. 
-    *
-    * We fill values in the form and 
- */
 function downloadGpx() {
-    const gpx = routeDataAsJsonStr();
-    // set data in form.
-    const elem = document.getElementById("map_route_geojson_data");
-    elem.value = gpx;
+    const route = loadRoute();
+    if (route.length === 0) return;
 
-    console.debug("sending geojson:\n", elem.value);
-    const formButton = document.getElementById('map_route_submit');
-    formButton.click();
+    const startTime = new Date(document.getElementById('start_time').value);
+    const endTime   = new Date(document.getElementById('end_time').value);
+    const duration  = (endTime - startTime) / 1000;
+    if (Number.isNaN(startTime.getTime()) || Number.isNaN(endTime.getTime()) || duration <= 0) {
+        alert('Please choose a valid start and end time.');
+        return;
+    }
+    const first     = route[0];
+    const last      = route[route.length - 1];
+    const totalDist = haversineDistance(first[0], first[1], last[0], last[1]);
+    const speed     = totalDist > 0 && duration > 0 ? totalDist / duration : 0;
+
+    const trackpoints = route.map(([lat, lon, ele = 0]) => {
+        const dist = haversineDistance(first[0], first[1], lat, lon);
+        const t    = new Date(startTime.getTime() + (speed > 0 ? dist / speed : 0) * 1000);
+        return `      <trkpt lat="${lat}" lon="${lon}"><ele>${ele}</ele><time>${t.toISOString()}</time></trkpt>`;
+    }).join('\n');
+
+    const gpx = `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="MaxFlow tools">
+  <trk>
+    <name>Route generated by MaxFlow tools</name>
+    <type>RUN</type>
+    <trkseg>
+${trackpoints}
+    </trkseg>
+  </trk>
+</gpx>`;
+
+    const date    = new Date().toISOString().split('T')[0];
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:application/gpx+xml;charset=utf-8,' + encodeURIComponent(gpx));
+    element.setAttribute('download', `maxflow-${date}.gpx`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
-
 </script>
 
 <?php echo $this->endSection(); ?>
