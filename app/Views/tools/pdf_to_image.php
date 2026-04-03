@@ -31,39 +31,40 @@ if (! function_exists('renderUploadFormInner')) {
         }
 
         $html = [];
-        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        // Select file
-        $html[] = '<div class="col-sm-5">';
+        // File picker — full width
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='pdf-upload'>PDF file</label>";
         $html[] = form_input('image', type: 'file', extra: [
-            'class' => 'form-control',
+            'id'     => 'pdf-upload',
+            'class'  => 'form-control',
             'accept' => '.pdf',
         ]);
         $html[] = '</div>';
 
-        // Convert to column.
-        $html[] = '<div class="col-sm-4">';
-        $html[] = '<div class="input-group">';
-        $html[] = "<div class='input-group-prepend'> <span class='input-group-text'>Convert To</span> </div>";
+        // Format selector + submit — same row, aligned to bottom
+        $html[] = "<div class='row g-3 align-items-end'>";
+
+        $html[] = "<div class='col-sm-4'>";
+        $html[] = "<label class='form-label fw-semibold' for='".SELECTIZE_ID_PREFIX."_to_format'>Output format</label>";
         $html[] = form_dropdown(
             'to_format',
             options: $imageFormats,
             selected: $toFormat,
             extra: [
-                'id' => SELECTIZE_ID_PREFIX.'_to_format',
-                'class' => 'form-control',
+                'id'    => SELECTIZE_ID_PREFIX.'_to_format',
+                'class' => 'form-select',
             ],
         );
         $html[] = '</div>';
-        $html[] = '</div>';
 
-        $html[] = '<div class="col-sm-3">';
+        $html[] = "<div class='col-auto'>";
         $html[] = form_submit('submit', 'Convert', extra: [
-            'class' => 'form-control btn btn-primary',
+            'class' => 'btn btn-primary',
         ]);
         $html[] = '</div>';
 
-        $html[] = '</div>'; // ends row
+        $html[] = '</div>'; // row
 
         return implode(' ', $html);
     }
@@ -73,9 +74,10 @@ if (! function_exists('renderUploadFormInner')) {
 
 <section>
 
-<h1 class="section-title">PDF to JPG</h1>
-<p class="page-lead">Extract every page of a PDF as a high-quality JPEG image.</p>
+<h1 class="section-title">PDF to Image</h1>
+<p class="page-lead">Convert every page of a PDF to an image. Defaults to JPEG — change the output format below if needed.</p>
 
+<div class="form-section">
 <?php
 $hidden = [
     'from' => $fromFormat,
@@ -85,6 +87,7 @@ echo form_open_multipart('/tool/pdf/'.ToolActionName::PdfConvertToJpeg->value, h
 echo renderUploadFormInner($toFormat, $supportedFormats);
 echo '</form>';
 ?>
+</div>
 </section>
 
 <section>
