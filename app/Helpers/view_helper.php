@@ -83,7 +83,7 @@ function formSelectBootstrap(string $id, string $label, string $value, array $op
     $html[] = "<div class='col-4'>";
     $html[] = form_dropdown($id, $options, $value, extra: [
         'id' => $id,
-        'class' => 'form-control',
+        'class' => 'form-select',
     ]);
     $html[] = '</div>';
     $html[] = '</div>';
@@ -120,7 +120,7 @@ function submitButton(
 
 function _labelColumnBootstrap(string $label, string $id): string
 {
-    return sprintf("<label for='%s' class='col-12 col-sm-5 col-form-label'>%s</label>", $id, $label);
+    return sprintf("<label for='%s' class='col-12 col-sm-5 col-form-label fw-semibold'>%s</label>", $id, $label);
 }
 
 function formUploadFile(

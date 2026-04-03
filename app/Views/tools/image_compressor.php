@@ -9,25 +9,22 @@ $uploadSize = $filesize_uploaded ?? null;
 $downloadSize = $filesize_result ?? null;
 
 if (! function_exists('renderImageCompressorForm')) {
-    // render image compressor form.
     function renderImageCompressorForm(): string
     {
         $html = [];
-        $html[] = "<div class='row'>";
-        $html[] = '<div class="col-6">';
+
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='img-upload'>Image file</label>";
         $html[] = form_upload('image', extra: [
-            'class' => 'form-control',
+            'id'     => 'img-upload',
+            'class'  => 'form-control',
             'accept' => 'image/*',
         ]);
         $html[] = '</div>';
 
-        $html[] = '<div class="col-2">';
         $html[] = form_submit('submit', 'Compress', extra: [
-            'class' => 'btn btn-primary form-control',
+            'class' => 'btn btn-primary',
         ]);
-        $html[] = '</div>';
-
-        $html[] = '</div>';
 
         return implode(' ', $html);
     }
@@ -56,10 +53,11 @@ echo '</form>';
 <?php
 if ($downloadUrl) {
     echo "<div class='result'>";
-    echo '<h4>Your compressed image is ready. ';
-    echo sprintf("<a href='%s' class='btn btn-success'>Click Here To Download</a>", $downloadUrl);
-    echo '</h4>';
+    echo "<p class='mb-2 fw-semibold'>Your compressed image is ready.</p>";
+    echo sprintf("<a href='%s' class='btn btn-primary btn-sm'>Download</a>", $downloadUrl);
+    echo '<div class="mt-2">';
     echo compressionStats($downloadSize ?? -1, uploadSize: $uploadSize ?? -1);
+    echo '</div>';
     echo '</div>';
 }
 ?>

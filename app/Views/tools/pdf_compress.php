@@ -22,23 +22,19 @@ if (! function_exists('renderPdfCompressForm')) {
     function renderPdfCompressForm(): string
     {
         $html = [];
-        $html[] = "<div class='row form-group mt-3 d-flex align-items-center'>";
 
-        // Select file
-        $html[] = '<div class="col-sm-5">';
+        $html[] = "<div class='mb-3'>";
+        $html[] = "<label class='form-label fw-semibold' for='pdf-upload'>PDF file</label>";
         $html[] = form_input('image', type: 'file', extra: [
-            'class' => 'form-control',
+            'id'     => 'pdf-upload',
+            'class'  => 'form-control',
             'accept' => '.pdf',
         ]);
         $html[] = '</div>';
 
-        $html[] = '<div class="col-sm-3">';
         $html[] = form_submit('submit', 'Compress', extra: [
-            'class' => 'form-control btn btn-primary',
+            'class' => 'btn btn-primary',
         ]);
-        $html[] = '</div>';
-
-        $html[] = '</div>'; // ends row
 
         return implode(' ', $html);
     }
@@ -51,11 +47,13 @@ if (! function_exists('renderPdfCompressForm')) {
 <h1 class="section-title">Compress PDF</h1>
 <p class="page-lead">Shrink large PDF files to a fraction of their original size.</p>
 
+<div class="form-section">
 <?php
 echo form_open_multipart('/tool/pdf/'.ToolActionName::PdfCompress->value);
 echo renderPdfCompressForm();
 echo '</form>';
 ?>
+</div>
 </section>
 
 <section>
