@@ -11,7 +11,7 @@ $qrApiUrl = $qr_api_url ?? '/qrcode';
 <div class="h3 section-title">Generate Single QR Code</div>
 <p style="color: var(--text-secondary);">
     Configure your QR code below. The preview and embeddable URL update automatically as you type.
-    <a href="/tool/qrcodes">Generate multiple QR codes as PDF / ZIP instead.</a>
+    <a href="/tool/qrcodes/bulk">Generate multiple QR codes as PDF / ZIP instead.</a>
 </p>
 
 <div class="form-section mt-4">

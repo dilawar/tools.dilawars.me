@@ -43,6 +43,14 @@ final class ToolPageTest extends CIUnitTestCase
     {
         $result = $this->get('/tool/qrcodes');
         $result->assertStatus(200);
+        $result->assertSee('Generate Single QR Code');
+    }
+
+    public function testQrCodeBulkPageLoads(): void
+    {
+        $result = $this->get('/tool/qrcodes/bulk');
+        $result->assertStatus(200);
+        $result->assertSee('QR Code Generator');
     }
 
     public function testImageConvertorPageLoads(): void
