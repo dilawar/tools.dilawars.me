@@ -174,6 +174,16 @@ class ToolQrCodes extends BaseController
     }
 
     /**
+     * Single QR code builder page with live preview and embeddable URL.
+     */
+    public function singleQr(): string
+    {
+        return view('tools/qrcodes_single', [
+            'qr_api_url' => base_url('/qrcode'),
+        ]);
+    }
+
+    /**
      * Generate QR codes.
      */
     public function generate(): string

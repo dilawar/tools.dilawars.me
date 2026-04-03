@@ -150,7 +150,7 @@ if (! function_exists('renderQrForm')) {
 echo '<p>
     This tool can generate upto 20 QR codes in one go. To insert your logo, add
     its image URL.  Download them as ZIP or PDF file.
-
+    <a href="/tool/qrcodes/single">Generate a single QR code</a> with a live preview and embeddable URL.
 </p>';
 
 echo renderQrForm($lines, helpText: $helpText, params: [
