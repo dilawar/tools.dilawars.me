@@ -29,11 +29,6 @@ final class Logger
         return self::$instances[$loggerName];
     }
 
-    public function __wakeup(): void
-    {
-        throw new \Exception('cannot unserialize a singleton.');
-    }
-
     /**
      * @param string|\Stringable $message
      */
