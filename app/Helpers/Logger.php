@@ -17,19 +17,16 @@ final class Logger
     private static function getInstance(string $loggerName = 'dilawars.me'): LoggerInterface
     {
         if (!isset(self::$instances[$loggerName])) {
-            $inst = new self();
             $logger = new MonologLogger($loggerName);
             // skip a frame so that helper functions like info, warning, error etc report
             // the caller filename and line no.
             $logger->pushProcessor(new IntrospectionProcessor(skipStackFramesCount: 1));
             $logger->pushHandler(new StreamHandler('php://stdout', \Monolog\Level::Debug));
 
-            self::$instances[$loggerName] = $inst;
+            self::$instances[$loggerName] = $logger;
         }
 
-        $inst = self::$instances[$loggerName];
-
-        return $inst->logger;
+        return self::$instances[$loggerName];
     }
 
     public function __wakeup(): void
