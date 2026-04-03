@@ -11,13 +11,13 @@ if (! function_exists('renderToolCard')) {
     {
         assert(is_string($link['href']));
         $html = [];
-        $html[] = "<div class='readable p-2 mt-2'>";
+        $html[] = "<div class='readable'>";
         // mostly for SEO.
         $html[] = sprintf("<p style='display: none'>%s</p>", $title);
-        $html[] = "<a class='col' href='".$link['href']."'>"
-            ."<span class='h5'>".$link['text'].'</span>'
+        $html[] = "<a class='tool-card' href='".$link['href']."'>"
+            ."<span class='tool-title'>".$link['text'].'</span>'
+            ."<p class='tool-body'>".htmlspecialchars($body).'</p>'
             .'</a>';
-        $html[] = $body;
         $html[] = '</div>';
 
         return implode(' ', $html);

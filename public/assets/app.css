@@ -2,7 +2,13 @@
 
 :root {
 	--max-width: 800px;
-	--background-color: Ivory;
+	--background-color: #F7F6F3;
+	--text-primary: #37352F;
+	--text-secondary: rgba(55, 53, 47, 0.65);
+	--border-color: rgba(55, 53, 47, 0.16);
+	--border-light: rgba(55, 53, 47, 0.09);
+	--hover-bg: rgba(55, 53, 47, 0.06);
+	--accent: #2383E2;
 }
 
 html,
@@ -11,16 +17,20 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--background-color);
+	color: var(--text-primary);
+	line-height: 1.65;
 }
 
 .page-title {
 	font-size: 24px;
 	font-family: "monospace";
+	color: var(--text-primary);
 }
 
 header {
 	margin-bottom: 1ex;
-	/* border-bottom: 2px solid Cyan; */
+	border-bottom: 1px solid var(--border-light);
+	background-color: var(--background-color);
 }
 
 section {
@@ -39,8 +49,18 @@ footer {
 }
 
 footer .copyrights {
-	color: rgba(0, 0, 200, 1);
+	color: var(--text-secondary);
 	padding: 0.25rem 1.75rem;
+	font-size: 0.875rem;
+}
+
+footer .copyrights a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+footer .copyrights a:hover {
+	text-decoration: underline;
 }
 
 .sample_code {
@@ -62,7 +82,8 @@ footer .copyrights {
 .section-title {
 	margin: 2ex 0 1ex 0;
 	text-align: center;
-	text-decoration: underline;
+	font-weight: 600;
+	color: var(--text-primary);
 }
 
 .title {
@@ -71,19 +92,20 @@ footer .copyrights {
 }
 
 .form-error {
-	color: Red;
+	color: #e03e3e;
 	margin: 5px;
 	padding-top: 5px;
-	border-radius: 20px;
+	border-radius: 6px;
+	font-size: 0.9rem;
 }
 
 .form-section {
-	margin-top: 5px;
+	margin-top: 8px;
 	margin-left: 10px;
-	padding: 3px;
-	background-color: Ivory;
-	border: 1px dashed lightblue;
-	border-radius: 20px;
+	padding: 12px 16px;
+	background-color: rgba(55, 53, 47, 0.03);
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
 }
 
 pre {
@@ -95,9 +117,15 @@ pre {
 a.glossary {
 	padding: 0 1ex 0 1ex;
 	font-size: 110%;
-	color: #212529;
-	background: #f8f9fa;
-	border-radius: 1ex;
+	color: var(--text-primary);
+	background: rgba(55, 53, 47, 0.06);
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background 0.15s;
+}
+
+a.glossary:hover {
+	background: rgba(55, 53, 47, 0.12);
 }
 
 .conversion-result-image {
@@ -109,17 +137,47 @@ a.glossary {
 .result {
 	padding: 2ex;
 	margin: 5ex 0 0 0;
-	border: 1px solid gray;
-	border-radius: 20px;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(55, 53, 47, 0.06);
 }
 
 .readable {
-	max-width: 60ch; /* more than 55ch are not easy on the eye */
+	max-width: 60ch;
 	margin: auto;
 	font-size: normal;
 }
 
 .help {
-	border: 1px dotted gray;
-	border-radius: 5px;
+	border: 1px solid var(--border-light);
+	border-radius: 6px;
+	background-color: rgba(55, 53, 47, 0.03);
+}
+
+/* Tool cards on home page */
+.tool-card {
+	display: block;
+	padding: 12px 16px;
+	border-radius: 8px;
+	text-decoration: none;
+	transition: background 0.12s ease;
+	margin-bottom: 2px;
+}
+
+.tool-card:hover {
+	background-color: var(--hover-bg);
+}
+
+.tool-card .tool-title {
+	font-weight: 500;
+	color: var(--text-primary);
+	font-size: 1rem;
+}
+
+.tool-card .tool-body {
+	color: var(--text-secondary);
+	font-size: 0.875rem;
+	margin: 0;
+	margin-top: 2px;
 }
