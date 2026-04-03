@@ -34,7 +34,7 @@ final class ToolPageTest extends CIUnitTestCase
         $result->assertStatus(200);
         $result->assertSee('QR Code Generator');
         $result->assertSee('Image Compressor');
-        $result->assertSee('Image Convertor');
+        $result->assertSee('Image Converter');
         $result->assertSee('PDF to JPG');
         $result->assertSee('OCR');
     }

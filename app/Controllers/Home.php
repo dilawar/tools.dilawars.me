@@ -18,6 +18,9 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('home');
+        return view('home', [
+            'page_title'       => 'Free Online Tools — QR Code Generator, Image Converter, PDF & OCR',
+            'page_description' => 'Free, private, browser-based tools: generate QR codes, convert and compress images, convert PDF to JPG, extract text with OCR, and plan running routes. No sign-up required.',
+        ]);
     }
 }

@@ -7,13 +7,11 @@ if (! function_exists('renderToolCard')) {
     /**
      * @param array{href: string, text: string} $link
      */
-    function renderToolCard(string $title, string $body, array $link, string $icon = ''): string
+    function renderToolCard(string $body, array $link): string
     {
         assert(is_string($link['href']));
         $html = [];
         $html[] = "<div class='readable'>";
-        // mostly for SEO.
-        $html[] = sprintf("<p style='display: none'>%s</p>", $title);
         $html[] = "<a class='tool-card' href='".$link['href']."'>"
             ."<span class='tool-title'>".$link['text'].'</span>'
             ."<p class='tool-body'>".htmlspecialchars($body).'</p>'
@@ -27,166 +25,50 @@ if (! function_exists('renderToolCard')) {
 ?>
 
 <section>
-<!-- QR Generator  -->
-    <?php
-    echo renderToolCard(
-        'Generate QR Codes',
-        body: 'Generate multiple QR codes (SVG). Download them all on a single PDF page for printing.',
-        link: [
-            'href' => '/tool/qrcodes',
-            'text' => 'QR Code Generator',
-        ]
-    );
-?>
+    <h1 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 0.25rem;">Free Online Tools</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 520px;">
+        Simple, fast, and private. Everything runs in your browser or on this server —
+        no account required, no files stored longer than needed.
+    </p>
 
-
-    <div style="display: none;">
-      <p>English: Generate QR codes</p>
-      <p>हिन्दी (Hindi): क्यूआर कोड जनरेट करें</p>
-      <p>বাংলা (Bengali): কিউআর কোড তৈরি করুন</p>
-      <p>தமிழ் (Tamil): QR குறியீடுகளை உருவாக்கவும்</p>
-      <p>తెలుగు (Telugu): క్యూఆర్ కోడ్లు సృష్టించండి</p>
-      <p>ಕನ್ನಡ (Kannada): ಕ್ಯೂಆರ್ ಕೋಡ್‌ಗಳನ್ನು ಸೃಷ್ಟಿಸಿ</p>
-      <p>മലയാളം (Malayalam): QR കോഡുകൾ സൃഷ്‌ടിക്കുക</p>
-      <p>ગુજરાતી (Gujarati): QR કોડ બનાવો</p>
-      <p>ਪੰਜਾਬੀ (Punjabi): QR ਕੋਡ ਬਣਾਓ</p>
-      <p>ଓଡ଼ିଆ (Odia): QR କୋଡ୍ ସୃଷ୍ଟି କରନ୍ତୁ</p>
-      <p>मराठी (Marathi): QR कोड तयार करा</p>
-      <p>اردو (Urdu): کیو آر کوڈز تیار کریں</p>
-    </div>
-
-
-    <?php
-    echo renderToolCard(
-        'Compress Images',
-        body: 'Compress various types of images to JPEG to reduce size.',
-        link: [
-            'href' => '/tool/compress',
-            'text' => 'Image Compressor',
-        ]
-    );
-?>
-
-    <div id="translations" style="display: none;">
-      <div data-lang="en">Compress your image file</div>
-      <div data-lang="hi">अपनी छवि फ़ाइल को संकुचित करें</div>
-      <div data-lang="bn">আপনার ইমেজ ফাইল সংকুচিত করুন</div>
-      <div data-lang="ta">உங்கள் படக் கோப்பை சுருக்கவும்</div>
-      <div data-lang="te">మీ చిత్ర ఫైల్‌ను సంకోచించండి</div>
-      <div data-lang="kn">ನಿಮ್ಮ ಚಿತ್ರ ಫೈಲ್ ಅನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಿ</div>
-      <div data-lang="ml">നിങ്ങളുടെ ചിത്രം ഫയൽ കമ്പ്രസ് ചെയ്യുക</div>
-      <div data-lang="mr">आपली प्रतिमा फाइल संकुचित करा</div>
-      <div data-lang="gu">તમારી છબી ફાઇલને સંકોચો</div>
-      <div data-lang="pa">ਆਪਣੀ ਚਿੱਤਰ ਫਾਈਲ ਨੂੰ ਸੰਕੁਚਿਤ ਕਰੋ</div>
-    </div>
-
-
-    <!-- Convert one image format to another -->
-    <?php
-    echo renderToolCard(
-        'Convert Image To Any Other Format',
-        body: 'Change a image to JPG, PNG, HEIC, BMP, GIF, and 100 other formats from any other format.',
-        link: [
-            'href' => '/tool/convert',
-            'text' => 'Image Convertor',
-        ]
-    );
-?>
-    <div style="display: none;">
-      <!-- Hindi -->
-      छवि को PNG, JPG, BMP, ICON, GIF और 100 अन्य फ़ॉर्मेट्स में कनवर्ट करें।  
-      <!-- Bengali -->
-      ছবিটি PNG, JPG, BMP, ICON, GIF এবং আরও 100টি ফরম্যাটে রূপান্তর করুন।  
-      <!-- Tamil -->
-      படத்தை PNG, JPG, BMP, ICON, GIF மற்றும் பிற 100 வடிவங்களாக மாற்றவும்.  
-      <!-- Telugu -->
-      చిత్రాన్ని PNG, JPG, BMP, ICON, GIF మరియు మరో 100 ఫార్మాట్లకు మార్పు చేయండి.  
-      <!-- Kannada -->
-      ಚಿತ್ರವನ್ನು PNG, JPG, BMP, ICON, GIF ಮತ್ತು ಇನ್ನೂ 100 ಫಾರ್ಮಾಟ್‌ಗಳಿಗೆ ಪರಿವರ್ತಿಸಿ.  
-      <!-- Malayalam -->
-      ചിത്രത്തെ PNG, JPG, BMP, ICON, GIF എന്നിവയും മറ്റ് 100 ഫോർമാറ്റുകളും ആക്കുക.  
-      <!-- Gujarati -->
-      છબીને PNG, JPG, BMP, ICON, GIF અને અન્ય 100 ફોર્મેટ્સમાં રૂપાંતરિત કરો.  
-      <!-- Marathi -->
-      प्रतिमेचे PNG, JPG, BMP, ICON, GIF आणि इतर 100 फॉरमॅट्समध्ये रूपांतर करा.  
-      <!-- Punjabi -->
-      ਚਿੱਤਰ ਨੂੰ PNG, JPG, BMP, ICON, GIF ਅਤੇ ਹੋਰ 100 ਫਾਰਮੈਟਾਂ ਵਿੱਚ ਬਦਲੋ।  
-      <!-- Urdu -->
-      تصویر کو PNG، JPG، BMP، ICON، GIF اور 100 دیگر فارمیٹس میں تبدیل کریں۔
-    </div>
-
-    <?php
-    echo renderToolCard(
-        'Convert PDF File to JPGs',
-        body : 'Convert PDF file to JPEG images',
-        link: [
-            'href' => '/tool/pdf/to_jpeg',
-            'text' => 'PDF to JPG',
-        ],
+    <?php echo renderToolCard(
+        body: 'Generate a single embeddable QR code with a live preview, or produce up to 20 at once and download them as a PDF or ZIP. Supports custom logos and error-correction levels.',
+        link: ['href' => '/tool/qrcodes', 'text' => 'QR Code Generator'],
     ); ?>
 
-    <div hidden>
-        <p><strong>Hindi (हिन्दी):</strong> PDF को JPG/PNG में बदलें</p>
-        <p><strong>Kannada (ಕನ್ನಡ):</strong> PDF ಅನ್ನು JPG/PNG ಗೆ ಪರಿವರ್ತಿಸಿ</p>
-        <p><strong>Tamil (தமிழ்):</strong> PDF-ஐ JPG-ஆக மாற்றவும்</p>
-        <p><strong>Telugu (తెలుగు):</strong> PDF ను JPG గా మార్చండి</p>
-        <p><strong>Marathi (मराठी):</strong> PDF चे JPG मध्ये रूपांतर करा</p>
-    </div>
-
-    <?php
-    echo renderToolCard('Compress PDF', body : 'Compress a big PDF to reduce its size.', link: [
-        'href' => '/tool/pdf/compress',
-        'text' => 'Compress PDF',
-    ]);
-?>
-
-    <div style="display: none;">
-        <p>Hindi: पीडीएफ संपीड़ित करें</p>
-        <p>Bengali: পিডিএফ সংকুচিত করুন</p>
-        <p>Telugu: పీడీఎఫ్ సంకోచించండి</p>
-        <p>Marathi: पीडीएफ संकुचित करा</p>
-        <p>Tamil: PDF ஐ சுருக்கவும்</p>
-        <p>Gujarati: પીડીએફ સંકોચો</p>
-        <p>Kannada: ಪಿಡಿಎಫ್ ಸಂಕೋಚಿಸಿ</p>
-        <p>Malayalam: പി.ഡി.എഫ് സംക്ഷിപിക്കുക</p>
-        <p>Punjabi: ਪੀਡੀਐਫ ਸੰਕੋਚੋ</p>
-        <p>Urdu: پی ڈی ایف کو کمپریس کریں</p>
-        <p>Odia: ପିଡିଏଫ୍ ସଂକୋଚନ କରନ୍ତୁ</p>
-        <p>Assamese: পিডিএফ চুঁহি কৰক</p>
-    </div>
-
-    <!-- OCR -->
-    <?php
-    echo renderToolCard(
-        'OCR: Extract Text From Images/PDF',
-        body : 'Extract text from PDF and images locally. No file is uploaded to server.',
-        link: [
-            'href' => '/tool/ocr/extract',
-            'text' => 'Optical Character Recognition (OCR)',
-        ],
+    <?php echo renderToolCard(
+        body: 'Reduce image file size without a noticeable drop in quality. Accepts JPEG, PNG, HEIC, WebP, and more — outputs a compressed JPEG ready for web, email, or storage.',
+        link: ['href' => '/tool/compress', 'text' => 'Image Compressor'],
     ); ?>
 
-    <!-- Map My Run -->
-    <?php
-    echo renderToolCard(
-        'Map my route/run',
-        body : 'Map your running/biking route and download GPX',
-        link: [
-            'href' => '/tool/geo/map_route',
-            'text' => 'Map My Route',
-        ],
+    <?php echo renderToolCard(
+        body: 'Convert images between JPG, PNG, HEIC, BMP, GIF, WebP, and over 100 other formats. Upload any format, pick your target, and download instantly.',
+        link: ['href' => '/tool/convert', 'text' => 'Image Converter'],
     ); ?>
 
-    <!-- Notify when a LWN article become open  -->
-    <?php
-    echo renderToolCard(
-        'Notify when a recent LWN article is public',
-        body : 'Subscribe to a group/email-list and get notified by email',
-        link: [
-            'href' => '/tool/subscription/lwn',
-            'text' => 'LWN is un-paywalled',
-        ],
-        icon: 'streamline-freehand-color:send-email-fly'
+    <?php echo renderToolCard(
+        body: 'Extract every page of a PDF as a high-quality JPEG image. Useful for sharing individual pages, embedding in documents, or archiving scanned files.',
+        link: ['href' => '/tool/pdf/to_jpeg', 'text' => 'PDF to JPG'],
+    ); ?>
+
+    <?php echo renderToolCard(
+        body: 'Shrink large PDF files to a fraction of their original size — making them faster to email, upload, or store — without sacrificing readability.',
+        link: ['href' => '/tool/pdf/compress', 'text' => 'Compress PDF'],
+    ); ?>
+
+    <?php echo renderToolCard(
+        body: 'Pull text out of scanned PDFs and images using optical character recognition. Processing happens locally in your browser — nothing is uploaded to a server.',
+        link: ['href' => '/tool/ocr/extract', 'text' => 'OCR — Extract Text'],
+    ); ?>
+
+    <?php echo renderToolCard(
+        body: 'Draw a running, cycling, or hiking route on an interactive map and download it as a GPX file for your GPS device or fitness app.',
+        link: ['href' => '/tool/geo/map_route', 'text' => 'Map My Route'],
+    ); ?>
+
+    <?php echo renderToolCard(
+        body: 'Get an email the moment a recent LWN.net article becomes publicly available, so you can read it without a subscription.',
+        link: ['href' => '/tool/subscription/lwn', 'text' => 'LWN Article Alerts'],
     ); ?>
 
 </section>
