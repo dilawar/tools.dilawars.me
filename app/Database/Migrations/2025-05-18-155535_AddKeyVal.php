@@ -20,16 +20,16 @@ class AddStat extends Migration
 {
     public function up(): void
     {
-        $this->db->query("CREATE TABLE kv_store(
-            key_name VARCHAR(255) NOT NULL,
-            key_subname VARCHAR(512) NOT NULL DEFAULT '',
-            value_text TEXT DEFAULT '',
-            value_int INT DEFAULT 0,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            UNIQUE(key_name, key_subname)
-        );
-        ");
+        $this->forge->addField([
+            'key_name'    => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => false],
+            'key_subname' => ['type' => 'VARCHAR', 'constraint' => 512, 'null' => false, 'default' => ''],
+            'value_text'  => ['type' => 'TEXT', 'null' => true],
+            'value_int'   => ['type' => 'INT', 'null' => true, 'default' => 0],
+            'created_at'  => ['type' => 'DATETIME', 'null' => true],
+            'updated_at'  => ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addUniqueKey(['key_name', 'key_subname']);
+        $this->forge->createTable('kv_store');
     }
 
     public function down(): void

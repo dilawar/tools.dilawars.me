@@ -20,36 +20,31 @@ class AddRssFeedTable extends Migration
 {
     public function up(): void
     {
-        // add table to aggregate RSS feeds.
-        $query = <<<'QUERY'
-        CREATE TABLE rss_feed_items (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        feed_source VARCHAR(258) NOT NULL,
-        title VARCHAR(512),
-        link TEXT NOT NULL,
-        description TEXT,
-
-        guid VARCHAR(512), 
-        guid_is_permalink BOOLEAN,
-
-        content BLOB,
-        author VARCHAR(255), 
-        category VARCHAR(255),
-        enclosure_url TEXT,
-        enclosure_type VARCHAR(255),
-
-        publication_date DATETIME NOT NULL,
-        timestamp TIMESTAMP NOT NULL,
-
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE(feed_source, guid),
-        INDEX(feed_source)) 
-QUERY;
-        $this->db->query($query);
+        $this->forge->addField([
+            'id'              => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
+            'feed_source'     => ['type' => 'VARCHAR', 'constraint' => 258, 'null' => false],
+            'title'           => ['type' => 'VARCHAR', 'constraint' => 512, 'null' => true],
+            'link'            => ['type' => 'TEXT', 'null' => false],
+            'description'     => ['type' => 'TEXT', 'null' => true],
+            'guid'            => ['type' => 'VARCHAR', 'constraint' => 512, 'null' => true],
+            'guid_is_permalink' => ['type' => 'TINYINT', 'constraint' => 1, 'null' => true],
+            'content'         => ['type' => 'TEXT', 'null' => true],
+            'author'          => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'category'        => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'enclosure_url'   => ['type' => 'TEXT', 'null' => true],
+            'enclosure_type'  => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
+            'publication_date' => ['type' => 'DATETIME', 'null' => false],
+            'timestamp'       => ['type' => 'DATETIME', 'null' => false],
+            'created_at'      => ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey(['feed_source', 'guid']);
+        $this->forge->addKey('feed_source');
+        $this->forge->createTable('rss_feed_items');
     }
 
     public function down(): void
     {
-        $this->db->query('DROP TABLE rss_feed_items');
+        $this->forge->dropTable('rss_feed_items');
     }
 }

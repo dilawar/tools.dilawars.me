@@ -33,6 +33,12 @@ phpstan_update_baseline:
 test:
 	XDEBUG_MODE=coverage ./vendor/bin/phpunit
 
+test_unit:
+	XDEBUG_MODE=off ./vendor/bin/phpunit --testsuite=unit
+
+test_e2e:
+	XDEBUG_MODE=off ./vendor/bin/phpunit --testsuite=feature
+
 test_fail_fast:
 	XDEBUG_MODE=coverage ./vendor/bin/phpunit --order-by=defects --stop-on-failure
 

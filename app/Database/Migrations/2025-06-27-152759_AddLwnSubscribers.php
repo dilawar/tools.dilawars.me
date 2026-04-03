@@ -20,23 +20,25 @@ class AddLwnSubscribers extends Migration
 {
     public function up(): void
     {
-        $this->db->query('CREATE TABLE subscribers (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            email VARCHAR(255) NOT NULL UNIQUE,
-            name VARCHAR(100),
-            service_name VARCHAR(100) NOT NULL,
-            subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            confirmation_token VARCHAR(256),
-            confirmed_at DATETIME,
-            is_active BOOLEAN DEFAULT FALSE,
-            unsubscribe_reason TEXT,
-            tags JSON,
-            INDEX (email)
-        )');
+        $this->forge->addField([
+            'id'                  => ['type' => 'INT', 'constraint' => 11, 'auto_increment' => true],
+            'email'               => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => false],
+            'name'                => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+            'service_name'        => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => false],
+            'subscribed_at'       => ['type' => 'DATETIME', 'null' => true],
+            'confirmation_token'  => ['type' => 'VARCHAR', 'constraint' => 256, 'null' => true],
+            'confirmed_at'        => ['type' => 'DATETIME', 'null' => true],
+            'is_active'           => ['type' => 'TINYINT', 'constraint' => 1, 'null' => true, 'default' => 0],
+            'unsubscribe_reason'  => ['type' => 'TEXT', 'null' => true],
+            'tags'                => ['type' => 'TEXT', 'null' => true],
+        ]);
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addUniqueKey('email');
+        $this->forge->createTable('subscribers');
     }
 
     public function down(): void
     {
-        $this->db->query('DROP TABLE subscribers');
+        $this->forge->dropTable('subscribers');
     }
 }

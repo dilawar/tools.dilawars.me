@@ -44,20 +44,18 @@
 <body>
     <!-- Navigation bar -->
     <header>
-        <nav class="navbar flex flex-row row-cols-5 justify-content-between align-items-end">
-            <div class="col">
-                <a class="navbar-brand" href="/">
-                    <img src="/icon.jpg" width="64px" />
-                </a>
-            </div>
+        <nav class="navbar d-flex justify-content-between align-items-center px-3 py-2" style="max-width: var(--max-width, 800px); margin: auto;">
+            <a class="navbar-brand" href="/">
+                <img src="/icon.jpg" width="48px" style="border-radius: 6px;" />
+            </a>
 
             <?php if (auth()->loggedIn()) { ?>
-            <span class="text-underline">
-                <small> Hi <?php echo auth()->user()?->getEmail(); ?> </small>
-            </span>
-            <a class="btn btn-info btn-sm mx-1" href="/logout">Logout</a>
+            <div class="d-flex align-items-center gap-2">
+                <small style="color: var(--text-secondary);"><?php echo auth()->user()?->getEmail(); ?></small>
+                <a class="btn btn-sm" style="color: var(--text-secondary); border: 1px solid var(--border-color);" href="/logout">Logout</a>
+            </div>
             <?php } else { ?>
-            <a class="btn btn-link mx-1" href="/login">Login</a>
+            <a style="color: var(--accent); text-decoration: none; font-size: 0.9rem;" href="/login">Login</a>
             <?php } ?>
         </nav>
     </header>
@@ -100,7 +98,7 @@
 
     <?php echo $this->renderSection('content'); ?>
 
-    <footer style="max-width: 500px; margin: auto; margin-top: 10vh;">
+    <footer style="max-width: 600px; margin: auto; margin-top: 8vh; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
         <section style="margin-top: 2ex;">
             <?php echo App\Data\StatsName::table(); ?>
         </section>

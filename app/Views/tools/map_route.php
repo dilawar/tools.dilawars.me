@@ -84,7 +84,7 @@ if (! function_exists('renderBuildMyRouteForm')) {
 
 <section>
 <?php
-if ($resultGpx) {
+if ($resultGpx && isset($resultGpx['filename'], $resultGpx['xml'])) {
     $gpxFileName = $resultGpx['filename'];
     $gpxFileContent = 'data:application/geo+json;base64,'.base64_encode((string) $resultGpx['xml']);
 

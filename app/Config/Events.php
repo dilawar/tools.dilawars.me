@@ -84,7 +84,7 @@ Events::on('post_controller_constructor', function () {
         'dsn' => 'https://decabb26b6ad3a1e8d208c5ede18c5bc@o4510606042529792.ingest.de.sentry.io/4510606046462032',
         'environment' => ENVIRONMENT,
         'traces_sample_rate' => (ENVIRONMENT === 'development') ? 1.0 : 0.2,
-        'server_name' => $_SERVER['SERVER_NAME'],
+        'server_name' => $_SERVER['SERVER_NAME'] ?? 'localhost',
     ]);
     \Sentry\captureLastError();
 });
